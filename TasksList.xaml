@@ -17,7 +17,10 @@
             <ListBox Name="Tasks">
                 <ListBox.ItemTemplate>
                     <DataTemplate DataType="{x:Type domain:Task}">
-                        <TextBlock Text="{Binding Name}" />
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding Name}" />
+                            <Button Content="Delete" Click="Delete"/>
+                        </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>

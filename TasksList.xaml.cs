@@ -42,4 +42,14 @@ public partial class TasksList : Window
         if (window.EditedTask is not null) 
             tasks.Add(window.EditedTask);
     }
+
+    private void Delete(object sender, RoutedEventArgs e)
+    {
+        if (sender is not Button button)
+            return;
+        
+        var toRemove = button.DataContext as Task;
+        
+        tasks.Remove(toRemove!);
+    }
 }
