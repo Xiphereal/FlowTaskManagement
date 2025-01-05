@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Collections.ObjectModel;
+using System.Windows;
 
 namespace DRGiudflgh;
 
@@ -9,13 +10,13 @@ using Task = Domain.Task;
 /// </summary>
 public partial class MainWindow : Window
 {
-    private List<Task> tasks = [];
+    private readonly ObservableCollection<Task> tasks = [];
 
     public MainWindow()
     {
         InitializeComponent();
         Tasks.ItemsSource = tasks;
-        
+
         tasks.Add(new Task("DummyName", "DummyDescription"));
     }
 
@@ -23,7 +24,8 @@ public partial class MainWindow : Window
     {
         var window = new TaskCreation();
         window.ShowDialog();
-        
-        tasks.Add(window.CreatedTask);
+
+        if (window.CreatedTask is not null) 
+            tasks.Add(window.CreatedTask);
     }
 }

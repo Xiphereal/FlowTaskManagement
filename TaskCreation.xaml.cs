@@ -11,5 +11,11 @@ public partial class TaskCreation : Window
         InitializeComponent();
     }
 
-    public Task CreatedTask { get; set; }
+    public Task? CreatedTask { get; private set; }
+
+    private void SaveTask(object sender, RoutedEventArgs e)
+    {
+        CreatedTask = new Task(Name: Name.Text, Description: Description.Text);
+        Close();
+    }
 }
