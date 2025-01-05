@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         xmlns:domain="clr-namespace:DRGiudflgh.Domain"
-        Title="Task creation" Height="450" Width="800">
+        Title="Task creation"
+        WindowState="Maximized">
     <Grid>
         <StackPanel>
             <ListBox Name="Tasks">
