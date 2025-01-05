@@ -1,5 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace DRGiudflgh;
 
@@ -27,5 +29,17 @@ public partial class TasksList : Window
 
         if (window.CreatedTask is not null) 
             tasks.Add(window.CreatedTask);
+    }
+
+    private void OpenTaskForEditing(object sender, MouseButtonEventArgs e)
+    {
+        if (sender is not ListBoxItem { DataContext: Task task })
+            return;
+        
+        var window = new TaskEditing(task);
+        window.ShowDialog();
+
+        if (window.EditedTask is not null) 
+            tasks.Add(window.EditedTask);
     }
 }

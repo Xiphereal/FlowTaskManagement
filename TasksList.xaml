@@ -7,12 +7,17 @@
         xmlns:domain="clr-namespace:DRGiudflgh.Domain"
         Title="Tasks"
         WindowState="Maximized">
+    <Window.Resources>
+        <Style TargetType="ListBoxItem">
+            <EventSetter Event="MouseDoubleClick" Handler="OpenTaskForEditing" />
+        </Style>
+    </Window.Resources>
     <Grid>
         <StackPanel>
             <ListBox Name="Tasks">
                 <ListBox.ItemTemplate>
                     <DataTemplate DataType="{x:Type domain:Task}">
-                        <TextBlock Text="{Binding Name}"></TextBlock>
+                        <TextBlock Text="{Binding Name}" />
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>

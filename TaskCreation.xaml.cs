@@ -15,7 +15,7 @@ public partial class TaskCreation : Window
 
     private void SaveTask(object sender, RoutedEventArgs e)
     {
-        CreatedTask = new Task(Name: Name.Text, Description: Description.Text);
+        CreatedTask = new Task(name: Name.Text, description: Description.Text);
         Close();
     }
 }
