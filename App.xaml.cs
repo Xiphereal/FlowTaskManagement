@@ -2,7 +2,7 @@
 using System.Data;
 using System.Windows;
 
-namespace DRGiudflgh;
+namespace Desktop;
 
 /// <summary>
 /// Interaction logic for App.xaml

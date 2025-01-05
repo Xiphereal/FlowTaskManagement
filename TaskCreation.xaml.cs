@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace DRGiudflgh;
+namespace Desktop;
 
 using Task = Domain.Task;
 
