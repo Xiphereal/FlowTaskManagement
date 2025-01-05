@@ -6,9 +6,15 @@
         mc:Ignorable="d"
         Title="Task creation" Height="450" Width="800">
     <Grid>
-        <ListBox />
         <StackPanel>
-            <Button Content="Add task" Click="ButtonBase_OnClick"/>
+            <ListBox Name="Tasks">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Name}"></TextBlock>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <Button Content="Add task" Click="ButtonBase_OnClick" />
         </StackPanel>
     </Grid>
 </Window>
