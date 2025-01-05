@@ -1,0 +1,43 @@
+﻿@startuml
+skin rose
+
+'https://plantuml.com/use-case-diagram
+
+left to right direction
+
+actor Stakeholder
+actor User
+actor ProductOwner
+
+Stakeholder <|-- User
+Stakeholder <|-- ProductOwner
+
+package Task {
+    User --> (CRUD task)
+    (Propose task) <-- ProductOwner
+    (Rate task) <-- Stakeholder
+    (Comment task) <-- Stakeholder
+}
+
+package Project {
+    User --> (CRUD project)
+    User --> (View tasks as prioritized list)
+
+    User --> (Define tasks order <<prioritization>>)
+
+    User --> (Define project tree)
+    User --> (View project tree)
+    User --> (View tasks in project tree structure)
+    
+    User --> (View daily summary)
+}
+
+package FlowMetrics {
+     (View flow efficiency) <-- Stakeholder
+     (View cycle time) <-- Stakeholder
+     (View task aging) <-- Stakeholder
+     (Config trust %) <-- Stakeholder
+     (Config date range) <-- Stakeholder
+}
+
+@enduml
