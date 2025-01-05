@@ -14,17 +14,21 @@
     </Window.Resources>
     <Grid>
         <StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Tasks:" />
+                <Button Content="Add task" Click="ButtonBase_OnClick" />
+            </StackPanel>
+
             <ListBox Name="Tasks">
                 <ListBox.ItemTemplate>
                     <DataTemplate DataType="{x:Type domain:Task}">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="{Binding Name}" />
-                            <Button Content="Delete" Click="Delete"/>
+                            <Button Content="Delete" Click="Delete" />
                         </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-            <Button Content="Add task" Click="ButtonBase_OnClick" />
         </StackPanel>
     </Grid>
 </Window>
