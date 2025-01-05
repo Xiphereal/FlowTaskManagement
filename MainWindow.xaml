@@ -3,10 +3,16 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:DRGiudflgh"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Task creation" Height="450" Width="800">
     <Grid>
-
+        <StackPanel>
+            <Label Content="_Name:" Target="{Binding ElementName=Name}" />
+            <TextBox Name="Name" />
+            <Label Content="_Description:" Target="{Binding ElementName=Description}" />
+            <TextBox Name="Description" Height="75" AcceptsReturn="True" TextWrapping="Wrap"
+                     VerticalAlignment="Stretch" />
+            <Button Content="Add" HorizontalAlignment="Right" />
+        </StackPanel>
     </Grid>
 </Window>
