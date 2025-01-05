@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         xmlns:domain="clr-namespace:DRGiudflgh.Domain"
-        Title="Task creation"
+        Title="Tasks"
         WindowState="Maximized">
     <Grid>
         <StackPanel>
