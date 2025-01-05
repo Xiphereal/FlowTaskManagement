@@ -20,4 +20,10 @@ public partial class MainWindow : Window
     {
         InitializeComponent();
     }
+
+    private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+    {
+        var window = new TaskCreation();
+        window.ShowDialog();
+    }
 }
