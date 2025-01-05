@@ -9,14 +9,14 @@
         WindowState="Maximized">
     <Window.Resources>
         <Style TargetType="ListBoxItem">
-            <EventSetter Event="MouseDoubleClick" Handler="OpenTaskForEditing" />
+            <EventSetter Event="MouseDoubleClick" Handler="Edit" />
         </Style>
     </Window.Resources>
     <Grid>
         <StackPanel>
             <StackPanel Orientation="Horizontal">
                 <Label Content="Tasks:" />
-                <Button Content="Add task" Click="ButtonBase_OnClick" />
+                <Button Content="Add task" Click="Add" />
             </StackPanel>
 
             <ListBox Name="Tasks">

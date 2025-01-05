@@ -22,7 +22,7 @@ public partial class TasksList : Window
         tasks.Add(new Task("DummyName", "DummyDescription"));
     }
 
-    private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+    private void Add(object sender, RoutedEventArgs e)
     {
         var window = new TaskCreation();
         window.ShowDialog();
@@ -31,7 +31,7 @@ public partial class TasksList : Window
             tasks.Add(window.CreatedTask);
     }
 
-    private void OpenTaskForEditing(object sender, MouseButtonEventArgs e)
+    private void Edit(object sender, MouseButtonEventArgs e)
     {
         if (sender is not ListBoxItem { DataContext: Task task })
             return;
