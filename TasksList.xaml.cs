@@ -8,11 +8,11 @@ using Task = Domain.Task;
 /// <summary>
 /// Interaction logic for MainWindow.xaml
 /// </summary>
-public partial class MainWindow : Window
+public partial class TasksList : Window
 {
     private readonly ObservableCollection<Task> tasks = [];
 
-    public MainWindow()
+    public TasksList()
     {
         InitializeComponent();
         Tasks.ItemsSource = tasks;
