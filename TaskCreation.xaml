@@ -19,6 +19,7 @@
         <Label Grid.Row="2" Content="_Description:" Target="{Binding ElementName=Description}" />
         <TextBox Grid.Row="3" Name="Description" AcceptsReturn="True" TextWrapping="Wrap"
                  VerticalAlignment="Stretch" />
-        <Button Grid.Row="4" Content="Add" HorizontalAlignment="Right" Click="SaveTask" />
+        <Button Grid.Row="4" Content="Add" HorizontalAlignment="Right" IsDefault="True"
+                Click="SaveTask" />
     </Grid>
 </Window>
