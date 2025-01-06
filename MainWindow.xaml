@@ -12,14 +12,14 @@
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Column="0" >
-            <Menu Name="Navigation">
+            <Menu>
                 <Menu.ItemsPanel>
                     <ItemsPanelTemplate>
                         <VirtualizingStackPanel Orientation="Vertical"/>
                     </ItemsPanelTemplate>
                 </Menu.ItemsPanel>
-                <MenuItem Header="ASdfasdfasfd1" Click="NavigateToTaskList"/>
-                <MenuItem Header="ASdfasdfdfdf2" Click="NavigateToProjectTree"/>
+                <MenuItem Header="_1 - Tasks List" Click="NavigateToTaskList"/>
+                <MenuItem Header="_2 - Project Tree" Click="NavigateToProjectTree"/>
             </Menu>
         </StackPanel>
         <ContentControl Grid.Column="1" Name="Content" />
