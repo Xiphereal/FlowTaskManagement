@@ -6,7 +6,7 @@
         mc:Ignorable="d"
         Title="Task creation" Height="225" Width="400"
         WindowStartupLocation="CenterScreen">
-    <Grid>
+    <Grid FocusManager.FocusedElement="{Binding ElementName=Name}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
