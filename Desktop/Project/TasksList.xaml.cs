@@ -12,14 +12,14 @@ public partial class TasksList : UserControl
 {
     private readonly ObservableCollection<Task> tasks = [];
 
-    public TasksList()
+    public TasksList(ITaskRepository taskRepository)
     {
         InitializeComponent();
         Tasks.ItemsSource = tasks;
 
-        tasks.Add(new Task("A task", "DummyDescription"));
-        tasks.Add(new Task("Another task", "DummyDescription"));
-        tasks.Add(new Task("Yet another task", "DummyDescription"));
+        var retrievedTasks = taskRepository.All();
+        foreach (var task in retrievedTasks)
+            tasks.Add(task);
     }
 
     private void Add(object sender, RoutedEventArgs e)
