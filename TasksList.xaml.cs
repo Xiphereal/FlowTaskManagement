@@ -7,10 +7,7 @@ namespace Desktop;
 
 using Task = Domain.Task;
 
-/// <summary>
-/// Interaction logic for MainWindow.xaml
-/// </summary>
-public partial class TasksList : Window
+public partial class TasksList : UserControl
 {
     private readonly ObservableCollection<Task> tasks = [];
 
