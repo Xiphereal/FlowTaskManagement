@@ -35,9 +35,6 @@ public partial class TasksList : UserControl
         
         var window = new TaskEditing(task);
         window.ShowDialog();
-
-        if (window.EditedTask is not null) 
-            tasks.Add(window.EditedTask);
     }
 
     private void Delete(object sender, RoutedEventArgs e)

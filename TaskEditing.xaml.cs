@@ -17,8 +17,6 @@ public partial class TaskEditing : Window
 
     private readonly Task original;
 
-    public Task? EditedTask { get; private set; }
-
     private void SaveTask(object sender, RoutedEventArgs e)
     {
         original.Name = Name.Text;
