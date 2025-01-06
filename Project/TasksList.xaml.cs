@@ -17,7 +17,9 @@ public partial class TasksList : UserControl
         InitializeComponent();
         Tasks.ItemsSource = tasks;
 
-        tasks.Add(new Task("DummyName", "DummyDescription"));
+        tasks.Add(new Task("A task", "DummyDescription"));
+        tasks.Add(new Task("Another task", "DummyDescription"));
+        tasks.Add(new Task("Yet another task", "DummyDescription"));
     }
 
     private void Add(object sender, RoutedEventArgs e)
