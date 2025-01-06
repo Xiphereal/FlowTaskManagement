@@ -8,4 +8,22 @@
         <UseWPF>true</UseWPF>
     </PropertyGroup>
 
+    <ItemGroup>
+      <Page Update="Tasks\TaskEditing.xaml">
+        <Generator>MSBuild:Compile</Generator>
+        <XamlRuntime>Wpf</XamlRuntime>
+        <SubType>Designer</SubType>
+      </Page>
+      <Page Update="Tasks\TaskCreation.xaml">
+        <Generator>MSBuild:Compile</Generator>
+        <XamlRuntime>Wpf</XamlRuntime>
+        <SubType>Designer</SubType>
+      </Page>
+      <Page Update="Project\TasksList.xaml">
+        <Generator>MSBuild:Compile</Generator>
+        <XamlRuntime>Wpf</XamlRuntime>
+        <SubType>Designer</SubType>
+      </Page>
+    </ItemGroup>
+
 </Project>
