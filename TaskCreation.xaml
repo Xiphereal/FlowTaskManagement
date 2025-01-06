@@ -4,16 +4,21 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="Task creation" Height="450" Width="800"
+        Title="Task creation" Height="225" Width="400"
         WindowStartupLocation="CenterScreen">
     <Grid>
-        <StackPanel>
-            <Label Content="_Name:" Target="{Binding ElementName=Name}" />
-            <TextBox Name="Name" />
-            <Label Content="_Description:" Target="{Binding ElementName=Description}" />
-            <TextBox Name="Description" Height="75" AcceptsReturn="True" TextWrapping="Wrap"
-                     VerticalAlignment="Stretch" />
-            <Button Content="Add" HorizontalAlignment="Right" Click="SaveTask"/>
-        </StackPanel>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Label Content="_Name:" Target="{Binding ElementName=Name}" />
+        <TextBox Grid.Row="1" Name="Name" />
+        <Label Grid.Row="2" Content="_Description:" Target="{Binding ElementName=Description}" />
+        <TextBox Grid.Row="3" Name="Description" AcceptsReturn="True" TextWrapping="Wrap"
+                 VerticalAlignment="Stretch" />
+        <Button Grid.Row="4" Content="Add" HorizontalAlignment="Right" Click="SaveTask" />
     </Grid>
 </Window>
