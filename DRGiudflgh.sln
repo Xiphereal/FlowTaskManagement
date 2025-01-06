@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Desktop", "Desktop.csproj", "{BA47C292-7304-4E69-8D4E-799348E54ECC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Backend", "Backend\Backend\Backend.csproj", "{577A62A7-C553-467F-B1EB-57A2769B63FD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Desktop", "Desktop\Desktop.csproj", "{F5A5EFD3-852F-430B-AC6A-65824D4AB6F2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -8,9 +10,13 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{BA47C292-7304-4E69-8D4E-799348E54ECC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BA47C292-7304-4E69-8D4E-799348E54ECC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BA47C292-7304-4E69-8D4E-799348E54ECC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BA47C292-7304-4E69-8D4E-799348E54ECC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{577A62A7-C553-467F-B1EB-57A2769B63FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{577A62A7-C553-467F-B1EB-57A2769B63FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{577A62A7-C553-467F-B1EB-57A2769B63FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{577A62A7-C553-467F-B1EB-57A2769B63FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F5A5EFD3-852F-430B-AC6A-65824D4AB6F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5A5EFD3-852F-430B-AC6A-65824D4AB6F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F5A5EFD3-852F-430B-AC6A-65824D4AB6F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F5A5EFD3-852F-430B-AC6A-65824D4AB6F2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
