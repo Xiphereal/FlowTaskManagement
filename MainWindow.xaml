@@ -12,6 +12,7 @@
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Column="0" >
+            <Label HorizontalAlignment="Center">Views</Label>
             <Menu>
                 <Menu.ItemsPanel>
                     <ItemsPanelTemplate>
