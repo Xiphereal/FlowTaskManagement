@@ -1,0 +1,3 @@
+﻿- feat: tasks modifications are persisted
+- feat: tasks deletions are persisted
+- refactor: use Commands and ViewModels instead of code behinds.
