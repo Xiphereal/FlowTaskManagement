@@ -33,9 +33,9 @@ public class FileSystemTaskRepository : ITaskRepository
 
     public SystemTask Save(Task task)
     {
-        File.WriteAllText(
+        File.AppendAllText(
             PersistedTasksFileName,
-            $"{task.Name} {task.Description}");
+            $"{task.Name} {task.Description}{Environment.NewLine}");
         
         return SystemTask.CompletedTask;
     }

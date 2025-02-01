@@ -78,11 +78,31 @@ public class FileSystemTaskRepositoryTest
     {
         var sut = new FileSystemTaskRepository();
 
-        var persistedTask = new Task(name: "anyName", description: "description");
-        await sut.Save(persistedTask);
+        var taskToPersist = new Task(name: "anyName", description: "description");
+        await sut.Save(taskToPersist);
 
-        sut.All().Should().ContainSingle().And.Contain(persistedTask);
+        sut.All().Should().ContainSingle().And.Contain(taskToPersist);
     }
+    
+    [Test]
+    public async SystemTask PersistNewTaskDoesNotOverrideExistingOnes()
+    {
+        File.WriteAllText(
+            PersistedTasksFileName,
+            "existingTask existingTaskDesc" + Environment.NewLine);
+        
+        var sut = new FileSystemTaskRepository();
+
+        var taskToPersist = new Task(name: "anyName", description: "description");
+        await sut.Save(taskToPersist);
+
+        sut.All().Should().BeEquivalentTo(
+        [
+            new Task(name: "existingTask", description: "existingTaskDesc"),
+            taskToPersist,
+        ]);
+    }
+
 
     [TearDown]
     public void TearDown()
