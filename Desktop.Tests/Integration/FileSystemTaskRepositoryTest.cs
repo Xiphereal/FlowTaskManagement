@@ -23,7 +23,7 @@ public class FileSystemTaskRepositoryTest
     [Test]
     public void CanLoadPersistedTasks()
     {
-        File.WriteAllText(PersistedTasksFileName, "aTaskName aTaskDescription");
+        PersistTask("aTaskName", "aTaskDescription");
 
         var sut = new FileSystemTaskRepository();
 
@@ -39,7 +39,7 @@ public class FileSystemTaskRepositoryTest
     [Test]
     public void CanLoadPersistedTasksWithoutDescription()
     {
-        File.WriteAllText(PersistedTasksFileName, "aTaskName");
+        PersistTask("aTaskName");
 
         var sut = new FileSystemTaskRepository();
 
@@ -55,9 +55,8 @@ public class FileSystemTaskRepositoryTest
     [Test]
     public void CanLoadSeveralPersistedTasks()
     {
-        File.WriteAllText(
-            PersistedTasksFileName,
-            "aTaskName" + Environment.NewLine + "anotherTaskName");
+        PersistTask("aTaskName");
+        PersistTask("anotherTaskName");
 
         var sut = new FileSystemTaskRepository();
 
@@ -83,14 +82,12 @@ public class FileSystemTaskRepositoryTest
 
         sut.All().Should().ContainSingle().And.Contain(taskToPersist);
     }
-    
+
     [Test]
     public async SystemTask PersistNewTaskDoesNotOverrideExistingOnes()
     {
-        File.WriteAllText(
-            PersistedTasksFileName,
-            "existingTask existingTaskDesc" + Environment.NewLine);
-        
+        PersistTask("existingTask", "existingTaskDesc");
+
         var sut = new FileSystemTaskRepository();
 
         var taskToPersist = new Task(name: "anyName", description: "description");
@@ -103,6 +100,12 @@ public class FileSystemTaskRepositoryTest
         ]);
     }
 
+    private static void PersistTask(string name, string description = null)
+    {
+        File.AppendAllText(
+            PersistedTasksFileName,
+            $"{name} {description ?? string.Empty}{Environment.NewLine}");
+    }
 
     [TearDown]
     public void TearDown()
