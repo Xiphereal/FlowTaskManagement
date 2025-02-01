@@ -5,8 +5,16 @@ namespace Desktop;
 
 public class FileSystemTaskRepository : ITaskRepository
 {
+    private const string PersistedTasksFileName = "Tasks.txt";
+
     public IReadOnlyList<Task> All()
     {
-        return [];
+        if (!File.Exists(PersistedTasksFileName))
+            return [];
+
+        return File
+            .ReadAllLines(PersistedTasksFileName)
+            .Select(line => new Task(name: line, description: string.Empty))
+            .ToList();
     }
 }
