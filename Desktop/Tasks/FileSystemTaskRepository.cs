@@ -3,6 +3,8 @@ using Task = Desktop.Domain.Task;
 
 namespace Desktop.Tasks;
 
+using SystemTask = System.Threading.Tasks.Task;
+
 public class FileSystemTaskRepository : ITaskRepository
 {
     private const string PersistedTasksFileName = "Tasks.txt";
@@ -27,5 +29,14 @@ public class FileSystemTaskRepository : ITaskRepository
             description: wordsBySpaces.Length > 1 
                 ? wordsBySpaces.Last()
                 : string.Empty);
+    }
+
+    public SystemTask Save(Task task)
+    {
+        File.WriteAllText(
+            PersistedTasksFileName,
+            $"{task.Name} {task.Description}");
+        
+        return SystemTask.CompletedTask;
     }
 }

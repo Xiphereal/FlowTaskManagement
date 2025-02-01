@@ -4,6 +4,7 @@ using Desktop.Tasks;
 using FluentAssertions;
 using NUnit.Framework;
 using Task = Desktop.Domain.Task;
+using SystemTask = System.Threading.Tasks.Task;
 
 namespace Desktop.Tests.Integration;
 
@@ -70,6 +71,17 @@ public class FileSystemTaskRepositoryTest
                     name: "anotherTaskName",
                     description: string.Empty)
             ]);
+    }
+
+    [Test]
+    public async SystemTask CanPersistTasksWhenNoOtherExistedBefore()
+    {
+        var sut = new FileSystemTaskRepository();
+
+        var persistedTask = new Task(name: "anyName", description: "description");
+        await sut.Save(persistedTask);
+
+        sut.All().Should().ContainSingle().And.Contain(persistedTask);
     }
 
     [TearDown]
