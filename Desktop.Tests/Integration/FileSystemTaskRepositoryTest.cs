@@ -3,7 +3,7 @@ using FluentAssertions;
 using NUnit.Framework;
 using Task = Desktop.Domain.Task;
 
-namespace Desktop.Tests;
+namespace Desktop.Tests.Integration;
 
 [TestFixture]
 [TestOf(typeof(FileSystemTaskRepository))]
