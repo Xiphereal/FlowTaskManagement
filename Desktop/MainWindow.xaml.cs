@@ -13,7 +13,7 @@ public partial class MainWindow : Window
 
     private void NavigateToTaskList()
     {
-        var tasksList = new TasksList(new TasksRepository());
+        var tasksList = new TasksList(new FakeTasksRepository());
         Content.Content = tasksList;
     }
 

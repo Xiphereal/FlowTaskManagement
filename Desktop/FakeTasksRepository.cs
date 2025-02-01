@@ -2,7 +2,7 @@
 
 using Task = Domain.Task;
 
-public class TasksRepository : ITaskRepository
+public class FakeTasksRepository : ITaskRepository
 {
     public IReadOnlyList<Task> All()
     {
