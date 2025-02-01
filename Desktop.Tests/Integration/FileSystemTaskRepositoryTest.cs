@@ -22,12 +22,12 @@ public class FileSystemTaskRepositoryTest
     [Test]
     public void CanLoadPersistedTasks()
     {
-        File.WriteAllText(PersistedTasksFileName, "aTask");
+        File.WriteAllText(PersistedTasksFileName, "aTaskName aTaskDescription");
         
         var sut = new FileSystemTaskRepository();
 
         sut.All()
-            .Should().BeEquivalentTo([new Task("aTask", description: string.Empty)]);
+            .Should().BeEquivalentTo([new Task("aTaskName", description: "aTaskDescription")]);
     }
 
     [TearDown]

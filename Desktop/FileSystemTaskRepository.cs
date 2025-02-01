@@ -14,7 +14,9 @@ public class FileSystemTaskRepository : ITaskRepository
 
         return File
             .ReadAllLines(PersistedTasksFileName)
-            .Select(line => new Task(name: line, description: string.Empty))
+            .Select(line => new Task(
+                name: line.Split(' ').First(),
+                description: line.Split(' ').Last()))
             .ToList();
     }
 }
