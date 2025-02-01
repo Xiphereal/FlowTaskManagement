@@ -14,7 +14,7 @@ public partial class MainWindow : Window
 
     private void NavigateToTaskList()
     {
-        var tasksList = new TasksList(new FakeTasksRepository());
+        var tasksList = new TasksList(new FileSystemTaskRepository());
         Content.Content = tasksList;
     }
 

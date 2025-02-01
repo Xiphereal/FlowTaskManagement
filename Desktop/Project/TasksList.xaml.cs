@@ -10,10 +10,13 @@ using Task = Domain.Task;
 
 public partial class TasksList : UserControl
 {
+    private readonly ITaskRepository taskRepository;
     private readonly ObservableCollection<Task> tasks = [];
 
     public TasksList(ITaskRepository taskRepository)
     {
+        this.taskRepository = taskRepository;
+        
         InitializeComponent();
         Tasks.ItemsSource = tasks;
 
@@ -27,8 +30,11 @@ public partial class TasksList : UserControl
         var window = new TaskCreation();
         window.ShowDialog();
 
-        if (window.CreatedTask is not null) 
-            tasks.Add(window.CreatedTask);
+        if (window.CreatedTask is null) 
+            return;
+        
+        tasks.Add(window.CreatedTask);
+        taskRepository.Save(window.CreatedTask);
     }
 
     private void Edit(object sender, MouseButtonEventArgs e)

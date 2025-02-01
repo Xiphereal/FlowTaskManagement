@@ -1,9 +1,8 @@
 ﻿using System.IO;
 using Task = Desktop.Domain.Task;
+using SystemTask = System.Threading.Tasks.Task;
 
 namespace Desktop.Tasks;
-
-using SystemTask = System.Threading.Tasks.Task;
 
 public class FileSystemTaskRepository : ITaskRepository
 {

@@ -1,4 +1,6 @@
-﻿namespace Desktop.Tasks;
+﻿using SystemTask = System.Threading.Tasks.Task;
+
+namespace Desktop.Tasks;
 
 using Task = Domain.Task;
 
@@ -12,5 +14,10 @@ public class FakeTasksRepository : ITaskRepository
             new Task("Another task", "Dummy description"),
             new Task("Yet another task", "Dummy description"),
         ];
+    }
+
+    public SystemTask Save(Task task)
+    {
+        return SystemTask.CompletedTask;
     }
 }
