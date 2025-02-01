@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using Desktop.Tasks;
 using FluentAssertions;
 using NUnit.Framework;
 using Task = Desktop.Domain.Task;

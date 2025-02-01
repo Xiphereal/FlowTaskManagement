@@ -1,6 +1,6 @@
 ﻿using Task = Desktop.Domain.Task;
 
-namespace Desktop;
+namespace Desktop.Tasks;
 
 public interface ITaskRepository
 {

@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using Task = Desktop.Domain.Task;
 
-namespace Desktop;
+namespace Desktop.Tasks;
 
 public class FileSystemTaskRepository : ITaskRepository
 {
