@@ -7,8 +7,6 @@ using Task = Desktop.Domain.Task;
 
 namespace Desktop.Tests.Integration;
 
-[TestFixture]
-[TestOf(typeof(FileSystemTaskRepository))]
 public class FileSystemTaskRepositoryTest
 {
     private const string PersistedTasksFileName = "Tasks.txt";
