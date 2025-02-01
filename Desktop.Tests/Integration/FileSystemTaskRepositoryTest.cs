@@ -27,7 +27,28 @@ public class FileSystemTaskRepositoryTest
         var sut = new FileSystemTaskRepository();
 
         sut.All()
-            .Should().BeEquivalentTo([new Task("aTaskName", description: "aTaskDescription")]);
+            .Should().BeEquivalentTo(
+            [
+                new Task(
+                    name: "aTaskName", 
+                    description: "aTaskDescription")
+            ]);
+    }
+    
+    [Test]
+    public void CanLoadPersistedTasksWithoutDescription()
+    {
+        File.WriteAllText(PersistedTasksFileName, "aTaskName");
+        
+        var sut = new FileSystemTaskRepository();
+
+        sut.All()
+            .Should().BeEquivalentTo(
+            [
+                new Task(
+                    name: "aTaskName",
+                    description: string.Empty)
+            ]);
     }
 
     [TearDown]

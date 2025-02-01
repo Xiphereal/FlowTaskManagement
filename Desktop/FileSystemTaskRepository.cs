@@ -14,9 +14,18 @@ public class FileSystemTaskRepository : ITaskRepository
 
         return File
             .ReadAllLines(PersistedTasksFileName)
-            .Select(line => new Task(
-                name: line.Split(' ').First(),
-                description: line.Split(' ').Last()))
+            .Select(ToTask)
             .ToList();
+    }
+
+    private static Task ToTask(string line)
+    {
+        var wordsBySpaces = line.Split(' ');
+        
+        return new Task(
+            name: wordsBySpaces.First(),
+            description: wordsBySpaces.Length > 1 
+                ? wordsBySpaces.Last()
+                : string.Empty);
     }
 }
