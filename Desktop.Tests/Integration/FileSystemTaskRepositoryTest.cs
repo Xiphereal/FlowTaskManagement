@@ -86,7 +86,9 @@ public class FileSystemTaskRepositoryTest
     [Test]
     public async SystemTask PersistNewTaskDoesNotOverrideExistingOnes()
     {
-        PersistTask("existingTask", "existingTaskDesc");
+        var doc = new FileSystemTaskRepository();
+        var existingTask = new Task(name: "existingTask", description: "existingTaskDesc");
+        await doc.Save(existingTask);
 
         var sut = new FileSystemTaskRepository();
 
@@ -103,7 +105,9 @@ public class FileSystemTaskRepositoryTest
     [Test]
     public async SystemTask CanDeleteExistingTasks()
     {
-        PersistTask("anyName", string.Empty);
+        var doc = new FileSystemTaskRepository();
+        await doc.Save(new Task("anyName", description: string.Empty));
+
         var sut = new FileSystemTaskRepository();
 
         await sut.Delete(new Task("anyName", string.Empty));
@@ -114,9 +118,11 @@ public class FileSystemTaskRepositoryTest
     [Test]
     public async SystemTask DeletesJustTheRequestedTask_KeepingTheOtherOnes()
     {
-        PersistTask("anyName", string.Empty);
-        PersistTask("toBeDeleted", string.Empty);
-        PersistTask("toBeDeletedStartingWithSameName", string.Empty);
+        var doc = new FileSystemTaskRepository();
+        await doc.Save(new Task("anyName", string.Empty));
+        await doc.Save(new Task("toBeDeleted", string.Empty));
+        await doc.Save(new Task("toBeDeletedStartingWithSameName", string.Empty));
+            
         var sut = new FileSystemTaskRepository();
 
         await sut.Delete(new Task("toBeDeleted", string.Empty));
