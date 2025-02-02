@@ -21,13 +21,16 @@ public class FileSystemTaskRepository : ITaskRepository
 
     private static Task ToTask(string line)
     {
-        var wordsBySpaces = line.Split(' ');
-        
         return new Task(
-            name: wordsBySpaces.First(),
-            description: wordsBySpaces.Length > 1 
-                ? wordsBySpaces.Last()
+            name: SplitBySpaces(line).First(),
+            description: SplitBySpaces(line).Length > 1 
+                ? SplitBySpaces(line).Last()
                 : string.Empty);
+    }
+
+    private static string[] SplitBySpaces(string line)
+    {
+        return line.Split(' ');
     }
 
     public SystemTask Save(Task task)
@@ -42,10 +45,15 @@ public class FileSystemTaskRepository : ITaskRepository
     public SystemTask Delete(Task toBeDeleted)
     {
         var existingTasks = File.ReadAllLines(PersistedTasksFileName);
-        var remainingTasks = existingTasks.Where(x => !x.StartsWith(toBeDeleted.Name));
+        var remainingTasks = existingTasks.Where(x => !Is(x, toBeDeleted));
  
         File.WriteAllLines(PersistedTasksFileName, remainingTasks);
         
         return SystemTask.CompletedTask;
+    }
+
+    private static bool Is(string candidateAsLine, Task toBeDeleted)
+    {
+        return SplitBySpaces(candidateAsLine).First() == toBeDeleted.Name;
     }
 }

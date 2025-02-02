@@ -116,11 +116,16 @@ public class FileSystemTaskRepositoryTest
     {
         PersistTask("anyName", string.Empty);
         PersistTask("toBeDeleted", string.Empty);
+        PersistTask("toBeDeletedStartingWithSameName", string.Empty);
         var sut = new FileSystemTaskRepository();
 
         await sut.Delete(new Task("toBeDeleted", string.Empty));
 
-        sut.All().Should().Contain(new Task("anyName", string.Empty));
+        sut.All().Should().BeEquivalentTo(
+        [
+            new Task("anyName", string.Empty),
+            new Task("toBeDeletedStartingWithSameName", string.Empty),
+        ]);
     }
 
     private static void PersistTask(string name, string description = null)
