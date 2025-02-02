@@ -39,9 +39,12 @@ public class FileSystemTaskRepository : ITaskRepository
         return SystemTask.CompletedTask;
     }
 
-    public SystemTask Delete(Task task)
+    public SystemTask Delete(Task toBeDeleted)
     {
-        File.Delete(PersistedTasksFileName);
+        var existingTasks = File.ReadAllLines(PersistedTasksFileName);
+        var remainingTasks = existingTasks.Where(x => !x.StartsWith(toBeDeleted.Name));
+ 
+        File.WriteAllLines(PersistedTasksFileName, remainingTasks);
         
         return SystemTask.CompletedTask;
     }

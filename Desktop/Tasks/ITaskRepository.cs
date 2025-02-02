@@ -7,5 +7,5 @@ public interface ITaskRepository
 {
     IReadOnlyList<Task> All();
     SystemTask Save(Task task);
-    SystemTask Delete(Task task);
+    SystemTask Delete(Task toBeDeleted);
 }

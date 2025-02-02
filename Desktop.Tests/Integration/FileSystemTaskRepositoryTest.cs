@@ -110,6 +110,18 @@ public class FileSystemTaskRepositoryTest
 
         sut.All().Should().BeEmpty();
     }
+    
+    [Test]
+    public async SystemTask DeletesJustTheRequestedTask_KeepingTheOtherOnes()
+    {
+        PersistTask("anyName", string.Empty);
+        PersistTask("toBeDeleted", string.Empty);
+        var sut = new FileSystemTaskRepository();
+
+        await sut.Delete(new Task("toBeDeleted", string.Empty));
+
+        sut.All().Should().Contain(new Task("anyName", string.Empty));
+    }
 
     private static void PersistTask(string name, string description = null)
     {
