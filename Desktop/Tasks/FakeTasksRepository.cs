@@ -20,4 +20,9 @@ public class FakeTasksRepository : ITaskRepository
     {
         return SystemTask.CompletedTask;
     }
+
+    public SystemTask Delete(Task task)
+    {
+        return SystemTask.CompletedTask;
+    }
 }

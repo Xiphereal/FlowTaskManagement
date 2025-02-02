@@ -100,6 +100,17 @@ public class FileSystemTaskRepositoryTest
         ]);
     }
 
+    [Test]
+    public async SystemTask CanDeleteExistingTasks()
+    {
+        PersistTask("anyName", string.Empty);
+        var sut = new FileSystemTaskRepository();
+
+        await sut.Delete(new Task("anyName", string.Empty));
+
+        sut.All().Should().BeEmpty();
+    }
+
     private static void PersistTask(string name, string description = null)
     {
         File.AppendAllText(

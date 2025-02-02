@@ -38,4 +38,11 @@ public class FileSystemTaskRepository : ITaskRepository
         
         return SystemTask.CompletedTask;
     }
+
+    public SystemTask Delete(Task task)
+    {
+        File.Delete(PersistedTasksFileName);
+        
+        return SystemTask.CompletedTask;
+    }
 }
