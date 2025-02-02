@@ -52,7 +52,8 @@ public partial class TasksList : UserControl
             return;
         
         var toRemove = button.DataContext as Task;
-        
+
         tasks.Remove(toRemove!);
+        taskRepository.Delete(toRemove!);
     }
 }
