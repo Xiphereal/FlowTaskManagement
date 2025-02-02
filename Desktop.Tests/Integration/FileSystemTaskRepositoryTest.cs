@@ -77,7 +77,7 @@ public class FileSystemTaskRepositoryTest
     {
         var sut = new FileSystemTaskRepository();
 
-        var taskToPersist = new Task(name: "anyName", description: "description");
+        var taskToPersist = ATask(named: "anyName", description: "anyDesc");
         await sut.Save(taskToPersist);
 
         sut.All().Should().ContainSingle().And.Contain(taskToPersist);
@@ -87,17 +87,17 @@ public class FileSystemTaskRepositoryTest
     public async SystemTask PersistNewTaskDoesNotOverrideExistingOnes()
     {
         var doc = new FileSystemTaskRepository();
-        var existingTask = new Task(name: "existingTask", description: "existingTaskDesc");
+        var existingTask = ATask(named: "existing");
         await doc.Save(existingTask);
 
         var sut = new FileSystemTaskRepository();
 
-        var taskToPersist = new Task(name: "anyName", description: "description");
+        var taskToPersist = ATask();
         await sut.Save(taskToPersist);
 
         sut.All().Should().BeEquivalentTo(
         [
-            new Task(name: "existingTask", description: "existingTaskDesc"),
+            existingTask,
             taskToPersist,
         ]);
     }
@@ -106,31 +106,39 @@ public class FileSystemTaskRepositoryTest
     public async SystemTask CanDeleteExistingTasks()
     {
         var doc = new FileSystemTaskRepository();
-        await doc.Save(new Task("anyName", description: string.Empty));
-
+        await doc.Save(ATask());
         var sut = new FileSystemTaskRepository();
 
-        await sut.Delete(new Task("anyName", string.Empty));
+        await sut.Delete(ATask());
 
         sut.All().Should().BeEmpty();
     }
-    
+
     [Test]
     public async SystemTask DeletesJustTheRequestedTask_KeepingTheOtherOnes()
     {
+        // Arrange.
         var doc = new FileSystemTaskRepository();
-        await doc.Save(new Task("anyName", string.Empty));
-        await doc.Save(new Task("toBeDeleted", string.Empty));
-        await doc.Save(new Task("toBeDeletedStartingWithSameName", string.Empty));
-            
+
+        var oneThatMustRemain = ATask();
+        await doc.Save(oneThatMustRemain);
+
+        var toBeDeleted = ATask("toBeDeleted");
+        await doc.Save(toBeDeleted);
+
+        var anotherThatMustRemain = ATask("toBeDeletedStartingWithSameName");
+        await doc.Save(anotherThatMustRemain);
+
         var sut = new FileSystemTaskRepository();
 
-        await sut.Delete(new Task("toBeDeleted", string.Empty));
+        // Act.
+        await sut.Delete(toBeDeleted);
 
+        // Assert.
         sut.All().Should().BeEquivalentTo(
         [
-            new Task("anyName", string.Empty),
-            new Task("toBeDeletedStartingWithSameName", string.Empty),
+            oneThatMustRemain,
+            anotherThatMustRemain,
         ]);
     }
 
@@ -139,6 +147,11 @@ public class FileSystemTaskRepositoryTest
         File.AppendAllText(
             PersistedTasksFileName,
             $"{name} {description ?? string.Empty}{Environment.NewLine}");
+    }
+
+    private static Task ATask(string named = null, string description = null)
+    {
+        return new Task(name: named ?? "anyName", description: description ?? "description");
     }
 
     [TearDown]
