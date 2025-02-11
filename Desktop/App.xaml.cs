@@ -2,6 +2,7 @@
 using System.Data;
 using System.Windows;
 using System.Windows.Threading;
+using Microsoft.Extensions.Configuration;
 
 namespace Desktop;
 
@@ -10,6 +11,15 @@ namespace Desktop;
 /// </summary>
 public partial class App : Application
 {
+    private IConfigurationRoot config;
+
+    public App()
+    {
+        config = new ConfigurationBuilder()
+            .AddJsonFile("appsettings.json")
+            .Build();
+    }
+
     private void App_OnDispatcherUnhandledException(
         object sender,
         DispatcherUnhandledExceptionEventArgs e)
