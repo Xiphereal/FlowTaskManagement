@@ -11,11 +11,11 @@ namespace Desktop;
 /// </summary>
 public partial class App : Application
 {
-    private IConfigurationRoot config;
+    public static IConfigurationRoot Config { get; private set; }
 
     public App()
     {
-        config = new ConfigurationBuilder()
+        Config = new ConfigurationBuilder()
             .AddJsonFile("appsettings.json")
             .Build();
     }
