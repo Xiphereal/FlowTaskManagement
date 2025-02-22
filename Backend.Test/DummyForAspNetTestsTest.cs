@@ -8,8 +8,6 @@ namespace Backend.Test;
 
 public class DummyForAspNetTestsTest
 {
-    private const string FakeUrl = "http://fakeUrl";
-
     [Test]
     public async Task LearningTestAbout_ASP_NET_Tests()
     {
