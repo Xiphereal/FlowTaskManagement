@@ -1,21 +1,14 @@
 ﻿using System.Threading.Tasks;
 using Backend;
-using Desktop.Tasks;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
 using NUnit.Framework;
 
-namespace Desktop.Tests.Integration;
+namespace Backend.Test;
 
-public class BackendTaskRepositoryTests
+public class DummyForAspNetTestsTest
 {
     private const string FakeUrl = "http://fakeUrl";
-
-    [Test]
-    public void CanBeInstantiated()
-    {
-        var sut = new BackendTaskRepository(FakeUrl);
-    }
 
     [Test]
     public async Task LearningTestAbout_ASP_NET_Tests()
