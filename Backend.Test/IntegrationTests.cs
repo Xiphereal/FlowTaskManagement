@@ -6,7 +6,7 @@ using NUnit.Framework;
 
 namespace Backend.Test;
 
-public class DummyForAspNetTestsTest
+public class IntegrationTests
 {
     [Test]
     public async Task LearningTestAbout_ASP_NET_Tests()
