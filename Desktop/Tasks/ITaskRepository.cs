@@ -5,7 +5,7 @@ namespace Desktop.Tasks;
 
 public interface ITaskRepository
 {
-    IReadOnlyList<Task> All();
+    Task<IReadOnlyList<Task>> All();
     SystemTask Save(Task task);
     SystemTask Delete(Task toBeDeleted);
 }

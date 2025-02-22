@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using Backend;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
 using NUnit.Framework;
@@ -13,7 +12,7 @@ public class IntegrationTests
     {
         var factory = new WebApplicationFactory<DummyForAspNetTests>();
         var client = factory.CreateClient();
-        
+
         var result = await client.GetAsync("/Project/");
 
         result.IsSuccessStatusCode.Should().BeTrue();

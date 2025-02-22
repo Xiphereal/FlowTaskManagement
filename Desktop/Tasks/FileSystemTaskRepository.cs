@@ -8,22 +8,23 @@ public class FileSystemTaskRepository : ITaskRepository
 {
     private const string PersistedTasksFileName = "Tasks.txt";
 
-    public IReadOnlyList<Task> All()
+    public Task<IReadOnlyList<Task>> All()
     {
         if (!File.Exists(PersistedTasksFileName))
-            return [];
+            return SystemTask.FromResult<IReadOnlyList<Task>>([]);
 
-        return File
-            .ReadAllLines(PersistedTasksFileName)
-            .Select(ToTask)
-            .ToList();
+        return SystemTask.FromResult<IReadOnlyList<Task>>(
+            File
+                .ReadAllLines(PersistedTasksFileName)
+                .Select(ToTask)
+                .ToList());
     }
 
     private static Task ToTask(string line)
     {
         return new Task(
             name: SplitBySpaces(line).First(),
-            description: SplitBySpaces(line).Length > 1 
+            description: SplitBySpaces(line).Length > 1
                 ? SplitBySpaces(line).Last()
                 : string.Empty);
     }
@@ -38,7 +39,7 @@ public class FileSystemTaskRepository : ITaskRepository
         File.AppendAllText(
             PersistedTasksFileName,
             $"{task.Name} {task.Description}{Environment.NewLine}");
-        
+
         return SystemTask.CompletedTask;
     }
 
@@ -46,9 +47,9 @@ public class FileSystemTaskRepository : ITaskRepository
     {
         var existingTasks = File.ReadAllLines(PersistedTasksFileName);
         var remainingTasks = existingTasks.Where(x => !Is(x, toBeDeleted));
- 
+
         File.WriteAllLines(PersistedTasksFileName, remainingTasks);
-        
+
         return SystemTask.CompletedTask;
     }
 

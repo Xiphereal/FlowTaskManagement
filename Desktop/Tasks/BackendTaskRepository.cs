@@ -1,5 +1,4 @@
 ﻿using System.Net.Http;
-using Microsoft.Extensions.Configuration;
 using SystemTask = System.Threading.Tasks.Task;
 using Task = Desktop.Domain.Task;
 
@@ -7,7 +6,7 @@ namespace Desktop.Tasks;
 
 public class BackendTaskRepository : ITaskRepository
 {
-    private HttpClient httpClient;
+    private readonly HttpClient httpClient;
 
     public BackendTaskRepository(string backendUri)
     {
@@ -15,9 +14,13 @@ public class BackendTaskRepository : ITaskRepository
         httpClient.BaseAddress = new Uri(backendUri);
     }
 
-    public IReadOnlyList<Task> All()
+    public async Task<IReadOnlyList<Task>> All()
     {
-        throw new NotImplementedException();
+        var httpResponseMessage = await httpClient.GetAsync("/Project");
+
+        var content = await httpResponseMessage.Content.ReadAsStringAsync();
+
+        return [];
     }
 
     public SystemTask Save(Task task)

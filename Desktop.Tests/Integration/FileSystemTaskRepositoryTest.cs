@@ -13,21 +13,25 @@ public class FileSystemTaskRepositoryTest
     private const string PersistedTasksFileName = "Tasks.txt";
 
     [Test]
-    public void NoTaskArePersisted_ReturnsNothing()
+    public async SystemTask NoTaskArePersisted_ReturnsNothing()
     {
         var sut = new FileSystemTaskRepository();
 
-        sut.All().Should().BeEmpty();
+        var result = await sut.All();
+
+        result.Should().BeEmpty();
     }
 
     [Test]
-    public void CanLoadPersistedTasks()
+    public async SystemTask CanLoadPersistedTasks()
     {
         PersistTask("aTaskName", "aTaskDescription");
 
         var sut = new FileSystemTaskRepository();
 
-        sut.All()
+        var result = await sut.All();
+
+        result
             .Should().BeEquivalentTo(
             [
                 new Task(
@@ -37,13 +41,15 @@ public class FileSystemTaskRepositoryTest
     }
 
     [Test]
-    public void CanLoadPersistedTasksWithoutDescription()
+    public async SystemTask CanLoadPersistedTasksWithoutDescription()
     {
         PersistTask("aTaskName");
 
         var sut = new FileSystemTaskRepository();
 
-        sut.All()
+        var result = await sut.All();
+
+        result
             .Should().BeEquivalentTo(
             [
                 new Task(
@@ -53,14 +59,16 @@ public class FileSystemTaskRepositoryTest
     }
 
     [Test]
-    public void CanLoadSeveralPersistedTasks()
+    public async SystemTask CanLoadSeveralPersistedTasks()
     {
         PersistTask("aTaskName");
         PersistTask("anotherTaskName");
 
         var sut = new FileSystemTaskRepository();
 
-        sut.All()
+        var result = await sut.All();
+
+        result
             .Should().BeEquivalentTo(
             [
                 new Task(
@@ -80,7 +88,8 @@ public class FileSystemTaskRepositoryTest
         var taskToPersist = ATask(named: "anyName", description: "anyDesc");
         await sut.Save(taskToPersist);
 
-        sut.All().Should().ContainSingle().And.Contain(taskToPersist);
+        var result = await sut.All();
+        result.Should().ContainSingle().And.Contain(taskToPersist);
     }
 
     [Test]
@@ -95,7 +104,8 @@ public class FileSystemTaskRepositoryTest
         var taskToPersist = ATask();
         await sut.Save(taskToPersist);
 
-        sut.All().Should().BeEquivalentTo(
+        var result = await sut.All();
+        result.Should().BeEquivalentTo(
         [
             existingTask,
             taskToPersist,
@@ -111,7 +121,8 @@ public class FileSystemTaskRepositoryTest
 
         await sut.Delete(ATask());
 
-        sut.All().Should().BeEmpty();
+        var result = await sut.All();
+        result.Should().BeEmpty();
     }
 
     [Test]
@@ -135,7 +146,8 @@ public class FileSystemTaskRepositoryTest
         await sut.Delete(toBeDeleted);
 
         // Assert.
-        sut.All().Should().BeEquivalentTo(
+        var result = await sut.All();
+        result.Should().BeEquivalentTo(
         [
             oneThatMustRemain,
             anotherThatMustRemain,
