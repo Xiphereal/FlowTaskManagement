@@ -13,7 +13,7 @@ public class IntegrationTests
         var factory = new WebApplicationFactory<DummyForAspNetTests>();
         var client = factory.CreateClient();
 
-        var result = await client.GetAsync("/Project/");
+        var result = await client.GetAsync("/Project/GetTasks/");
 
         result.IsSuccessStatusCode.Should().BeTrue();
         var content = await result.Content.ReadAsStringAsync();

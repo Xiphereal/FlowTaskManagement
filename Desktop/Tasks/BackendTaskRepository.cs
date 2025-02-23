@@ -16,7 +16,7 @@ public class BackendTaskRepository : ITaskRepository
 
     public async Task<IReadOnlyList<Task>> All()
     {
-        var httpResponseMessage = await httpClient.GetAsync("/Project");
+        var httpResponseMessage = await httpClient.GetAsync("/Project/GetTasks/");
 
         var content = await httpResponseMessage.Content.ReadAsStringAsync();
 

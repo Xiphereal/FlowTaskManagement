@@ -14,7 +14,7 @@ public class ProjectController : ControllerBase
         _logger = logger;
     }
 
-    [HttpGet(Name = "GetTasks")]
+    [HttpGet("GetTasks")]
     public IEnumerable<Task> Get()
     {
         return
