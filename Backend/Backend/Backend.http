@@ -5,7 +5,7 @@ Accept: application/json
 
 ###
 
-GET {{Backend_HostAddress}}/Project/
+GET {{Backend_HostAddress}}/Project/GetTasks/
 Accept: application/json
 
 ###
