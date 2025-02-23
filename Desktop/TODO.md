@@ -5,3 +5,4 @@
 - test: some e2e with Appium
 - feat: allow to persist tasks remotely. The Desktop sends them to the Backend.
 - ci: run e2e tests
+- feat: style the front
