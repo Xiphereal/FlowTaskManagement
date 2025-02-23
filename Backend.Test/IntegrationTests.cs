@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Net.Http;
+using System.Threading.Tasks;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
 using NUnit.Framework;
@@ -21,5 +23,11 @@ public class IntegrationTests
             .Contain("A task").And
             .Contain("Another task").And
             .Contain("Yet another task");
+
+        var tasks = 
+            await result.Content.ReadAsAsync<IEnumerable<Domain.Task>>();
+
+        tasks.Should().HaveCount(3);
+        tasks.Should().AllBeOfType<Domain.Task>();
     }
 }
