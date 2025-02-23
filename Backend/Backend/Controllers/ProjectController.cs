@@ -8,20 +8,27 @@ namespace Backend.Controllers;
 public class ProjectController : ControllerBase
 {
     private readonly ILogger<ProjectController> _logger;
+    private readonly ITaskRepository taskRepository;
 
-    public ProjectController(ILogger<ProjectController> logger)
+    public ProjectController(
+        ILogger<ProjectController> logger,
+        ITaskRepository taskRepository)
     {
+        this.taskRepository = taskRepository;
         _logger = logger;
     }
 
     [HttpGet("GetTasks")]
-    public IEnumerable<Task> Get()
+    public async Task<IEnumerable<Task>> Get()
     {
-        return
-        [
-            new Task("A task", "Dummy description"),
-            new Task("Another task", "Dummy description"),
-            new Task("Yet another task", "Dummy description"),
-        ];
+        return await taskRepository.All();
+    }
+
+    [HttpPost("SaveTask")]
+    public async Task<IResult> Post(Task toBeCreated)
+    {
+        await taskRepository.Save(toBeCreated);
+
+        return Results.Created();
     }
 }
