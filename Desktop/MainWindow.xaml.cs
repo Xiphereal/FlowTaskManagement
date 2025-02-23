@@ -6,15 +6,18 @@ namespace Desktop;
 
 public partial class MainWindow : Window
 {
-    public MainWindow()
+    private readonly ITaskRepository taskRepository;
+
+    public MainWindow(ITaskRepository taskRepository)
     {
+        this.taskRepository = taskRepository;
         InitializeComponent();
         NavigateToTaskList();
     }
 
     private void NavigateToTaskList()
     {
-        var tasksList = new TasksList(new FileSystemTaskRepository());
+        var tasksList = new TasksList(taskRepository);
         Content.Content = tasksList;
     }
 

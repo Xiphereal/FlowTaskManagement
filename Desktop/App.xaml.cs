@@ -1,8 +1,8 @@
-﻿using System.Configuration;
-using System.Data;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Threading;
+using Desktop.Tasks;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Desktop;
 
@@ -18,6 +18,17 @@ public partial class App : Application
         Config = new ConfigurationBuilder()
             .AddJsonFile("appsettings.json")
             .Build();
+    }
+
+    protected override void OnStartup(StartupEventArgs e)
+    {
+        var services = new ServiceCollection();
+
+        services.AddSingleton<MainWindow>();
+        services.AddSingleton<ITaskRepository, FileSystemTaskRepository>();
+
+        var serviceProvider = services.BuildServiceProvider();
+        serviceProvider.GetRequiredService<MainWindow>().Show();
     }
 
     private void App_OnDispatcherUnhandledException(
