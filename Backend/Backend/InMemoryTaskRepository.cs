@@ -5,12 +5,7 @@ namespace Backend;
 
 internal class InMemoryTaskRepository : ITaskRepository
 {
-    private readonly List<Task> tasks =
-    [
-        new("A task", "Dummy description"),
-        new("Another task", "Dummy description"),
-        new("Yet another task", "Dummy description"),
-    ];
+    private readonly List<Task> tasks = [];
 
     public Task<IEnumerable<Task>> All()
     {

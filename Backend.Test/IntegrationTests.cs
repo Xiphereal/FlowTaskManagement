@@ -13,31 +13,15 @@ public class IntegrationTests
     private const string GetTasksUri = "/Project/GetTasks/";
 
     [Test]
-    public async Task LearningTestAbout_ASP_NET_Tests()
+    public async Task NoTaskExistByDefault()
     {
         var client = CreateHttpClient();
+        
+        var existingTasks = await GetExistingTasks(client);
 
-        var result = await client.GetAsync(GetTasksUri);
-
-        result.IsSuccessStatusCode.Should().BeTrue();
-        var content = await result.Content.ReadAsStringAsync();
-        content.Should()
-            .Contain("A task").And
-            .Contain("Another task").And
-            .Contain("Yet another task");
-
-        var tasks =
-            await result.Content.ReadAsAsync<IEnumerable<Domain.Task>>();
-
-        tasks.Should().HaveCount(3);
-        tasks.Should().AllBeOfType<Domain.Task>();
+        existingTasks.Should().BeEmpty();
     }
-
-    private static HttpClient CreateHttpClient()
-    {
-        return new WebApplicationFactory<DummyForAspNetTests>().CreateClient();
-    }
-
+    
     [Test]
     public async Task TasksCanBeSaved()
     {
@@ -50,6 +34,11 @@ public class IntegrationTests
         postResult.IsSuccessStatusCode.Should().BeTrue();
         var existingTasks = await GetExistingTasks(client);
         existingTasks.Should().Contain(taskToBeSaved);
+    }
+
+    private static HttpClient CreateHttpClient()
+    {
+        return new WebApplicationFactory<DummyForAspNetTests>().CreateClient();
     }
 
     private static async Task<IEnumerable<Domain.Task>> GetExistingTasks(HttpClient client)
