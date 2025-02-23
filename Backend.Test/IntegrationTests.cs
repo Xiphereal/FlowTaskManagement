@@ -9,12 +9,15 @@ namespace Backend.Test;
 
 public class IntegrationTests
 {
+    private const string SaveTaskUri = "/Project/SaveTask/";
+    private const string GetTasksUri = "/Project/GetTasks/";
+
     [Test]
     public async Task LearningTestAbout_ASP_NET_Tests()
     {
         var client = CreateHttpClient();
 
-        var result = await client.GetAsync("/Project/GetTasks/");
+        var result = await client.GetAsync(GetTasksUri);
 
         result.IsSuccessStatusCode.Should().BeTrue();
         var content = await result.Content.ReadAsStringAsync();
@@ -42,7 +45,7 @@ public class IntegrationTests
         var taskToBeSaved = AnyTask();
 
         var postResult =
-            await client.PostAsJsonAsync("/Project/SaveTask/", taskToBeSaved);
+            await client.PostAsJsonAsync(SaveTaskUri, taskToBeSaved);
 
         postResult.IsSuccessStatusCode.Should().BeTrue();
         var existingTasks = await GetExistingTasks(client);
@@ -51,7 +54,7 @@ public class IntegrationTests
 
     private static async Task<IEnumerable<Domain.Task>> GetExistingTasks(HttpClient client)
     {
-        var getResult = await client.GetAsync("/Project/GetTasks/");
+        var getResult = await client.GetAsync(GetTasksUri);
 
         return await getResult.Content.ReadAsAsync<IEnumerable<Domain.Task>>();
     }
