@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Backend.Persistence;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
 using NUnit.Framework;
@@ -12,16 +13,30 @@ public class IntegrationTests
     private const string SaveTaskUri = "/Project/SaveTask/";
     private const string GetTasksUri = "/Project/GetTasks/";
 
+    [SetUp]
+    public void SetUp()
+    {
+        using var context = new BackendContext();
+        context.Database.EnsureCreated();
+    }
+    
+    [TearDown]
+    public void TearDown()
+    {
+        using var context = new BackendContext();
+        context.Database.EnsureDeleted();
+    }
+
     [Test]
     public async Task NoTaskExistByDefault()
     {
         var client = CreateHttpClient();
-        
+
         var existingTasks = await GetExistingTasks(client);
 
         existingTasks.Should().BeEmpty();
     }
-    
+
     [Test]
     public async Task TasksCanBeSaved()
     {
@@ -33,6 +48,21 @@ public class IntegrationTests
 
         postResult.IsSuccessStatusCode.Should().BeTrue();
         var existingTasks = await GetExistingTasks(client);
+        existingTasks.Should().Contain(taskToBeSaved);
+    }
+
+    [Test]
+    public async Task TasksCanBeSaved_AcrossDifferentServiceInstances()
+    {
+        var aClient = CreateHttpClient();
+        var taskToBeSaved = AnyTask();
+
+        var postResult =
+            await aClient.PostAsJsonAsync(SaveTaskUri, taskToBeSaved);
+
+        postResult.IsSuccessStatusCode.Should().BeTrue();
+        var anotherClient = CreateHttpClient();
+        var existingTasks = await GetExistingTasks(anotherClient);
         existingTasks.Should().Contain(taskToBeSaved);
     }
 

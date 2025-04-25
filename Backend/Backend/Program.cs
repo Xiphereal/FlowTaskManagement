@@ -1,4 +1,5 @@
 using Backend;
+using Backend.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -6,7 +7,8 @@ builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 builder.Services.AddHealthChecks();
 
-builder.Services.AddSingleton<ITaskRepository, InMemoryTaskRepository>();
+builder.Services.AddSingleton<BackendContext>();
+builder.Services.AddSingleton<ITaskRepository, EntityFrameworkTaskRepository>();
 
 var app = builder.Build();
 
