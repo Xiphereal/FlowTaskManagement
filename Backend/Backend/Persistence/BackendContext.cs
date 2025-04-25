@@ -5,19 +5,17 @@ namespace Backend.Persistence;
 
 public class BackendContext : DbContext
 {
+    private readonly IConfiguration config;
+
     public DbSet<Task> Tasks { get; set; }
 
-    private string DbPath { get; }
-
-    public BackendContext()
+    public BackendContext(IConfiguration config)
     {
-        var folder = Environment.SpecialFolder.LocalApplicationData;
-        var path = Environment.GetFolderPath(folder);
-        DbPath = Path.Join(path, "backend.db");
+        this.config = config;
     }
     
     protected override void OnConfiguring(DbContextOptionsBuilder options)
-        => options.UseSqlite($"Data Source={DbPath}");
+        => options.UseSqlite(config.GetConnectionString("BackendDatabase"));
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

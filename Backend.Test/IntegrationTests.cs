@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Backend.Persistence;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.Extensions.Configuration;
 using NUnit.Framework;
 
 namespace Backend.Test;
@@ -16,14 +17,22 @@ public class IntegrationTests
     [SetUp]
     public void SetUp()
     {
-        using var context = new BackendContext();
+        using var context = BackendContext();
         context.Database.EnsureCreated();
     }
-    
+    private static BackendContext BackendContext()
+    {
+        IConfiguration config = new ConfigurationBuilder()
+            .AddJsonFile("appsettings.json", optional: false)
+            .Build();
+
+        return new BackendContext(config);
+    }
+
     [TearDown]
     public void TearDown()
     {
-        using var context = new BackendContext();
+        using var context = BackendContext();
         context.Database.EnsureDeleted();
     }
 
