@@ -1,7 +1,7 @@
 ﻿using Task = Backend.Domain.Task;
 using SystemTask = System.Threading.Tasks.Task;
 
-namespace Backend;
+namespace Backend.Persistence;
 
 internal class InMemoryTaskRepository : ITaskRepository
 {

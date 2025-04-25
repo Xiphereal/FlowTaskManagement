@@ -1,6 +1,6 @@
 ﻿using DomainTask = Backend.Domain.Task;
 
-namespace Backend;
+namespace Backend.Persistence;
 
 public interface ITaskRepository
 {
