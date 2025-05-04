@@ -12,6 +12,7 @@ public class EntityFrameworkTaskRepository : ITaskRepository
     {
         this.backendContext = backendContext;
     }
+
     public async Task<IEnumerable<DomainTask>> All()
     {
         return await backendContext.Tasks.ToArrayAsync();

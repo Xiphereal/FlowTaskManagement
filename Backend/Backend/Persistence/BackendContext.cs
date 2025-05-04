@@ -13,7 +13,7 @@ public class BackendContext : DbContext
     {
         this.config = config;
     }
-    
+
     protected override void OnConfiguring(DbContextOptionsBuilder options)
         => options.UseSqlite(config.GetConnectionString("BackendDatabase"));
 
