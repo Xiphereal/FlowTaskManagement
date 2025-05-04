@@ -1,10 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Backend.Persistence;
 using FluentAssertions;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using NUnit.Framework;
 
 namespace Backend.Tests;
@@ -14,27 +11,10 @@ public class IntegrationTests
     private const string SaveTaskUri = "/Project/SaveTask/";
     private const string GetTasksUri = "/Project/GetTasks/";
 
-    [SetUp]
-    public void SetUp()
-    {
-        using var context = BackendContext();
-        context.Database.Migrate();
-    }
-
-    private static BackendContext BackendContext()
-    {
-        IConfiguration config = new ConfigurationBuilder()
-            .AddJsonFile("appsettings.json", optional: false)
-            .Build();
-
-        return new BackendContext(config);
-    }
-
     [TearDown]
     public void TearDown()
     {
-        using var context = BackendContext();
-        context.Database.EnsureDeleted();
+        TestAPI.Backend.CleanUp();
     }
 
     [Test]
