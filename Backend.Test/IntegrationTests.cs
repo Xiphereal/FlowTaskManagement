@@ -3,7 +3,6 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Backend.Persistence;
 using FluentAssertions;
-using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using NUnit.Framework;
@@ -79,7 +78,7 @@ public class IntegrationTests
 
     private static HttpClient CreateHttpClient()
     {
-        return new WebApplicationFactory<DummyForAspNetTests>().CreateClient();
+        return TestAPI.Backend.Launch();
     }
 
     private static async Task<IEnumerable<Domain.Task>> GetExistingTasks(HttpClient client)
