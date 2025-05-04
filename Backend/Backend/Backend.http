@@ -9,3 +9,12 @@ GET {{Backend_HostAddress}}/Project/GetTasks/
 Accept: application/json
 
 ###
+
+POST {{Backend_HostAddress}}/Project/SaveTask/
+Accept: application/json
+Content-Type: application/json
+
+{
+  "Name": "Any",
+  "Description": "Any"
+}
