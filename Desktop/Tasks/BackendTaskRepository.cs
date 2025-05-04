@@ -8,10 +8,9 @@ public class BackendTaskRepository : ITaskRepository
 {
     private readonly HttpClient httpClient;
 
-    public BackendTaskRepository(string backendUri)
+    public BackendTaskRepository(HttpClient httpClient)
     {
-        httpClient = new HttpClient();
-        httpClient.BaseAddress = new Uri(backendUri);
+        this.httpClient = httpClient;
     }
 
     public async Task<IReadOnlyList<Task>> All()
