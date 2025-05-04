@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Backend.Persistence;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using NUnit.Framework;
 
@@ -18,8 +19,9 @@ public class IntegrationTests
     public void SetUp()
     {
         using var context = BackendContext();
-        context.Database.EnsureCreated();
+        context.Database.Migrate();
     }
+
     private static BackendContext BackendContext()
     {
         IConfiguration config = new ConfigurationBuilder()
