@@ -6,7 +6,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Desktop", "Desktop\Desktop.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Desktop.Tests", "Desktop.Tests\Desktop.Tests.csproj", "{E514A8A5-3F73-4668-92C6-0F3CD718FC05}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Backend.Test", "Backend.Test\Backend.Test.csproj", "{185D8A96-3BF9-48DB-A4AC-D985B5BF7CBE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Backend.Tests", "Backend.Tests\Backend.Tests.csproj", "{185D8A96-3BF9-48DB-A4AC-D985B5BF7CBE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

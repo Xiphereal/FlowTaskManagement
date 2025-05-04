@@ -1,7 +1,7 @@
 ﻿using System.Net.Http;
 using Microsoft.AspNetCore.Mvc.Testing;
 
-namespace Backend.Test.TestAPI;
+namespace Backend.Tests.TestAPI;
 
 public static class Backend
 {

@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using NUnit.Framework;
 
-namespace Backend.Test;
+namespace Backend.Tests;
 
 public class IntegrationTests
 {
