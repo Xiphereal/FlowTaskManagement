@@ -26,7 +26,7 @@ public class BackendTaskRepositoryTests
     }
 
     [Test]
-    public async Task AnyPersistedTask_CanBeRetrieved()
+    public async Task CanLoadPersistedTasks()
     {
         var backend = BackendBuilder.Backend()
             .With(new Backend.Domain.Task("Any", "Any"))
@@ -36,5 +36,26 @@ public class BackendTaskRepositoryTests
         var result = await sut.All();
 
         result.Should().NotBeEmpty();
+    }
+
+    [Test]
+    public async Task CanLoadSeveralPersistedTasks()
+    {
+        var aTask = new Backend.Domain.Task("aTask", "Any");
+        var anotherTask = new Backend.Domain.Task("anotherTask", "Any");
+        var backend = BackendBuilder.Backend()
+            .With(aTask)
+            .With(anotherTask)
+            .Launch();
+        var sut = new BackendTaskRepository(backend);
+
+        var result = await sut.All();
+
+        result.Should().BeEquivalentTo(
+        [
+            aTask,
+            anotherTask
+        ]);
+        
     }
 }
