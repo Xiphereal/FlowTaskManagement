@@ -29,13 +29,23 @@ public class BackendTaskRepositoryTests
     public async Task CanLoadPersistedTasks()
     {
         var backend = BackendBuilder.Backend()
-            .With(new Backend.Domain.Task("Any", "Any"))
+            .With(AnyBackendTask())
             .Launch();
         var sut = new BackendTaskRepository(backend);
 
         var result = await sut.All();
 
         result.Should().NotBeEmpty();
+    }
+
+    private static Backend.Domain.Task AnyBackendTask()
+    {
+        return new Backend.Domain.Task("Any", "Any");
+    }
+
+    private static Domain.Task AnyDesktopTask()
+    {
+        return new Domain.Task("Any", "Any");
     }
 
     [Test]
@@ -56,6 +66,21 @@ public class BackendTaskRepositoryTests
             aTask,
             anotherTask
         ]);
-        
+    }
+
+    [Test]
+    public async Task CanPersistTasksWhenNoOtherExistedBefore()
+    {
+        var backend = BackendBuilder.Backend()
+            .Launch();
+        var sut = new BackendTaskRepository(backend);
+
+        await sut.Save(AnyDesktopTask());
+
+        var existingTasks = await sut.All();
+        existingTasks.Should().BeEquivalentTo(
+        [
+            AnyBackendTask(),
+        ]);
     }
 }
