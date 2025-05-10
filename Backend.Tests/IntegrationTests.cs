@@ -8,8 +8,8 @@ namespace Backend.Tests;
 
 public class IntegrationTests
 {
-    private const string SaveTaskUri = "/Project/SaveTask/";
-    private const string GetTasksUri = "/Project/GetTasks/";
+    private const string SaveTaskUri = "/project/tasks/";
+    private const string GetTasksUri = "/project/tasks/";
 
     [TearDown]
     public void TearDown()

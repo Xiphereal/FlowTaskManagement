@@ -5,7 +5,7 @@ using Task = Backend.Domain.Task;
 namespace Backend.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("[controller]/tasks")]
 public class ProjectController : ControllerBase
 {
     private readonly ILogger<ProjectController> _logger;
@@ -19,13 +19,13 @@ public class ProjectController : ControllerBase
         _logger = logger;
     }
 
-    [HttpGet("GetTasks")]
+    [HttpGet("")]
     public async Task<IEnumerable<Task>> Get()
     {
         return await taskRepository.All();
     }
 
-    [HttpPost("SaveTask")]
+    [HttpPost("")]
     public async Task<IResult> Post(Task toBeCreated)
     {
         await taskRepository.Save(toBeCreated);

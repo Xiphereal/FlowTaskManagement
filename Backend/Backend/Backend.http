@@ -5,12 +5,12 @@ Accept: application/json
 
 ###
 
-GET {{Backend_HostAddress}}/Project/GetTasks/
+GET {{Backend_HostAddress}}/project/tasks/
 Accept: application/json
 
 ###
 
-POST {{Backend_HostAddress}}/Project/SaveTask/
+POST {{Backend_HostAddress}}/project/tasks/
 Accept: application/json
 Content-Type: application/json
 
