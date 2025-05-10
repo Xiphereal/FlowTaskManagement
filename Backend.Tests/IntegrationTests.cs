@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Backend.Tests.TestAPI;
 using FluentAssertions;
 using NUnit.Framework;
 
@@ -14,13 +15,13 @@ public class IntegrationTests
     [TearDown]
     public void TearDown()
     {
-        TestAPI.Backend.CleanUp();
+        BackendBuilder.CleanUp();
     }
 
     [Test]
     public async Task NoTaskExistByDefault()
     {
-        var client = CreateHttpClient();
+        var client = BackendBuilder.Backend().Launch();
 
         var existingTasks = await GetExistingTasks(client);
 
@@ -30,7 +31,7 @@ public class IntegrationTests
     [Test]
     public async Task TasksCanBeSaved()
     {
-        var client = CreateHttpClient();
+        var client = BackendBuilder.Backend().Launch();
         var taskToBeSaved = AnyTask();
 
         var postResult =
@@ -44,21 +45,16 @@ public class IntegrationTests
     [Test]
     public async Task TasksCanBeSaved_AcrossDifferentServiceInstances()
     {
-        var aClient = CreateHttpClient();
+        var aClient = BackendBuilder.Backend().Launch();
         var taskToBeSaved = AnyTask();
 
         var postResult =
             await aClient.PostAsJsonAsync(SaveTaskUri, taskToBeSaved);
 
         postResult.IsSuccessStatusCode.Should().BeTrue();
-        var anotherClient = CreateHttpClient();
+        var anotherClient = BackendBuilder.Backend().Launch();
         var existingTasks = await GetExistingTasks(anotherClient);
         existingTasks.Should().Contain(taskToBeSaved);
-    }
-
-    private static HttpClient CreateHttpClient()
-    {
-        return TestAPI.Backend.Launch();
     }
 
     private static async Task<IEnumerable<Domain.Task>> GetExistingTasks(HttpClient client)

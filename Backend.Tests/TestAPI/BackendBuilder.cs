@@ -6,9 +6,18 @@ using Microsoft.Extensions.Configuration;
 
 namespace Backend.Tests.TestAPI;
 
-public static class Backend
+public class BackendBuilder
 {
-    public static HttpClient Launch()
+    private BackendBuilder()
+    {
+    }
+
+    public static BackendBuilder Backend()
+    {
+        return new BackendBuilder();
+    }
+
+    public HttpClient Launch()
     {
         using var context = BackendContext();
         context.Database.Migrate();
