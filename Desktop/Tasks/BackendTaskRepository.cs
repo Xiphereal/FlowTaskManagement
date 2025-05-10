@@ -15,11 +15,17 @@ public class BackendTaskRepository : ITaskRepository
 
     public async Task<IReadOnlyList<Task>> All()
     {
-        var httpResponseMessage = await httpClient.GetAsync("/Project/GetTasks/");
+        var getResult = await httpClient.GetAsync("/project/tasks/");
 
-        var content = await httpResponseMessage.Content.ReadAsStringAsync();
+        var backendTasks =
+            await getResult.Content.ReadAsAsync<IEnumerable<Backend.Domain.Task>>();
 
-        return [];
+        return backendTasks.Select(ToDesktopTask).ToArray();
+    }
+
+    private static Task ToDesktopTask(Backend.Domain.Task task)
+    {
+        return new Task(task.Name, task.Description);
     }
 
     public SystemTask Save(Task task)

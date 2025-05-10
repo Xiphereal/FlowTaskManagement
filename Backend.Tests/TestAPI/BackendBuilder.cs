@@ -1,4 +1,5 @@
 ﻿using System.Net.Http;
+using Backend.Domain;
 using Backend.Persistence;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
@@ -8,8 +9,12 @@ namespace Backend.Tests.TestAPI;
 
 public class BackendBuilder
 {
+    private readonly BackendContext context;
+
     private BackendBuilder()
     {
+        context = BackendContext();
+        context.Database.Migrate();
     }
 
     public static BackendBuilder Backend()
@@ -17,10 +22,16 @@ public class BackendBuilder
         return new BackendBuilder();
     }
 
+    public BackendBuilder With(Task task)
+    {
+        context.Add(task);
+
+        return this;
+    }
+
     public HttpClient Launch()
     {
-        using var context = BackendContext();
-        context.Database.Migrate();
+        context.SaveChanges();
 
         return new WebApplicationFactory<DummyForAspNetTests>().CreateClient();
     }
