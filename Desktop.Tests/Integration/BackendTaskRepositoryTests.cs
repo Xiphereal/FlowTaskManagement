@@ -79,20 +79,20 @@ public class BackendTaskRepositoryTests
     [Test]
     public async Task PersistNewTaskDoesNotOverrideExistingOnes()
     {
-        var aTask = BackendTask(named: "existing");
+        var existingTask = BackendTask(named: "existing");
         var backend = BackendBuilder.Backend()
-            .With(aTask)
+            .With(existingTask)
             .Launch();
         var sut = new BackendTaskRepository(backend);
 
-        var anotherTask = DesktopTask(named: "Another task");
-        await sut.Save(anotherTask);
+        var taskToPersist = DesktopTask(named: "Another task");
+        await sut.Save(taskToPersist);
 
         var existingTasks = await sut.All();
         existingTasks.Should().BeEquivalentTo(
         [
-            DesktopTask(named: aTask.Name),
-            anotherTask
+            DesktopTask(named: existingTask.Name),
+            taskToPersist
         ]);
     }
 }
