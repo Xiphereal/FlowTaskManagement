@@ -43,9 +43,19 @@ public class BackendTaskRepositoryTests
         return new Backend.Domain.Task("Any", "Any");
     }
 
+    private static Backend.Domain.Task BackendTask(string named)
+    {
+        return new Backend.Domain.Task(named, "Any");
+    }
+
     private static Domain.Task AnyDesktopTask()
     {
         return new Domain.Task("Any", "Any");
+    }
+
+    private static Domain.Task DesktopTask(string named)
+    {
+        return new Domain.Task(named, "Any");
     }
 
     [Test]
@@ -81,6 +91,26 @@ public class BackendTaskRepositoryTests
         existingTasks.Should().BeEquivalentTo(
         [
             AnyBackendTask(),
+        ]);
+    }
+
+    [Test]
+    public async Task PersistNewTaskDoesNotOverrideExistingOnes()
+    {
+        var aTask = BackendTask(named: "existing");
+        var backend = BackendBuilder.Backend()
+            .With(aTask)
+            .Launch();
+        var sut = new BackendTaskRepository(backend);
+
+        var anotherTask = DesktopTask(named: "Another task");
+        await sut.Save(anotherTask);
+
+        var existingTasks = await sut.All();
+        existingTasks.Should().BeEquivalentTo(
+        [
+            DesktopTask(named: aTask.Name),
+            anotherTask
         ]);
     }
 }
