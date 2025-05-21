@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Backend.Tests.TestAPI;
 using FluentAssertions;
 using NUnit.Framework;
+using static Backend.Tests.TestAPI.TaskFactory;
 
 namespace Backend.Tests;
 
@@ -32,7 +33,7 @@ public class IntegrationTests
     public async Task TasksCanBeSaved()
     {
         var client = BackendBuilder.Backend().Launch();
-        var taskToBeSaved = AnyTask();
+        var taskToBeSaved = AnyBackendTask();
 
         var postResult =
             await client.PostAsJsonAsync(SaveTaskUri, taskToBeSaved);
@@ -46,7 +47,7 @@ public class IntegrationTests
     public async Task TasksCanBeSaved_AcrossDifferentServiceInstances()
     {
         var aClient = BackendBuilder.Backend().Launch();
-        var taskToBeSaved = AnyTask();
+        var taskToBeSaved = AnyBackendTask();
 
         var postResult =
             await aClient.PostAsJsonAsync(SaveTaskUri, taskToBeSaved);
@@ -62,10 +63,5 @@ public class IntegrationTests
         var getResult = await client.GetAsync(GetTasksUri);
 
         return await getResult.Content.ReadAsAsync<IEnumerable<Domain.Task>>();
-    }
-
-    private static Domain.Task AnyTask()
-    {
-        return new Domain.Task(Name: "Any", Description: "Any");
     }
 }

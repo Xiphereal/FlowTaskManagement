@@ -3,6 +3,7 @@ using Backend.Tests.TestAPI;
 using Desktop.Tasks;
 using FluentAssertions;
 using NUnit.Framework;
+using static Backend.Tests.TestAPI.TaskFactory;
 
 namespace Desktop.Tests.Integration;
 
@@ -36,16 +37,6 @@ public class BackendTaskRepositoryTests
         var result = await sut.All();
 
         result.Should().NotBeEmpty();
-    }
-
-    private static Backend.Domain.Task AnyBackendTask()
-    {
-        return new Backend.Domain.Task("Any", "Any");
-    }
-
-    private static Backend.Domain.Task BackendTask(string named)
-    {
-        return new Backend.Domain.Task(named, "Any");
     }
 
     private static Domain.Task AnyDesktopTask()
