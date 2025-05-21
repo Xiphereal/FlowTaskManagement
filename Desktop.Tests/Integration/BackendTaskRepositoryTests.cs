@@ -4,6 +4,7 @@ using Desktop.Tasks;
 using FluentAssertions;
 using NUnit.Framework;
 using static Backend.Tests.TestAPI.TaskFactory;
+using static Desktop.Tests.TestAPI.TaskFactory;
 
 namespace Desktop.Tests.Integration;
 
@@ -39,16 +40,6 @@ public class BackendTaskRepositoryTests
         result.Should().NotBeEmpty();
     }
 
-    private static Domain.Task AnyDesktopTask()
-    {
-        return new Domain.Task("Any", "Any");
-    }
-
-    private static Domain.Task DesktopTask(string named)
-    {
-        return new Domain.Task(named, "Any");
-    }
-
     [Test]
     public async Task CanLoadSeveralPersistedTasks()
     {
@@ -76,7 +67,7 @@ public class BackendTaskRepositoryTests
             .Launch();
         var sut = new BackendTaskRepository(backend);
 
-        await sut.Save(AnyDesktopTask());
+        await sut.Save(DesktopTask());
 
         var existingTasks = await sut.All();
         existingTasks.Should().BeEquivalentTo(

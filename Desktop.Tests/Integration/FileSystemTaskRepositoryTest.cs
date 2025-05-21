@@ -3,6 +3,7 @@ using System.IO;
 using Desktop.Tasks;
 using FluentAssertions;
 using NUnit.Framework;
+using static Desktop.Tests.TestAPI.TaskFactory;
 using Task = Desktop.Domain.Task;
 using SystemTask = System.Threading.Tasks.Task;
 
@@ -85,7 +86,7 @@ public class FileSystemTaskRepositoryTest
     {
         var sut = new FileSystemTaskRepository();
 
-        var taskToPersist = ATask(named: "anyName", description: "anyDesc");
+        var taskToPersist = DesktopTask(named: "anyName", description: "anyDesc");
         await sut.Save(taskToPersist);
 
         var result = await sut.All();
@@ -96,12 +97,12 @@ public class FileSystemTaskRepositoryTest
     public async SystemTask PersistNewTaskDoesNotOverrideExistingOnes()
     {
         var doc = new FileSystemTaskRepository();
-        var existingTask = ATask(named: "existing");
+        var existingTask = DesktopTask(named: "existing");
         await doc.Save(existingTask);
 
         var sut = new FileSystemTaskRepository();
 
-        var taskToPersist = ATask();
+        var taskToPersist = DesktopTask();
         await sut.Save(taskToPersist);
 
         var result = await sut.All();
@@ -116,10 +117,10 @@ public class FileSystemTaskRepositoryTest
     public async SystemTask CanDeleteExistingTasks()
     {
         var doc = new FileSystemTaskRepository();
-        await doc.Save(ATask());
+        await doc.Save(DesktopTask());
         var sut = new FileSystemTaskRepository();
 
-        await sut.Delete(ATask());
+        await sut.Delete(DesktopTask());
 
         var result = await sut.All();
         result.Should().BeEmpty();
@@ -131,13 +132,13 @@ public class FileSystemTaskRepositoryTest
         // Arrange.
         var doc = new FileSystemTaskRepository();
 
-        var oneThatMustRemain = ATask();
+        var oneThatMustRemain = DesktopTask();
         await doc.Save(oneThatMustRemain);
 
-        var toBeDeleted = ATask("toBeDeleted");
+        var toBeDeleted = DesktopTask("toBeDeleted");
         await doc.Save(toBeDeleted);
 
-        var anotherThatMustRemain = ATask("toBeDeletedStartingWithSameName");
+        var anotherThatMustRemain = DesktopTask("toBeDeletedStartingWithSameName");
         await doc.Save(anotherThatMustRemain);
 
         var sut = new FileSystemTaskRepository();
@@ -159,11 +160,6 @@ public class FileSystemTaskRepositoryTest
         File.AppendAllText(
             PersistedTasksFileName,
             $"{name} {description ?? string.Empty}{Environment.NewLine}");
-    }
-
-    private static Task ATask(string named = null, string description = null)
-    {
-        return new Task(name: named ?? "anyName", description: description ?? "description");
     }
 
     [TearDown]
