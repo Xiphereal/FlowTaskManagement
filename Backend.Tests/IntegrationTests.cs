@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Backend.Tests.TestAPI;
@@ -10,14 +11,9 @@ namespace Backend.Tests;
 
 public class IntegrationTests
 {
+    private readonly Guid aDatabaseId = Guid.NewGuid();
     private const string SaveTaskUri = "/project/tasks/";
     private const string GetTasksUri = "/project/tasks/";
-
-    [TearDown]
-    public void TearDown()
-    {
-        BackendBuilder.CleanUp();
-    }
 
     [Test]
     public async Task NoTaskExistByDefault()
@@ -46,14 +42,14 @@ public class IntegrationTests
     [Test]
     public async Task TasksCanBeSaved_AcrossDifferentServiceInstances()
     {
-        var aClient = BackendBuilder.Backend().Launch();
+        var aClient = BackendBuilder.Backend().With(aDatabaseId).Launch();
         var taskToBeSaved = AnyBackendTask();
 
         var postResult =
             await aClient.PostAsJsonAsync(SaveTaskUri, taskToBeSaved);
 
         postResult.IsSuccessStatusCode.Should().BeTrue();
-        var anotherClient = BackendBuilder.Backend().Launch();
+        var anotherClient = BackendBuilder.Backend().With(aDatabaseId).Launch();
         var existingTasks = await GetExistingTasks(anotherClient);
         existingTasks.Should().Contain(taskToBeSaved);
     }

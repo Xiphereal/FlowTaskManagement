@@ -10,12 +10,6 @@ namespace Desktop.Tests.Integration;
 
 public class BackendTaskRepositoryTests : ITaskRepositoryTests
 {
-    [TearDown]
-    public void TearDown()
-    {
-        BackendBuilder.CleanUp();
-    }
-
     [Test]
     public async Task NoTaskArePersisted_ReturnsNothing()
     {
@@ -109,7 +103,6 @@ public class BackendTaskRepositoryTests : ITaskRepositoryTests
         var result = await sut.All();
         result.Should().BeEmpty();
     }
-
 
     [Test]
     public async Task DeletesJustTheRequestedTask_KeepingTheOtherOnes()

@@ -1,7 +1,8 @@
-﻿using System.Net.Http;
+﻿using System;
+using System.Collections.Generic;
+using System.Net.Http;
 using Backend.Domain;
 using Backend.Persistence;
-using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
@@ -10,6 +11,7 @@ namespace Backend.Tests.TestAPI;
 public class BackendBuilder
 {
     private readonly BackendContext context;
+    private Guid databaseId = Guid.NewGuid();
 
     private BackendBuilder()
     {
@@ -29,23 +31,37 @@ public class BackendBuilder
         return this;
     }
 
+    public BackendBuilder With(Guid id)
+    {
+        databaseId = id;
+
+        return this;
+    }
+
     public HttpClient Launch()
     {
         context.SaveChanges();
 
-        return new WebApplicationFactory<DummyForAspNetTests>().CreateClient();
+        return new CustomWebAppFactory(BuildConnectionString())
+            .CreateClient();
     }
 
-    public static void CleanUp()
+    private string BuildConnectionString()
     {
-        using var context = BackendContext();
-        context.Database.EnsureDeleted();
+        // Having a different name for the database allows for making tests persistence
+        // independent of one another.
+        return $"Data Source=TestDb_{databaseId}.db";
     }
 
-    private static BackendContext BackendContext()
+    private BackendContext BackendContext()
     {
         IConfiguration config = new ConfigurationBuilder()
             .AddJsonFile("appsettings.json", optional: false)
+            .AddInMemoryCollection(
+                new Dictionary<string, string>
+                {
+                    ["ConnectionStrings:BackendDatabase"] = BuildConnectionString()
+                })
             .Build();
 
         return new BackendContext(config);
