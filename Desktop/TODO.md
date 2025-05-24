@@ -1,8 +1,10 @@
 ﻿- feat: tasks modifications are persisted
+- feat: error handling on the frontend->backend communication
+- feat: DELETE endpoint return
 - refactor: use Commands and ViewModels instead of code behinds.
 - feat: show tasks in as project tree
 - feat: tasks have a state
 - test: some e2e with Appium
-- feat: allow to persist tasks remotely. The Desktop sends them to the Backend.
+- feat: allow for saving Tasks both locally and remotely at the same time 
 - ci: run e2e tests
 - feat: style the front
