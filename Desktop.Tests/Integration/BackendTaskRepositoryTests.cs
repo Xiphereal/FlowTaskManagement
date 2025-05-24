@@ -109,4 +109,35 @@ public class BackendTaskRepositoryTests
         var result = await sut.All();
         result.Should().BeEmpty();
     }
+
+
+    [Test]
+    public async Task DeletesJustTheRequestedTask_KeepingTheOtherOnes()
+    {
+        // Arrange.
+        var backend = BackendBuilder.Backend().Launch();
+        var doc = new BackendTaskRepository(backend);
+        
+        var oneThatMustRemain = DesktopTask();
+        await doc.Save(oneThatMustRemain);
+        
+        var toBeDeleted = DesktopTask("toBeDeleted");
+        await doc.Save(toBeDeleted);
+        
+        var anotherThatMustRemain = DesktopTask("toBeDeletedStartingWithSameName");
+        await doc.Save(anotherThatMustRemain);
+        
+        var sut = new BackendTaskRepository(backend);
+        
+        // Act.
+        await sut.Delete(toBeDeleted);
+
+        // Assert.
+        var result = await sut.All();
+        result.Should().BeEquivalentTo(
+        [
+            oneThatMustRemain,
+            anotherThatMustRemain,
+        ]);
+    }
 }
