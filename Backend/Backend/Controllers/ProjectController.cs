@@ -1,6 +1,7 @@
 using Backend.Persistence;
 using Microsoft.AspNetCore.Mvc;
-using Task = Backend.Domain.Task;
+using DomainTask = Backend.Domain.Task;
+using SystemTask = System.Threading.Tasks.Task;
 
 namespace Backend.Controllers;
 
@@ -20,13 +21,13 @@ public class ProjectController : ControllerBase
     }
 
     [HttpGet("")]
-    public async Task<IEnumerable<Task>> Get()
+    public async Task<IEnumerable<DomainTask>> Get()
     {
         return await taskRepository.All();
     }
 
     [HttpPost("")]
-    public async Task<IResult> Post(Task toBeCreated)
+    public async Task<IResult> Post(DomainTask toBeCreated)
     {
         await taskRepository.Save(toBeCreated);
 
@@ -34,7 +35,7 @@ public class ProjectController : ControllerBase
     }
 
     [HttpDelete("{taskName}")]
-    public async System.Threading.Tasks.Task Delete(string taskName)
+    public async SystemTask Delete(string taskName)
     {
         await taskRepository.Delete(taskName);
     }
