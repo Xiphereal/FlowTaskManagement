@@ -8,7 +8,7 @@ using static Desktop.Tests.TestAPI.TaskFactory;
 
 namespace Desktop.Tests.Integration;
 
-public class BackendTaskRepositoryTests
+public class BackendTaskRepositoryTests : ITaskRepositoryTests
 {
     [TearDown]
     public void TearDown()
@@ -95,7 +95,7 @@ public class BackendTaskRepositoryTests
             taskToPersist
         ]);
     }
-    
+
     [Test]
     public async Task CanDeleteExistingTasks()
     {
@@ -117,18 +117,18 @@ public class BackendTaskRepositoryTests
         // Arrange.
         var backend = BackendBuilder.Backend().Launch();
         var doc = new BackendTaskRepository(backend);
-        
+
         var oneThatMustRemain = DesktopTask();
         await doc.Save(oneThatMustRemain);
-        
+
         var toBeDeleted = DesktopTask("toBeDeleted");
         await doc.Save(toBeDeleted);
-        
+
         var anotherThatMustRemain = DesktopTask("toBeDeletedStartingWithSameName");
         await doc.Save(anotherThatMustRemain);
-        
+
         var sut = new BackendTaskRepository(backend);
-        
+
         // Act.
         await sut.Delete(toBeDeleted);
 

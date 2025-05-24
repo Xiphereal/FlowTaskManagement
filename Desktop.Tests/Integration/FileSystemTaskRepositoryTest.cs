@@ -9,7 +9,7 @@ using SystemTask = System.Threading.Tasks.Task;
 
 namespace Desktop.Tests.Integration;
 
-public class FileSystemTaskRepositoryTest
+public class FileSystemTaskRepositoryTest : ITaskRepositoryTests
 {
     private const string PersistedTasksFileName = "Tasks.txt";
 
