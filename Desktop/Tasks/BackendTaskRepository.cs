@@ -39,8 +39,11 @@ public class BackendTaskRepository : ITaskRepository
         return new BackendTask(task.Name, task.Description);
     }
 
-    public SystemTask Delete(Task toBeDeleted)
+    public async SystemTask Delete(Task toBeDeleted)
     {
-        throw new NotImplementedException();
+        var httpResponseMessage = await httpClient.DeleteAsync(
+            $"/project/tasks/{toBeDeleted.Name}");
+
+        httpResponseMessage.EnsureSuccessStatusCode();
     }
 }

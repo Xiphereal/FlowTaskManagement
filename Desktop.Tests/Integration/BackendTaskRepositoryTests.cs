@@ -95,4 +95,18 @@ public class BackendTaskRepositoryTests
             taskToPersist
         ]);
     }
+    
+    [Test]
+    public async Task CanDeleteExistingTasks()
+    {
+        var backend = BackendBuilder.Backend().Launch();
+        var doc = new BackendTaskRepository(backend);
+        await doc.Save(DesktopTask());
+        var sut = new BackendTaskRepository(backend);
+
+        await sut.Delete(DesktopTask());
+
+        var result = await sut.All();
+        result.Should().BeEmpty();
+    }
 }

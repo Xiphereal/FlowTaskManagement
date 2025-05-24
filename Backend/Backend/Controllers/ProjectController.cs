@@ -32,4 +32,10 @@ public class ProjectController : ControllerBase
 
         return Results.Created();
     }
+
+    [HttpDelete("{taskName}")]
+    public async System.Threading.Tasks.Task Delete(string taskName)
+    {
+        await taskRepository.Delete(taskName);
+    }
 }

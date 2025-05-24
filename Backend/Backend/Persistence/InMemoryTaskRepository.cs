@@ -18,4 +18,9 @@ internal class InMemoryTaskRepository : ITaskRepository
 
         return SystemTask.CompletedTask;
     }
+
+    public SystemTask Delete(string taskName)
+    {
+        throw new NotImplementedException();
+    }
 }

@@ -23,4 +23,13 @@ public class EntityFrameworkTaskRepository : ITaskRepository
         await backendContext.Tasks.AddAsync(toBeCreated);
         await backendContext.SaveChangesAsync();
     }
+
+    public async Task Delete(string taskName)
+    {
+        var toBeDeleted =
+            await backendContext.Tasks.SingleAsync(x => x.Name == taskName);
+        backendContext.Tasks.Remove(toBeDeleted);
+
+        await backendContext.SaveChangesAsync();
+    }
 }
