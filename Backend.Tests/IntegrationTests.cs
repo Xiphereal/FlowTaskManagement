@@ -12,8 +12,7 @@ namespace Backend.Tests;
 public class IntegrationTests
 {
     private readonly Guid aDatabaseId = Guid.NewGuid();
-    private const string SaveTaskUri = "/project/tasks";
-    private const string GetTasksUri = "/project/tasks";
+    private const string TasksUri = "/project/tasks";
 
     [Test]
     public async Task NoTaskExistByDefault()
@@ -32,7 +31,7 @@ public class IntegrationTests
         var taskToBeSaved = AnyBackendTask();
 
         var postResult =
-            await client.PostAsJsonAsync(SaveTaskUri, taskToBeSaved);
+            await client.PostAsJsonAsync(TasksUri, taskToBeSaved);
 
         postResult.IsSuccessStatusCode.Should().BeTrue();
         var existingTasks = await GetExistingTasks(client);
@@ -46,7 +45,7 @@ public class IntegrationTests
         var taskToBeSaved = AnyBackendTask();
 
         var postResult =
-            await aClient.PostAsJsonAsync(SaveTaskUri, taskToBeSaved);
+            await aClient.PostAsJsonAsync(TasksUri, taskToBeSaved);
 
         postResult.IsSuccessStatusCode.Should().BeTrue();
         var anotherClient = BackendBuilder.Backend().With(aDatabaseId).Launch();
@@ -59,9 +58,9 @@ public class IntegrationTests
     {
         var sut = BackendBuilder.Backend().Launch();
         var taskToBeDeleted = AnyBackendTask();
-        await sut.PostAsJsonAsync(SaveTaskUri, taskToBeDeleted);
+        await sut.PostAsJsonAsync(TasksUri, taskToBeDeleted);
 
-        var result = await sut.DeleteAsync($"{SaveTaskUri}/{taskToBeDeleted.Name}");
+        var result = await sut.DeleteAsync($"{TasksUri}/{taskToBeDeleted.Name}");
 
         result.IsSuccessStatusCode.Should().BeTrue();
         var existingTasks = await GetExistingTasks(sut);
@@ -70,7 +69,7 @@ public class IntegrationTests
 
     private static async Task<IEnumerable<Domain.Task>> GetExistingTasks(HttpClient client)
     {
-        var getResult = await client.GetAsync(GetTasksUri);
+        var getResult = await client.GetAsync(TasksUri);
 
         return await getResult.Content.ReadAsAsync<IEnumerable<Domain.Task>>();
     }
