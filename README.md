@@ -15,6 +15,9 @@ In a real-life scenario, I'd discuss with the team if they are conformable with 
 
 In ASP.NET Core, using EntityFramework ORM for handling the persistence.
 
+Conventions:
+- **REST**. Since currently the application is a simple CRUD application, REST is a perfect match.
+
 ## Decisions
 
 - **To code directly on the ASP.NET Controllers rather than decouple from them.** Due to simplicity of the use cases, it is much simpler to just orchestrate the [repository](https://martinfowler.com/eaaCatalog/repository.html) directly. In a real-life scenario, I would have considered making a POCO controller class (in terms of [MVC](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller)) as an early abstraction. This would enable testing without having to deal with any HTTP or ASP.NET concerns in tests that want to test business logic rather than these technological aspects; also, a better separation of concerns to reduce cognitive complexity as the codebase inevitably grows. 
