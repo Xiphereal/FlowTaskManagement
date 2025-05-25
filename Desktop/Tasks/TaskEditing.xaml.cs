@@ -1,15 +1,16 @@
 ﻿using System.Windows;
+using Task = Desktop.Domain.Task;
 
 namespace Desktop.Tasks;
 
-using Task = Domain.Task;
+using Task = Task;
 
 public partial class TaskEditing : Window
 {
     public TaskEditing(Task original)
     {
         InitializeComponent();
-        
+
         this.original = original;
         Name.Text = original.Name;
         Description.Text = original.Description;
@@ -21,7 +22,7 @@ public partial class TaskEditing : Window
     {
         original.Name = Name.Text;
         original.Description = Description.Text;
-        
+
         Close();
     }
 }

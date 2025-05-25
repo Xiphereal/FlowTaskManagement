@@ -1,8 +1,9 @@
 ﻿using System.Windows;
+using Task = Desktop.Domain.Task;
 
 namespace Desktop.Tasks;
 
-using Task = Domain.Task;
+using Task = Task;
 
 public partial class TaskCreation : Window
 {

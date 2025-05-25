@@ -5,6 +5,6 @@
 - feat: show tasks in as project tree
 - feat: tasks have a state
 - test: some e2e with Appium
-- feat: allow for saving Tasks both locally and remotely at the same time 
+- feat: allow for saving Tasks both locally and remotely at the same time
 - ci: run e2e tests
 - feat: style the front

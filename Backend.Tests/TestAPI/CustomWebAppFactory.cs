@@ -20,10 +20,11 @@ public class CustomWebAppFactory : WebApplicationFactory<DummyForAspNetTests>
         // tests. 
         builder.ConfigureAppConfiguration((_, configBuilder) =>
         {
-            configBuilder.AddInMemoryCollection(new Dictionary<string, string>
-            {
-                ["ConnectionStrings:BackendDatabase"] = connectionString
-            });
+            configBuilder.AddInMemoryCollection(
+                new Dictionary<string, string>
+                {
+                    ["ConnectionStrings:BackendDatabase"] = connectionString
+                });
         });
     }
 }

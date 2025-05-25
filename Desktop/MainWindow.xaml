@@ -4,23 +4,23 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         mc:Ignorable="d"
-        Title="MainWindow" 
+        Title="MainWindow"
         WindowState="Maximized">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto" />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
-        <StackPanel Grid.Column="0" >
+        <StackPanel Grid.Column="0">
             <Label HorizontalAlignment="Center">Views</Label>
             <Menu>
                 <Menu.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <VirtualizingStackPanel Orientation="Vertical"/>
+                        <VirtualizingStackPanel Orientation="Vertical" />
                     </ItemsPanelTemplate>
                 </Menu.ItemsPanel>
-                <MenuItem Header="_1 - Tasks List" Click="NavigateToTaskList"/>
-                <MenuItem Header="_2 - Project Tree" Click="NavigateToProjectTree"/>
+                <MenuItem Header="_1 - Tasks List" Click="NavigateToTaskList" />
+                <MenuItem Header="_2 - Project Tree" Click="NavigateToProjectTree" />
             </Menu>
         </StackPanel>
         <ContentControl Grid.Column="1" Name="Content" />
