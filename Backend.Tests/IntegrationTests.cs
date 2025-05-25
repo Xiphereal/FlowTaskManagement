@@ -12,8 +12,8 @@ namespace Backend.Tests;
 public class IntegrationTests
 {
     private readonly Guid aDatabaseId = Guid.NewGuid();
-    private const string SaveTaskUri = "/project/tasks/";
-    private const string GetTasksUri = "/project/tasks/";
+    private const string SaveTaskUri = "/project/tasks";
+    private const string GetTasksUri = "/project/tasks";
 
     [Test]
     public async Task NoTaskExistByDefault()
@@ -52,6 +52,20 @@ public class IntegrationTests
         var anotherClient = BackendBuilder.Backend().With(aDatabaseId).Launch();
         var existingTasks = await GetExistingTasks(anotherClient);
         existingTasks.Should().Contain(taskToBeSaved);
+    }
+
+    [Test]
+    public async Task TasksCanBeDeleted()
+    {
+        var sut = BackendBuilder.Backend().Launch();
+        var taskToBeDeleted = AnyBackendTask();
+        await sut.PostAsJsonAsync(SaveTaskUri, taskToBeDeleted);
+
+        var result = await sut.DeleteAsync($"{SaveTaskUri}/{taskToBeDeleted.Name}");
+
+        result.IsSuccessStatusCode.Should().BeTrue();
+        var existingTasks = await GetExistingTasks(sut);
+        existingTasks.Should().BeEmpty();
     }
 
     private static async Task<IEnumerable<Domain.Task>> GetExistingTasks(HttpClient client)
