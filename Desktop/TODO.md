@@ -1,6 +1,5 @@
 ﻿- feat: tasks modifications are persisted
 - feat: error handling on the frontend->backend communication
-- feat: DELETE endpoint return
 - refactor: use Commands and ViewModels instead of code behinds.
 - feat: show tasks in as project tree
 - feat: tasks have a state
