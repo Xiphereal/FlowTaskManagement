@@ -25,6 +25,8 @@ Conventions:
 
 # Testing 
 
+- [How to run the e2e tests](./Desktop.Tests/e2e/README.md)
+
 Conventions:
 - **Arrange Act Assert (AAA pattern).**
   - Implicitly: by grouping statements and leaving empty lines between each part. 
