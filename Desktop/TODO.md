@@ -8,3 +8,5 @@
 - feat: allow for saving Tasks both locally and remotely at the same time
 - ci: run e2e tests
 - feat: style the front
+- docs: next steps or improvements (out of scope) for the backend API. Mainly performance: allow to batch CRUD
+  operations.
