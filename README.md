@@ -1,15 +1,15 @@
 ﻿A simple task manager focused on minimal management and some flow metrics.
 
-# Docs
-The UML usage style in this project is _sketching_, as described by Marting Fowler e.g. _UML Distilled, Martin Fowler (2009)_. This basically means that it is used as a quick sketch to clarify ideas in broad strokes, and is neither intended to be kept up to date nor describe the project fully. 
-
-In a real-life scenario, I'd discuss with the team if they are conformable with this approach or if another is needed.
-
 # Decisions
 
 - Many of the design choices, naming, not making extensive documentation on APIs (or public members, of any sort), have been taken with the idea that this is "pet project", and that my default and preferred way of working is collaboratively with practices like pair and ensemble programing. In this scenario, unless stated otherwise to avoid interruption of flow, discussions occur on the go and decisions are taken withing seconds (as well as code reviews). Also, knowledge silos are mostly mitigated in this way.
   - As the only person in the team is me, obviously neither pair nor ensemble programming has taken place.  
   - As with many things, I would discuss with the team if they prefer another way of working.
+  
+# Docs
+The UML usage style in this project is _sketching_, as described by Marting Fowler e.g. _UML Distilled, Martin Fowler (2009)_. This basically means that it is used as a quick sketch to clarify ideas in broad strokes, and is neither intended to be kept up to date nor describe the project fully. 
+
+In a real-life scenario, I'd discuss with the team if they are conformable with this approach or if another is needed.
 
 # Backend
 
@@ -25,17 +25,16 @@ Conventions:
 
 # Testing 
 
+Conventions:
+- **Arrange Act Assert (AAA pattern).**
+  - Implicitly: by grouping statements and leaving empty lines between each part. 
+  - Explicitly: when needed, by using comments to specify each part.
+
 ## Decisions
 
 - **Strong focus on integration tests.** This has been taken due to the reason that project is a simple CRUD application, with almost no domain logic to be tested. The sparse control logic is tested alongside the main use cases. What remains is the backend->persistence and frontend->backend integration.
 
-## Conventions
-
-- Arrange Act Assert (AAA pattern).
-  - Implicitly: by grouping statements and leaving empty lines between each part. 
-  - Explicitly: when needed, by using comments to specify each part.
-
 ### Naming
 
-- `Test API`: any test code that serves the purpose of making tests easier, more readable or maintainable in general by encapsulating knowledge or boilerplate code.
+- **Test API**: any test code that serves the purpose of making tests easier, more readable or maintainable in general by encapsulating knowledge or boilerplate code.
   - It may well be synonym of `test helpers`, `test utils`, etc.
