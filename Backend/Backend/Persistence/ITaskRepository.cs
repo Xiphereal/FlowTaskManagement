@@ -7,4 +7,5 @@ public interface ITaskRepository
     Task<IEnumerable<DomainTask>> All();
     Task Save(DomainTask toBeCreated);
     Task Delete(string taskName);
+    Task<bool> Exist(string taskName);
 }

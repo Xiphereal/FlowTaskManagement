@@ -1,7 +1,6 @@
 using Backend.Persistence;
 using Microsoft.AspNetCore.Mvc;
 using DomainTask = Backend.Domain.Task;
-using SystemTask = System.Threading.Tasks.Task;
 
 namespace Backend.Controllers;
 
@@ -35,8 +34,13 @@ public class ProjectController : ControllerBase
     }
 
     [HttpDelete("{taskName}")]
-    public async SystemTask Delete(string taskName)
+    public async Task<IResult> Delete(string taskName)
     {
+        if (!await taskRepository.Exist(taskName))
+            return Results.NotFound(taskName);
+
         await taskRepository.Delete(taskName);
+
+        return Results.Ok();
     }
 }

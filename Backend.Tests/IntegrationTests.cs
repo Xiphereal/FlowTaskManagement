@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Backend.Tests.TestAPI;
@@ -65,6 +66,16 @@ public class IntegrationTests
         result.IsSuccessStatusCode.Should().BeTrue();
         var existingTasks = await GetExistingTasks(sut);
         existingTasks.Should().BeEmpty();
+    }
+
+    [Test]
+    public async Task TaskToBeDeletedDoesNotExist_NotifiesCaller()
+    {
+        var sut = BackendBuilder.Backend().Launch();
+
+        var result = await sut.DeleteAsync($"{TasksUri}/nonExisting");
+
+        result.StatusCode.Should().Be(HttpStatusCode.NotFound);
     }
 
     private static async Task<IEnumerable<Domain.Task>> GetExistingTasks(HttpClient client)

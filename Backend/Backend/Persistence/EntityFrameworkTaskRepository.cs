@@ -32,4 +32,9 @@ public class EntityFrameworkTaskRepository : ITaskRepository
 
         await backendContext.SaveChangesAsync();
     }
+
+    public Task<bool> Exist(string taskName)
+    {
+        return backendContext.Tasks.AnyAsync(x => x.Name == taskName);
+    }
 }
