@@ -28,9 +28,17 @@ know how to inspect what Windows exposes in order to use it to automate these ki
 # Decisions
 
 - **Usage of _accessibility ids_**.
-    - Pros: more robustness, since its purpose is exactly serve as an automation reference and is not subject to change
-      as the value, internal name or class may change for other reasons.
+    - Pros:
+        - More robustness, since its purpose is exactly serve as an automation reference and is not subject to change
+          as the value, internal name or class may change for other reasons.
     - Cons:
         - The production code is polluted just for testing reasons.
         - It cannot be used in dynamically generated elements (e.g. elements in a list). This forces to use another
           location strategies, thus making the code less homogeneous.
+- **Attach the drivers to specific windows**.
+    - Pros:
+        - Easier to find elements by faster & more precise locator strategies (e.g. by accessibility ids, by class
+          name, etc.) rather than relying on XPath.
+    - Cons:
+        - Tests implementation is coupled to which windows the app opens: if a form is now embedded and previously was a
+          window on its own, the test will fail to locate its element and will need adaptative changes.
