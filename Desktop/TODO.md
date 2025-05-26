@@ -4,6 +4,7 @@
 - feat: show tasks in as project tree
 - feat: tasks have a state
 - feat: allow for saving Tasks both locally and remotely at the same time
+- test(e2e): automate the Backend launch
 - ci: run e2e tests
 - feat: style the front
 - docs: next steps or improvements (out of scope) for the backend API. Mainly performance: allow to batch CRUD
