@@ -32,6 +32,11 @@ Worth checking:
     - Cons:
         - Tests implementation is coupled to which windows the app opens: if a form is now embedded and previously was a
           window on its own, the test will fail to locate its element and will need adaptative changes.
+- **Splitting the execution of e2e tests from the rest**. In the CI, the e2e tests are executed separately from the rest
+  due to their specific requirements. To do so, any `namespace` that contains `e2e` are excluded from the common test
+  runs. This is a quick approach, but relies on following the convention of naming the e2e namespaces with `e2e`.
+  Another approach would be to use different `csproj` or _test annotations_; relying on the `namespace` has been chosen
+  for convenience giving up flexibility and a better separation of concerns.
 
 # How to run these e2e tests
 
