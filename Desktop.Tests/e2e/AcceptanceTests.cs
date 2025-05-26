@@ -4,12 +4,12 @@ namespace Desktop.Tests.e2e;
 
 public class AcceptanceTests
 {
-    private AppiumWindowsDriver driver;
+    private AppiumMainWindowsDriver driver;
 
     [SetUp]
     public void BeforeEach()
     {
-        driver = new AppiumWindowsDriver();
+        driver = new AppiumMainWindowsDriver();
     }
 
     [TearDown]
@@ -22,5 +22,18 @@ public class AcceptanceTests
     public void CanBeLaunched()
     {
         driver.IsOpened();
+    }
+
+    [Test]
+    public void CreatedTasks_ArePersisted()
+    {
+        driver.ClickOnNewTask();
+        driver.InputTaskName(name: "Any");
+        driver.ClickOnSaveTask();
+
+        driver.Close();
+
+        driver.Launch();
+        driver.ExistTaskNamed(name: "Any");
     }
 }
