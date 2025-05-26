@@ -12,6 +12,8 @@ public class MainWindowDriver : AppiumWindowsDriver
 
     public MainWindowDriver()
     {
+        AppiumLocalService.Start();
+
         Options.App = Path.GetFullPath(
             Path.Combine(
                 Environment.CurrentDirectory,
