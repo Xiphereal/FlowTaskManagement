@@ -5,7 +5,7 @@ namespace Desktop.Tests.e2e;
 
 public class AppActions : IDisposable
 {
-    private readonly AppiumMainWindowsDriver mainWindow = new();
+    private readonly MainWindowDriver mainWindow = new();
 
     public void Dispose()
     {

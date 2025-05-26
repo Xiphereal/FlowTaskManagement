@@ -4,11 +4,11 @@ using OpenQA.Selenium.Appium.Windows;
 
 namespace Desktop.Tests.e2e.Drivers;
 
-public class CreationWindowAppiumDriver : AppiumWindowsDriver, IDisposable
+public class CreationWindowDriver : AppiumWindowsDriver, IDisposable
 {
     private readonly WindowsDriver windowsDriver;
 
-    public CreationWindowAppiumDriver(string creationWindowWindowHandle)
+    public CreationWindowDriver(string creationWindowWindowHandle)
     {
         Options.AddAdditionalAppiumOption("appTopLevelWindow", creationWindowWindowHandle);
         windowsDriver = new WindowsDriver(ServerUri, Options);

@@ -4,13 +4,13 @@ using OpenQA.Selenium.Appium.Windows;
 
 namespace Desktop.Tests.e2e.Drivers;
 
-public class AppiumMainWindowsDriver : AppiumWindowsDriver
+public class MainWindowDriver : AppiumWindowsDriver
 {
     private readonly WindowsDriver windowsDriver;
 
-    private CreationWindowAppiumDriver creationWindow;
+    private CreationWindowDriver creationWindow;
 
-    public AppiumMainWindowsDriver()
+    public MainWindowDriver()
     {
         Options.App = Path.GetFullPath(
             Path.Combine(
@@ -55,7 +55,7 @@ public class AppiumMainWindowsDriver : AppiumWindowsDriver
 
     public void InputTaskName(string name)
     {
-        creationWindow = new CreationWindowAppiumDriver(windowsDriver.WindowHandles[0]);
+        creationWindow = new CreationWindowDriver(windowsDriver.WindowHandles[0]);
         creationWindow.InputTaskName(name);
     }
 
