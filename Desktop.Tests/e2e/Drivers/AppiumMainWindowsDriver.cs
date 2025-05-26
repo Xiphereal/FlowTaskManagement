@@ -29,7 +29,7 @@ public class AppiumMainWindowsDriver : AppiumWindowsDriver
 
     public void IsOpened()
     {
-        windowsDriver.FindElement("name", "MainWindow");
+        windowsDriver.FindElementByAccessibilityId("TasksAppMainWindow");
     }
 
     public override void Dispose()
@@ -50,7 +50,7 @@ public class AppiumMainWindowsDriver : AppiumWindowsDriver
 
     public void ClickOnNewTask()
     {
-        windowsDriver.FindElement("name", "_Add task").Click();
+        windowsDriver.FindElementByAccessibilityId("SaveTask").Click();
     }
 
     public void InputTaskName(string name)

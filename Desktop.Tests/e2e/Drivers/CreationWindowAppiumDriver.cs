@@ -23,7 +23,7 @@ public class CreationWindowAppiumDriver : AppiumWindowsDriver, IDisposable
 
     public void ClickOnSaveTask()
     {
-        windowsDriver.FindElement("name", "Add").Click();
+        windowsDriver.FindElementByAccessibilityId("SaveTask").Click();
     }
 
     public override void Dispose()

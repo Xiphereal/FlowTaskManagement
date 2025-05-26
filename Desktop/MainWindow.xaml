@@ -5,7 +5,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         mc:Ignorable="d"
         Title="MainWindow"
-        WindowState="Maximized">
+        WindowState="Maximized"
+        AutomationProperties.AutomationId="TasksAppMainWindow">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
