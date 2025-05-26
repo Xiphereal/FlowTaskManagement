@@ -1,4 +1,4 @@
-﻿![Architecture of e2e tests. It shows how a Test uses Action, which in turn uses from 1 up to several Drivers](http://www.plantuml.com/plantuml/proxy?cache=no&src=./e2eArchitecture.puml)
+﻿![Architecture of e2e tests. It shows how a Test uses Action, which in turn uses from 1 up to several Drivers](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/Xiphereal/SGjsdfgklj/refs/heads/trunk/Desktop.Tests/e2e/e2eArchitecture.puml)
 
 # How to run these e2e tests
 
