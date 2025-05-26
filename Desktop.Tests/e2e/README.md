@@ -1,4 +1,6 @@
-﻿# Prerequisites to run these e2e tests
+﻿# How to run these e2e tests
+
+## Prerequisites
 
 These tests use Appium as the automation framework.
 
@@ -9,7 +11,7 @@ For instructions in how to install everything, refer to:
     - More specific, note
       the [usage requirements](https://github.com/appium/appium-windows-driver?tab=readme-ov-file#usage).
 
-# Requisites to run these e2e tests
+## Requisites
 
 1. An Appium server is expected to be running on `http://127.0.0.1:4723/`.
 2. The Desktop app is expected to be, relative to this test project, at `../Desktop`, in `Debug`, and for
@@ -21,4 +23,14 @@ For instructions in how to install everything, refer to:
 Since Appium (WinAppDriver, really) relies on what Windows exposes in its automation layer, it's precisely useful to
 know how to inspect what Windows exposes in order to use it to automate these kind of tests.
 
-[Check `Inspect.exe`](https://learn.microsoft.com/en-us/windows/win32/winauto/inspect-objects) for this matter. 
+[Check `Inspect.exe`](https://learn.microsoft.com/en-us/windows/win32/winauto/inspect-objects) for this matter.
+
+# Decisions
+
+- **Usage of _accessibility ids_**.
+    - Pros: more robustness, since its purpose is exactly serve as an automation reference and is not subject to change
+      as the value, internal name or class may change for other reasons.
+    - Cons:
+        - The production code is polluted just for testing reasons.
+        - It cannot be used in dynamically generated elements (e.g. elements in a list). This forces to use another
+          location strategies, thus making the code less homogeneous.
