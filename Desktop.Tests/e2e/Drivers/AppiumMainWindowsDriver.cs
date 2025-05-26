@@ -47,7 +47,7 @@ public class AppiumMainWindowsDriver : IDisposable
     public void Dispose()
     {
         windowsDriver?.Dispose();
-        creationWindow.Dispose();
+        creationWindow?.Dispose();
     }
 
     public void Launch()
