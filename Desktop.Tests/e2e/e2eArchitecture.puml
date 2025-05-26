@@ -1,0 +1,8 @@
+﻿@startuml
+'https://plantuml.com/class-diagram
+skin rose
+
+Test --> "1" Action
+Action --> "1..*" Driver
+
+@enduml

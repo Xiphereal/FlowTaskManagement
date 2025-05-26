@@ -1,4 +1,6 @@
-﻿# How to run these e2e tests
+﻿![Architecture of e2e tests. It shows how a Test uses Action, which in turn uses from 1 up to several Drivers](http://www.plantuml.com/plantuml/proxy?cache=no&src=./e2eArchitecture.puml)
+
+# How to run these e2e tests
 
 ## Prerequisites
 
