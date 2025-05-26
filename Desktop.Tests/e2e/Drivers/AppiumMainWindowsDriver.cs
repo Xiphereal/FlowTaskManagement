@@ -1,42 +1,30 @@
 ﻿using System;
 using System.IO;
-using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.Windows;
 
-namespace Desktop.Tests.e2e;
+namespace Desktop.Tests.e2e.Drivers;
 
-public class AppiumMainWindowsDriver : IDisposable
+public class AppiumMainWindowsDriver : AppiumDriver
 {
     private readonly WindowsDriver windowsDriver;
-
-    private readonly string desktopAppPath = Path.GetFullPath(
-        Path.Combine(
-            Environment.CurrentDirectory,
-            "..",
-            "..",
-            "..",
-            "..",
-            "Desktop",
-            "bin",
-            "Debug",
-            "net9.0-windows",
-            "Desktop.exe"));
 
     private CreationWindowAppiumDriver creationWindow;
 
     public AppiumMainWindowsDriver()
     {
-        var serverUri = new Uri(
-            Environment.GetEnvironmentVariable("APPIUM_HOST") ?? "http://127.0.0.1:4723/");
-        var options = new AppiumOptions()
-        {
-            App = desktopAppPath,
-            DeviceName = "WindowsPC",
-            AutomationName = "Windows",
-            PlatformName = "Windows"
-        };
-
-        windowsDriver = new WindowsDriver(serverUri, options);
+        Options.App = Path.GetFullPath(
+            Path.Combine(
+                Environment.CurrentDirectory,
+                "..",
+                "..",
+                "..",
+                "..",
+                "Desktop",
+                "bin",
+                "Debug",
+                "net9.0-windows",
+                "Desktop.exe"));
+        windowsDriver = new WindowsDriver(ServerUri, Options);
     }
 
     public void IsOpened()
@@ -44,7 +32,7 @@ public class AppiumMainWindowsDriver : IDisposable
         windowsDriver.FindElement("name", "MainWindow");
     }
 
-    public void Dispose()
+    public override void Dispose()
     {
         windowsDriver?.Dispose();
         creationWindow?.Dispose();

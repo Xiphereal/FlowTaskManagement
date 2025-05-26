@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using Desktop.Tests.e2e.Drivers;
+using NUnit.Framework;
 
 namespace Desktop.Tests.e2e;
 
