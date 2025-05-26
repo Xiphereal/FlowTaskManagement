@@ -50,7 +50,7 @@ public class MainWindowDriver : AppiumWindowsDriver
 
     public void ClickOnNewTask()
     {
-        windowsDriver.FindElementByAccessibilityId("SaveTask").Click();
+        windowsDriver.FindElementByAccessibilityId("AddTask").Click();
     }
 
     public void InputTaskName(string name)
