@@ -25,7 +25,7 @@ Conventions:
 
 # Testing 
 
-- [How to run the e2e tests](./Desktop.Tests/e2e/README.md)
+- [e2e tests](./Desktop.Tests/e2e/README.md)
 
 Conventions:
 - **Arrange Act Assert (AAA pattern).**
