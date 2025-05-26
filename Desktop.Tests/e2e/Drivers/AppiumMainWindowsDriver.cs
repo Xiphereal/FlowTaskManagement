@@ -4,7 +4,7 @@ using OpenQA.Selenium.Appium.Windows;
 
 namespace Desktop.Tests.e2e.Drivers;
 
-public class AppiumMainWindowsDriver : AppiumDriver
+public class AppiumMainWindowsDriver : AppiumWindowsDriver
 {
     private readonly WindowsDriver windowsDriver;
 
