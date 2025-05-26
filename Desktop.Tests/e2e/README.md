@@ -1,4 +1,13 @@
-﻿![Architecture of e2e tests. It shows how a Test uses Action, which in turn uses from 1 up to several Drivers](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/Xiphereal/SGjsdfgklj/refs/heads/trunk/Desktop.Tests/e2e/e2eArchitecture.puml)
+﻿The e2e tests follow this architecture:
+
+![Architecture of e2e tests. It shows how a Test uses Action, which in turn uses from 1 up to several Drivers](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/Xiphereal/SGjsdfgklj/refs/heads/trunk/Desktop.Tests/e2e/e2eArchitecture.puml)
+
+While currently the `Tests` just use a single `Action` due to the app simplicity, this allows for using different ones
+to automate different applications or decompose one into different modules (e.g. user profile actions, project tree
+structure actions, etc.).
+
+To this matter, it's worth noting
+the [Page Object pattern](https://www.selenium.dev/documentation/test_practices/encouraged/page_object_models/).
 
 # How to run these e2e tests
 
