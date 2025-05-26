@@ -1,40 +1,37 @@
-﻿using Desktop.Tests.e2e.Drivers;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 
 namespace Desktop.Tests.e2e;
 
 public class AcceptanceTests
 {
-    private AppiumMainWindowsDriver driver;
+    private AppActions app;
 
     [SetUp]
     public void BeforeEach()
     {
-        driver = new AppiumMainWindowsDriver();
+        app = new AppActions();
     }
 
     [TearDown]
     public void AfterEach()
     {
-        driver.Dispose();
+        app.Dispose();
     }
 
     [Test]
     public void CanBeLaunched()
     {
-        driver.IsOpened();
+        app.IsOpened();
     }
 
     [Test]
     public void CreatedTasks_ArePersisted()
     {
-        driver.ClickOnNewTask();
-        driver.InputTaskName(name: "Any");
-        driver.ClickOnSaveTask();
+        app.CreateAnyTask();
 
-        driver.Close();
+        app.Close();
 
-        driver.Launch();
-        driver.ExistTaskNamed(name: "Any");
+        app.Launch();
+        app.HasAnyTaskBeenCreated();
     }
 }
