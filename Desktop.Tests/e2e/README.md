@@ -9,6 +9,12 @@ structure actions, etc.).
 To this matter, it's worth noting
 the [Page Object pattern](https://www.selenium.dev/documentation/test_practices/encouraged/page_object_models/).
 
+Worth checking:
+
+- [How to Write Acceptance Tests -
+  Modern Software Engineering
+  ](https://youtu.be/JDD5EEJgpHU?t=376&si=xwFJav4upgoNv6qE)
+
 # Decisions
 
 - **Usage of _accessibility ids_**.
