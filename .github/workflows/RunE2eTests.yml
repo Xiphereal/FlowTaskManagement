@@ -20,9 +20,23 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 9.0.x
+
+      - name: Setup Node.js (required for Appium)
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.16.x
+
+      - name: Setup Appium Server
+        run: npm install -g appium
+
+      - name: Setup Appium Windows Driver
+        run: appium driver install windows
+
       - name: Restore dependencies
         run: dotnet restore
+
       - name: Build
         run: dotnet build --no-restore
+
       - name: Test
         run: dotnet test --no-build --verbosity normal --filter "FullyQualifiedName~e2e"
