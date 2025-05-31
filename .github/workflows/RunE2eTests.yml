@@ -32,6 +32,9 @@ jobs:
       - name: Setup Appium Windows Driver
         run: appium driver install windows
 
+      - name: Set APPIUM_HOST
+        run: echo "APPIUM_HOST=http://127.0.0.1:4724" >> $GITHUB_ENV
+
       - name: Restore dependencies
         run: dotnet restore
 
