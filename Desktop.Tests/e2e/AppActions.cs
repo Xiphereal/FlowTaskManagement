@@ -1,14 +1,25 @@
 ﻿using System;
 using Desktop.Tests.e2e.Drivers;
+using Desktop.Tests.e2e.Utils;
 
 namespace Desktop.Tests.e2e;
 
 public class AppActions : IDisposable
 {
-    private readonly MainWindowDriver mainWindow = new();
+    private readonly MainWindowDriver mainWindow;
+    private readonly BackendLauncher backendLauncher;
+
+    public AppActions()
+    {
+        backendLauncher = new BackendLauncher();
+        backendLauncher.Launch();
+
+        mainWindow = new MainWindowDriver();
+    }
 
     public void Dispose()
     {
+        backendLauncher.Dispose();
         mainWindow.Dispose();
     }
 
