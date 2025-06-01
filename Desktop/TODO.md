@@ -6,7 +6,7 @@
 - feat: allow for saving Tasks both locally and remotely at the same time
 - test(e2e): deploy the Backend to Docker rather than being launched locally
 - ci: run e2e tests
-    - fix `EADDRINUSE: address already in use 127.0.0.1:4723`
+    - fix flakiness on CI where sometimes "an element cannot be found"
 - feat: style the front
 - docs: next steps or improvements (out of scope) for the backend API. Mainly performance: allow to batch CRUD
   operations.
