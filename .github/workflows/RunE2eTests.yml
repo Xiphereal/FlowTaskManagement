@@ -25,7 +25,6 @@ jobs:
       - name: Setup Appium Server
         run: npm install -g appium
 
-      # TODO: does this install WinAppDriver? By the official docs, it shouldn't. Find a way of installing WinAppDriver on the CI/CD agents.
       - name: Setup Appium Windows Driver
         run: appium driver install windows
 
