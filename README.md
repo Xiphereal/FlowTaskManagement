@@ -16,7 +16,8 @@ Use cases:
 ## Docs
 The UML usage style in this project is _sketching_, as described by Marting Fowler e.g. _UML Distilled, Martin Fowler (2009)_. This basically means that it is used as a quick sketch to clarify ideas in broad strokes, and is neither intended to be kept up to date nor describe the project fully. 
 
-In a real-life scenario, I'd discuss with the team if they are conformable with this approach or if another is needed.
+> [!IMPORTANT]
+> In a real-life scenario, I'd discuss with the team if they are conformable with this approach or if another is needed.
 
 ### Documenting architectural, design or almost any decision made
 
