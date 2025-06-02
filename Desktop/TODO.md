@@ -1,12 +1,12 @@
-﻿- feat: tasks modifications are persisted
+﻿- refactor: use Commands and ViewModels instead of code behinds.
+- feat: allow for saving Tasks both locally and remotely at the same time
+- feat: tasks modifications are persisted
+- feat: style the front
 - feat: error handling on the frontend->backend communication
-- refactor: use Commands and ViewModels instead of code behinds.
 - feat: show tasks in as project tree
 - feat: tasks have a state
-- feat: allow for saving Tasks both locally and remotely at the same time
 - test(e2e): deploy the Backend to Docker rather than being launched locally
 - ci: run e2e tests
     - fix flakiness on CI where sometimes "an element cannot be found"
-- feat: style the front
 - docs: next steps or improvements (out of scope) for the backend API. Mainly performance: allow to batch CRUD
   operations.
