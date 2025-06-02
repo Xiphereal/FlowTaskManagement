@@ -26,10 +26,11 @@ Modern Software Engineering
 
 # Decisions
 
-- **Usage of _accessibility ids_**.
+- **Usage of _[accessibility ids](https://www.waldo.com/blog/appium-accessibility-id)_**.
     - Pros:
         - More robustness, since its purpose is exactly serve as an automation reference and is not subject to change
           as the value, internal name or class may change for other reasons.
+        - Also, pretty much the reasons mentioned [here](https://www.browserstack.com/guide/locators-in-appium).
     - Cons:
         - The production code is polluted just for testing reasons.
         - It cannot be used in dynamically generated elements (e.g. elements in a list). This forces to use another
