@@ -1,19 +1,28 @@
 ﻿The e2e tests follow this architecture:
 
-![Architecture of e2e tests. It shows how a Test uses Action, which in turn uses from 1 up to several Drivers](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/Xiphereal/SGjsdfgklj/refs/heads/trunk/Desktop.Tests/e2e/e2eArchitecture.puml)
+![Architecture of e2e tests. It shows how a Test uses Actions, which in turn uses from 1 up to several Drivers](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/Xiphereal/SGjsdfgklj/refs/heads/trunk/Desktop.Tests/e2e/e2eArchitecture.puml)
+
+- `Test`: a test case itself, which has the executable specifications.
+- `Actions`: a set of actions that the user (thus the automated test) can perform on the application. By extension, they
+  have a business relevance. Each action may orchestrate different steps by using a `Driver`. Examples of actions may be
+  _login_ or _add item to the shopping cart_.
+- `Driver`: the low level technological automation that actually knows how to perform the different actions. It has the
+  knowledge of how to find a certain element. Examples of steps perform by a `Driver`: _find the
+  InputBox for the username_, _write the given text_, _find the InputBox for the password_ or _click on the login
+  button_.
 
 While currently the `Tests` just use a single `Action` due to the app simplicity, this allows for using different ones
 to automate different applications or decompose one into different modules (e.g. user profile actions, project tree
-structure actions, etc.).
+structure actions, etc.). Also, by having the `Actions` and `Driver` separated, changes in the
+technological spectrum such as a Button changing its id or location or a Label its text does not cascade into the
+business `Actions` (unless the workflow has actually changed).
 
-To this matter, it's worth noting
-the [Page Object pattern](https://www.selenium.dev/documentation/test_practices/encouraged/page_object_models/).
-
-Worth checking:
-
-- [How to Write Acceptance Tests -
-  Modern Software Engineering
-  ](https://youtu.be/JDD5EEJgpHU?t=376&si=xwFJav4upgoNv6qE)
+I don't remember if this 3-layer architecture style for e2e tests has been already defined and name by any other person
+before, but it has been inspired for sure by both
+the [Page Object pattern](https://www.selenium.dev/documentation/test_practices/encouraged/page_object_models/) and
+Dave Farley in [How to Write Acceptance Tests -
+Modern Software Engineering
+](https://youtu.be/JDD5EEJgpHU?t=376&si=xwFJav4upgoNv6qE).
 
 # Decisions
 

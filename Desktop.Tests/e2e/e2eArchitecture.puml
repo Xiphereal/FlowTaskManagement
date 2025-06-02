@@ -2,7 +2,7 @@
 'https://plantuml.com/class-diagram
 skin rose
 
-Test -> "1" Action
-Action -> "1..*" Driver
+Test -> "1" Actions
+Actions -> "1..*" Driver
 
 @enduml
