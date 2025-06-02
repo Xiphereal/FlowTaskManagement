@@ -25,6 +25,20 @@ Regarding keeping track of pretty much any kind of decision that the team takes,
 
 Given the simplicity of this project and that I am the only contributor, I've decided not to use them.
 
+### Tools
+
+#### PlantUML
+
+As a textual DSL for diagrams. [Refer to the official docs](https://plantuml.com/).
+
+It's my tool of choice given it is free software (under GPL-3.0) and supports changing the arrows orientation (something `Mermaid` does not).
+
+It's also worth mentioning [PlantText](https://www.planttext.com/) as an online PlantUML editor.
+
+#### GitHub Alerts
+
+Usage of [Alerts](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#alerts) in order to remark some info and lighten the burden of having to read extensive paragraphs.
+
 # Backend
 
 In ASP.NET Core, using EntityFramework ORM for handling the persistence.
