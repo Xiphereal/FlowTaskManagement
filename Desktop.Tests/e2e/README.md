@@ -61,12 +61,6 @@ For instructions in how to install everything, refer to:
     - More specific, note
       the [usage requirements](https://github.com/appium/appium-windows-driver?tab=readme-ov-file#usage).
 
-## Requisites
-
-1. An Appium server is expected to be running on `http://127.0.0.1:4723/`.
-2. The Desktop app is expected to be, relative to this test project, at `../Desktop`, in `Debug`, and for
-   `net9.0-windows`.
-
 # Good to know
 
 Since Appium (WinAppDriver, really) relies on what Windows exposes in its automation layer, it's precisely useful to
