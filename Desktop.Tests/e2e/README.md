@@ -66,7 +66,6 @@ For instructions in how to install everything, refer to:
 1. An Appium server is expected to be running on `http://127.0.0.1:4723/`.
 2. The Desktop app is expected to be, relative to this test project, at `../Desktop`, in `Debug`, and for
    `net9.0-windows`.
-3. The Backend is expected to be running.
 
 # Good to know
 
