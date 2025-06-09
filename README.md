@@ -2,7 +2,7 @@
 
 Domain model:
 
-![Domain model diagram of a task management application.](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/Xiphereal/SGjsdfgklj/refs/heads/trunk/Docs/DomainModel.puml)
+![Domain model diagram of a task management application. It portraits a Project, Task, TaskProposal, a FlowMetric package and their relations](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/Xiphereal/SGjsdfgklj/refs/heads/trunk/Docs/DomainModel.puml)
 
 Use cases:
 
