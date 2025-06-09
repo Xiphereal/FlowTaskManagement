@@ -1,0 +1,22 @@
+﻿@startuml
+skin rose
+
+'https://plantuml.com/class-diagram
+
+class Task {
+    + Name : string
+    + Description : string
+    + StartWorkOn : DateTime
+    + DeliveredOn : DateTime
+}
+
+Project -> "0..*" Task : {ordered}
+Task "parent 0..1" -> "child 0..*" Task
+
+Project -> "0..*" TaskProposal
+TaskProposal -> "0..*" Task : becomes 
+
+package FlowMetrics {}
+Project --> FlowMetrics
+
+@enduml

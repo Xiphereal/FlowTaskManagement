@@ -1,5 +1,9 @@
 ﻿A simple task manager focused on minimal management and some flow metrics.
 
+Domain model:
+
+![Domain model diagram of a task management application.](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/Xiphereal/SGjsdfgklj/refs/heads/trunk/Docs/DomainModel.puml)
+
 Use cases:
 
 ![Uses cases of a task management application](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/Xiphereal/SGjsdfgklj/refs/heads/trunk/Docs/UseCases.puml)
