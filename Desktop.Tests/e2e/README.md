@@ -52,7 +52,7 @@ Modern Software Engineering
 
 ## Prerequisites
 
-These tests use Appium as the automation framework.
+These tests use [Appium](https://appium.io/docs/en/latest/) as the automation framework.
 
 For instructions in how to install everything, refer to:
 
@@ -63,7 +63,8 @@ For instructions in how to install everything, refer to:
 
 # Good to know
 
-Since Appium (WinAppDriver, really) relies on what Windows exposes in its automation layer, it's precisely useful to
+Since Appium ([WinAppDriver](https://github.com/microsoft/WinAppDriver), really) relies on what Windows exposes in its
+automation layer, it's precisely useful to
 know how to inspect what Windows exposes in order to use it to automate these kind of tests.
 
 [Check `Inspect.exe`](https://learn.microsoft.com/en-us/windows/win32/winauto/inspect-objects) for this matter.
