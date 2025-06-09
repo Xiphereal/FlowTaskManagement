@@ -47,6 +47,8 @@ Usage of [Alerts](https://docs.github.com/en/get-started/writing-on-github/getti
 
 # Architecture
 
+![Architecture diagram. It portraits as Desktop, Backend, Database and their relations](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/Xiphereal/SGjsdfgklj/refs/heads/trunk/Docs/Architecture.puml)
+
 ## Frontend
 
 There is a single one, for Windows desktop. It's called `Desktop`, and is implemented in [Windows Presentation Foundation (WPF)](https://learn.microsoft.com/en-us/dotnet/desktop/wpf/overview/). 
@@ -62,6 +64,14 @@ Conventions:
 
 - **To code directly on the ASP.NET Controllers rather than decouple from them.** Due to simplicity of the use cases, it is much simpler to just orchestrate the [repository](https://martinfowler.com/eaaCatalog/repository.html) directly. In a real-life scenario, I would have considered making a POCO controller class (in terms of [MVC](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller)) as an early abstraction. This would enable testing without having to deal with any HTTP or ASP.NET concerns in tests that want to test business logic rather than these technological aspects; also, a better separation of concerns to reduce cognitive complexity as the codebase inevitably grows. 
 - **To have the Backend and Frontend in the same solution, and referenced by project rather than NuGet packages.** Mainly, to keep things simple: all the projects are in the same place, changes are reflected instantly without needed to republish packages and avoid the extra complexity in the CI/CD for packaging and publishing NuGets. Again, in a real-life scenario, things would be different: versioning the backend would be imperative, and to maintain the Developer Experience a simple mechanism in the `.csprojs` for replacing package references with project references in `Debug`/development will be in place.
+
+## A note on system design
+
+The architecture is as such given this is a learning project. In a real world, [back-of-envelope calculations](https://en.wikipedia.org/wiki/Back-of-the-envelope_calculation) for expected concurrent users, requests per second and other consideration would have been taken into account to ensure scalability and act on the [consistency/availability tradeoff](https://en.wikipedia.org/wiki/CAP_theorem) (given partition tolerance is always desired) for the different use cases. This will probably require different architecture among use cases (e.g. [CQRS](https://martinfowler.com/bliki/CQRS.html): separating the writes and reads).
+
+For instance, an API gateway will be in place between the front and the back, to decouple the front from the backend location. Also, it will probably be responsible for handling authentication and authorization. Likewise, it would be a great point to introduce a load balancer instead, in case we decide to go with horizontal scaling (though I prefer to squeeze vertical scaling as much as possible, due to costs and complexity concerns).
+
+Again, simplicity has been the main drive point for this learning project.
 
 # Testing 
 

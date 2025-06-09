@@ -1,0 +1,22 @@
+﻿@startuml
+skin rose
+
+'https://plantuml.com/component-diagram
+
+node Client {
+    [Desktop]
+    [FileSystem]
+    [Desktop] ..> [FileSystem] : use
+}
+
+node Cloud {
+    REST -- [Backend]
+    [Desktop] .> REST
+    
+    [Backend] --> [EntityFramework]
+    
+    database Database
+    [EntityFramework] --> Database
+}
+
+@enduml
