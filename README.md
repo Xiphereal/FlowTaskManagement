@@ -39,11 +39,7 @@ Given the simplicity of this project and that I am the only contributor, I've de
 
 #### PlantUML
 
-As a textual DSL for diagrams. [Refer to the official docs](https://plantuml.com/).
-
-It's my tool of choice given it is free software (under GPL-3.0) and supports changing the arrows orientation (something `Mermaid` does not).
-
-It's also worth mentioning [PlantText](https://www.planttext.com/) as an online PlantUML editor.
+Textual DSL for diagrams. [Refer to the official docs](https://plantuml.com/). It's my tool of choice given it is free software (under GPL-3.0) and supports changing the arrows orientation (something `Mermaid` does not). It's also worth mentioning [PlantText](https://www.planttext.com/) as an online PlantUML editor.
 
 #### GitHub Alerts
 
