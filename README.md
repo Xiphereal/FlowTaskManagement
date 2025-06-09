@@ -45,14 +45,20 @@ Textual DSL for diagrams. [Refer to the official docs](https://plantuml.com/). I
 
 Usage of [Alerts](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#alerts) in order to remark some info and lighten the burden of having to read extensive paragraphs.
 
-# Backend
+# Architecture
+
+## Frontend
+
+There is a single one, for Windows desktop. It's called `Desktop`, and is implemented in [Windows Presentation Foundation (WPF)](https://learn.microsoft.com/en-us/dotnet/desktop/wpf/overview/). 
+
+## Backend
 
 In ASP.NET Core, using EntityFramework ORM for handling the persistence.
 
 Conventions:
 - **REST**. Since currently the application is a simple CRUD application, REST is a perfect match.
 
-## Decisions
+### Decisions
 
 - **To code directly on the ASP.NET Controllers rather than decouple from them.** Due to simplicity of the use cases, it is much simpler to just orchestrate the [repository](https://martinfowler.com/eaaCatalog/repository.html) directly. In a real-life scenario, I would have considered making a POCO controller class (in terms of [MVC](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller)) as an early abstraction. This would enable testing without having to deal with any HTTP or ASP.NET concerns in tests that want to test business logic rather than these technological aspects; also, a better separation of concerns to reduce cognitive complexity as the codebase inevitably grows. 
 - **To have the Backend and Frontend in the same solution, and referenced by project rather than NuGet packages.** Mainly, to keep things simple: all the projects are in the same place, changes are reflected instantly without needed to republish packages and avoid the extra complexity in the CI/CD for packaging and publishing NuGets. Again, in a real-life scenario, things would be different: versioning the backend would be imperative, and to maintain the Developer Experience a simple mechanism in the `.csprojs` for replacing package references with project references in `Debug`/development will be in place.
