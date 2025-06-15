@@ -17,34 +17,6 @@ Actors definition:
 > [!NOTE]
 > These are a beforehand sketch of the ideal use cases. Not all are, nor will be, implemented. 
 
-# General decisions
-
-- Many of the design choices, naming, not making extensive documentation on APIs (or public members, of any sort), have been taken with the idea that this is "pet project", and that my default and preferred way of working is collaboratively with practices like pair and ensemble programing. In this scenario, unless stated otherwise to avoid interruption of flow, discussions occur on the go and decisions are taken withing seconds (as well as code reviews). Also, knowledge silos are mostly mitigated in this way.
-  - As the only person in the team is me, obviously neither pair nor ensemble programming has taken place.  
-  - As with many things, I would discuss with the team if they prefer another way of working.
-  
-## Docs
-The UML usage style in this project is _sketching_, as described by Marting Fowler e.g. _UML Distilled, Martin Fowler (2009)_. This basically means that it is used as a quick sketch to clarify ideas in broad strokes, and is neither intended to be kept up to date nor describe the project fully. 
-
-> [!IMPORTANT]
-> In a real-life scenario, I'd discuss with the team if they are conformable with this approach or if another is needed.
-
-### Documenting architectural, design or almost any decision made
-
-Regarding keeping track of pretty much any kind of decision that the team takes, I like to use the [Architectural Decision Records (ADRs), by Michael Nygard](https://www.cognitect.com/blog/2011/11/15/documenting-architecture-decisions). For example, why one technology is used in favor of others, the reason why the API does things in a certain way, or even a convention that the team has decided following.
-
-Given the simplicity of this project and that I am the only contributor, I've decided not to use them.
-
-### Tools
-
-#### PlantUML
-
-Textual DSL for diagrams. [Refer to the official docs](https://plantuml.com/). It's my tool of choice given it is free software (under GPL-3.0) and supports changing the arrows orientation (something `Mermaid` does not). It's also worth mentioning [PlantText](https://www.planttext.com/) as an online PlantUML editor.
-
-#### GitHub Alerts
-
-Usage of [Alerts](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#alerts) in order to remark some info and lighten the burden of having to read extensive paragraphs.
-
 # Architecture
 
 ![Architecture diagram. It portraits as Desktop, Backend, Database and their relations](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/Xiphereal/SGjsdfgklj/refs/heads/trunk/Docs/Architecture.puml)
@@ -90,3 +62,31 @@ Conventions:
 
 - **Test API**: any test code that serves the purpose of making tests easier, more readable or maintainable in general by encapsulating knowledge or boilerplate code.
   - It may well be synonym of `test helpers`, `test utils`, etc.
+
+# General decisions
+
+Many of the design choices, naming, not making extensive documentation on APIs (or public members, of any sort), have been taken with the idea that this is "pet project", and that my default and preferred way of working is collaboratively with practices like pair and ensemble programing. In this scenario, unless stated otherwise to avoid interruption of flow, discussions occur on the go and decisions are taken withing seconds (as well as code reviews). Also, knowledge silos are mostly mitigated in this way.
+- As the only person in the team is me, obviously neither pair nor ensemble programming has taken place.
+- As with many things, I would discuss with the team if they prefer another way of working.
+
+## Docs
+The UML usage style in this project is _sketching_, as described by Marting Fowler e.g. _UML Distilled, Martin Fowler (2009)_. This basically means that it is used as a quick sketch to clarify ideas in broad strokes, and is neither intended to be kept up to date nor describe the project fully.
+
+> [!IMPORTANT]
+> In a real-life scenario, I'd discuss with the team if they are conformable with this approach or if another is needed.
+
+### Documenting architectural, design or almost any decision made
+
+Regarding keeping track of pretty much any kind of decision that the team takes, I like to use the [Architectural Decision Records (ADRs), by Michael Nygard](https://www.cognitect.com/blog/2011/11/15/documenting-architecture-decisions). For example, why one technology is used in favor of others, the reason why the API does things in a certain way, or even a convention that the team has decided following.
+
+Given the simplicity of this project and that I am the only contributor, I've decided not to use them.
+
+### Tools
+
+#### PlantUML
+
+Textual DSL for diagrams. [Refer to the official docs](https://plantuml.com/). It's my tool of choice given it is free software (under GPL-3.0) and supports changing the arrows orientation (something `Mermaid` does not). It's also worth mentioning [PlantText](https://www.planttext.com/) as an online PlantUML editor.
+
+#### GitHub Alerts
+
+Usage of [Alerts](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#alerts) in order to remark some info and lighten the burden of having to read extensive paragraphs.
