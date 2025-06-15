@@ -10,7 +10,7 @@ class Task {
     + DeliveredOn : DateTime
 }
 
-Project -> "0..*" Task : {ordered}
+Project --> "0..*" Task : {ordered}
 Task "parent 0..1" -> "child 0..*" Task
 
 Project -> "0..*" TaskProposal
