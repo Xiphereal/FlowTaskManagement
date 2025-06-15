@@ -63,6 +63,19 @@ Conventions:
 - **Test API**: any test code that serves the purpose of making tests easier, more readable or maintainable in general by encapsulating knowledge or boilerplate code.
   - It may well be synonym of `test helpers`, `test utils`, etc.
 
+# Continuous Integration & Continuous Deployment (CI/CD) pipelines
+
+## Tools
+Since this project is hosted in GitHub, that the CI/CD pipelines requirements are quite simple and due to my familiarity with the tool, I've decided to use GitHub Actions.
+
+## Workflow
+
+The idea, is that after each `git push`, the CI pipelines are triggered in order to verify that all the projects in the solution successfully build and passes their tests. If, on the contrary, any pipeline fails, I [stop&fix](https://martinfowler.com/articles/continuousIntegration.html) to return to a healthy state as soon as possible (see _Continuous Delivery, Jez Humble and Dave Farley (2010)_).
+
+## Pipelines
+
+They are under `/.github/workflows/`.
+
 # General decisions
 
 Many of the design choices, naming, not making extensive documentation on APIs (or public members, of any sort), have been taken with the idea that this is "pet project", and that my default and preferred way of working is collaboratively with practices like pair and ensemble programing. In this scenario, unless stated otherwise to avoid interruption of flow, discussions occur on the go and decisions are taken withing seconds (as well as code reviews). Also, knowledge silos are mostly mitigated in this way.
