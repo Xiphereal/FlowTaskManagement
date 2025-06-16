@@ -1,4 +1,4 @@
-﻿<video src="../../Docs/E2eTestsExecution.mkv" width="720"></video>
+﻿https://github.com/user-attachments/assets/5ed0aa6d-18c3-4564-8170-f7b46d9e9937
 
 The e2e tests follow this architecture:
 
