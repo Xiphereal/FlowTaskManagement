@@ -1,4 +1,4 @@
-﻿[!example of e2e tests execution](/E2eTestsExecution.mkv)
+﻿<video src="../../Docs/E2eTestsExecution.mkv" width="720"></video>
 
 The e2e tests follow this architecture:
 
