@@ -1,4 +1,6 @@
-﻿The e2e tests follow this architecture:
+﻿[!example of e2e tests execution](/E2eTestsExecution.mkv)
+
+The e2e tests follow this architecture:
 
 ![Architecture of e2e tests. It shows how a Test uses Actions, which in turn uses from 1 up to several Drivers](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/Xiphereal/SGjsdfgklj/refs/heads/trunk/Desktop.Tests/e2e/e2eArchitecture.puml)
 
