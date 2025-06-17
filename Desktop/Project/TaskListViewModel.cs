@@ -13,13 +13,19 @@ public class TaskListViewModel : ViewModelBase
     private readonly ITaskRepository taskRepository;
     public ObservableCollection<Task> Tasks { get; } = [];
 
-    public TaskListViewModel(ITaskRepository taskRepository)
+    public Func<TaskCreationViewModel, IShowable> TaskCreationViewCreator { get; set; }
+
+    public TaskListViewModel(
+        ITaskRepository taskRepository,
+        TaskCreationViewModel taskCreationViewModel)
     {
         this.taskRepository = taskRepository;
 
-        Add = new RelayCommand<TaskCreationViewModel>(taskCreationViewModel =>
+        Add = new RelayCommand(() =>
         {
-            if (taskCreationViewModel!.CreatedTask is null)
+            TaskCreationViewCreator!(taskCreationViewModel).ShowDialog();
+
+            if (taskCreationViewModel.CreatedTask is null)
                 return;
 
             Tasks.Add(taskCreationViewModel.CreatedTask);

@@ -19,19 +19,15 @@ public partial class TasksList : UserControl
     {
         this.taskRepository = taskRepository;
         this.viewModel = viewModel;
+        DataContext = viewModel;
         this.taskCreationViewModel = taskCreationViewModel;
 
         InitializeComponent();
         Tasks.ItemsSource = viewModel.Tasks;
 
         viewModel.PopulateTasks();
-    }
-
-    private void Add(object sender, RoutedEventArgs e)
-    {
-        new TaskCreation(taskCreationViewModel).ShowDialog();
-
-        viewModel.Add.Execute(taskCreationViewModel);
+        viewModel.TaskCreationViewCreator = creationViewModel =>
+            new TaskCreation(creationViewModel);
     }
 
     private void Edit(object sender, MouseButtonEventArgs e)
