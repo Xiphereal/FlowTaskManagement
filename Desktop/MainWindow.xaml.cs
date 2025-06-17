@@ -26,8 +26,7 @@ public partial class MainWindow : Window
     {
         var tasksList = new TasksList(
             taskRepository,
-            taskListViewModel,
-            taskCreationViewModel);
+            taskListViewModel);
         Content.Content = tasksList;
     }
 

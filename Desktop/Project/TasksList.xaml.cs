@@ -10,17 +10,14 @@ public partial class TasksList : UserControl
 {
     private readonly ITaskRepository taskRepository;
     private readonly TaskListViewModel viewModel;
-    private readonly TaskCreationViewModel taskCreationViewModel;
 
     public TasksList(
         ITaskRepository taskRepository,
-        TaskListViewModel viewModel,
-        TaskCreationViewModel taskCreationViewModel)
+        TaskListViewModel viewModel)
     {
         this.taskRepository = taskRepository;
         this.viewModel = viewModel;
         DataContext = viewModel;
-        this.taskCreationViewModel = taskCreationViewModel;
 
         InitializeComponent();
         Tasks.ItemsSource = viewModel.Tasks;
