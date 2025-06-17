@@ -8,20 +8,26 @@ public partial class MainWindow : Window
 {
     private readonly ITaskRepository taskRepository;
     private readonly TaskCreationViewModel taskCreationViewModel;
+    private readonly TaskListViewModel taskListViewModel;
 
     public MainWindow(
         ITaskRepository taskRepository,
-        TaskCreationViewModel taskCreationViewModel)
+        TaskCreationViewModel taskCreationViewModel,
+        TaskListViewModel taskListViewModel)
     {
         this.taskRepository = taskRepository;
         this.taskCreationViewModel = taskCreationViewModel;
+        this.taskListViewModel = taskListViewModel;
         InitializeComponent();
         NavigateToTaskList();
     }
 
     private void NavigateToTaskList()
     {
-        var tasksList = new TasksList(taskRepository, taskCreationViewModel);
+        var tasksList = new TasksList(
+            taskRepository,
+            taskListViewModel,
+            taskCreationViewModel);
         Content.Content = tasksList;
     }
 

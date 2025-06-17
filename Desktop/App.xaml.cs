@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Threading;
+using Desktop.Project;
 using Desktop.Tasks;
 using Desktop.Tasks.Extensions;
 using Microsoft.Extensions.Configuration;
@@ -8,7 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 namespace Desktop;
 
 /// <summary>
-///    Interaction logic for App.xaml
+///     Interaction logic for App.xaml
 /// </summary>
 public partial class App : Application
 {
@@ -24,6 +25,7 @@ public partial class App : Application
         services.AddSingleton<MainWindow>();
         services.AddSingleton<TaskCreation>();
         services.AddTransient<TaskCreationViewModel>();
+        services.AddTransient<TaskListViewModel>();
         services.AddBackendTaskRepository(Config);
 
         var serviceProvider = services.BuildServiceProvider();

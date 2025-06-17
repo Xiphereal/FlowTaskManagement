@@ -12,14 +12,17 @@ using SystemTask = System.Threading.Tasks.Task;
 public partial class TasksList : UserControl
 {
     private readonly ITaskRepository taskRepository;
+    private readonly TaskListViewModel viewModel;
     private readonly TaskCreationViewModel taskCreationViewModel;
     private readonly ObservableCollection<Task> tasks = [];
 
     public TasksList(
         ITaskRepository taskRepository,
+        TaskListViewModel viewModel,
         TaskCreationViewModel taskCreationViewModel)
     {
         this.taskRepository = taskRepository;
+        this.viewModel = viewModel;
         this.taskCreationViewModel = taskCreationViewModel;
 
         InitializeComponent();
