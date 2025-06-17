@@ -3,14 +3,14 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Desktop.Tasks"
+        xmlns:converters="clr-namespace:Desktop.Tasks.Converters"
         mc:Ignorable="d"
         x:Name="TaskCreationWindow"
         Title="Task creation" Height="225" Width="400"
         WindowStartupLocation="CenterScreen">
-    <Window.DataContext>
-        <local:TaskCreationViewModel />
-    </Window.DataContext>
+    <Window.Resources>
+        <converters:SaveCommandConverter x:Key="SaveCommandConverter" />
+    </Window.Resources>
     <Grid FocusManager.FocusedElement="{Binding ElementName=Name}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -26,8 +26,14 @@
                  VerticalAlignment="Stretch" />
         <Button AutomationProperties.AutomationId="SaveTask" Grid.Row="4" Content="Add" HorizontalAlignment="Right"
                 IsDefault="True"
-                Click="SaveTask"
-                Command="{Binding SaveTask }"
-                CommandParameter="{Binding ElementName=TaskCreationWindow}" />
+                Command="{Binding SaveTask }">
+            <Button.CommandParameter>
+                <MultiBinding Converter="{StaticResource SaveCommandConverter}">
+                    <Binding ElementName="TaskCreationWindow" />
+                    <Binding ElementName="Name" Path="Text" />
+                    <Binding ElementName="Description" Path="Text" />
+                </MultiBinding>
+            </Button.CommandParameter>
+        </Button>
     </Grid>
 </Window>

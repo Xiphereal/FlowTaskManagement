@@ -7,17 +7,21 @@ namespace Desktop;
 public partial class MainWindow : Window
 {
     private readonly ITaskRepository taskRepository;
+    private readonly TaskCreationViewModel taskCreationViewModel;
 
-    public MainWindow(ITaskRepository taskRepository)
+    public MainWindow(
+        ITaskRepository taskRepository,
+        TaskCreationViewModel taskCreationViewModel)
     {
         this.taskRepository = taskRepository;
+        this.taskCreationViewModel = taskCreationViewModel;
         InitializeComponent();
         NavigateToTaskList();
     }
 
     private void NavigateToTaskList()
     {
-        var tasksList = new TasksList(taskRepository);
+        var tasksList = new TasksList(taskRepository, taskCreationViewModel);
         Content.Content = tasksList;
     }
 

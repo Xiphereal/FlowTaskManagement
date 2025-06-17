@@ -8,15 +8,14 @@ using Task = Task;
 
 public partial class TaskCreation : Window, ICloseable
 {
-    public TaskCreation()
+    private readonly TaskCreationViewModel viewModel;
+
+    public TaskCreation(TaskCreationViewModel viewModel)
     {
         InitializeComponent();
+        DataContext = viewModel;
+        this.viewModel = viewModel;
     }
 
-    public Task? CreatedTask { get; private set; }
-
-    private void SaveTask(object sender, RoutedEventArgs e)
-    {
-        CreatedTask = new Task(name: Name.Text, description: Description.Text);
-    }
+    public Task? CreatedTask => viewModel.CreatedTask;
 }

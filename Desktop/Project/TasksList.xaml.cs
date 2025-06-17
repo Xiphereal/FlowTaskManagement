@@ -12,11 +12,15 @@ using SystemTask = System.Threading.Tasks.Task;
 public partial class TasksList : UserControl
 {
     private readonly ITaskRepository taskRepository;
+    private readonly TaskCreationViewModel taskCreationViewModel;
     private readonly ObservableCollection<Task> tasks = [];
 
-    public TasksList(ITaskRepository taskRepository)
+    public TasksList(
+        ITaskRepository taskRepository,
+        TaskCreationViewModel taskCreationViewModel)
     {
         this.taskRepository = taskRepository;
+        this.taskCreationViewModel = taskCreationViewModel;
 
         InitializeComponent();
         Tasks.ItemsSource = tasks;
@@ -29,14 +33,13 @@ public partial class TasksList : UserControl
 
     private void Add(object sender, RoutedEventArgs e)
     {
-        var window = new TaskCreation();
-        window.ShowDialog();
+        var taskCreationWindow = new TaskCreation(taskCreationViewModel);
+        taskCreationWindow.ShowDialog();
 
-        if (window.CreatedTask is null)
+        if (taskCreationWindow.CreatedTask is null)
             return;
 
-        tasks.Add(window.CreatedTask);
-        taskRepository.Save(window.CreatedTask);
+        tasks.Add(taskCreationWindow.CreatedTask);
     }
 
     private void Edit(object sender, MouseButtonEventArgs e)

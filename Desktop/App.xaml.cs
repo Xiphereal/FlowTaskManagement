@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Threading;
+using Desktop.Tasks;
 using Desktop.Tasks.Extensions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -21,6 +22,8 @@ public partial class App : Application
         var services = new ServiceCollection();
 
         services.AddSingleton<MainWindow>();
+        services.AddSingleton<TaskCreation>();
+        services.AddTransient<TaskCreationViewModel>();
         services.AddBackendTaskRepository(Config);
 
         var serviceProvider = services.BuildServiceProvider();
