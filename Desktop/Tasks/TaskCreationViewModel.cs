@@ -20,5 +20,6 @@ public class TaskCreationViewModel : ViewModelBase
     }
 
     public IRelayCommand SaveTask { get; }
+
     public Task? CreatedTask { get; private set; }
 }

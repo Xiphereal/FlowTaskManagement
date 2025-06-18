@@ -30,9 +30,17 @@ public class TaskListViewModel : ViewModelBase
 
             Tasks.Add(taskCreationViewModel.CreatedTask);
         });
+
+        Delete = new RelayCommand<Task>(taskToRemove =>
+        {
+            Tasks.Remove(taskToRemove!);
+            taskRepository.Delete(taskToRemove!);
+        });
     }
 
     public ICommand Add { get; }
+
+    public ICommand Delete { get; }
 
     public void PopulateTasks()
     {

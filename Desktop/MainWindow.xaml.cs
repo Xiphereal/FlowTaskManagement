@@ -24,9 +24,7 @@ public partial class MainWindow : Window
 
     private void NavigateToTaskList()
     {
-        var tasksList = new TasksList(
-            taskRepository,
-            taskListViewModel);
+        var tasksList = new TasksList(taskListViewModel);
         Content.Content = tasksList;
     }
 

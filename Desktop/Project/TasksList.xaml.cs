@@ -1,5 +1,4 @@
-﻿using System.Windows;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 using System.Windows.Input;
 using Desktop.Tasks;
 using Task = Desktop.Domain.Task;
@@ -8,15 +7,8 @@ namespace Desktop.Project;
 
 public partial class TasksList : UserControl
 {
-    private readonly ITaskRepository taskRepository;
-    private readonly TaskListViewModel viewModel;
-
-    public TasksList(
-        ITaskRepository taskRepository,
-        TaskListViewModel viewModel)
+    public TasksList(TaskListViewModel viewModel)
     {
-        this.taskRepository = taskRepository;
-        this.viewModel = viewModel;
         DataContext = viewModel;
 
         InitializeComponent();
@@ -34,16 +26,5 @@ public partial class TasksList : UserControl
 
         var window = new TaskEditing(task);
         window.ShowDialog();
-    }
-
-    private void Delete(object sender, RoutedEventArgs e)
-    {
-        if (sender is not Button button)
-            return;
-
-        var toRemove = button.DataContext as Task;
-
-        viewModel.Tasks.Remove(toRemove!);
-        taskRepository.Delete(toRemove!);
     }
 }
