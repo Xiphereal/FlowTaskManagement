@@ -70,7 +70,7 @@ Conventions:
 
 ## Decisions
 
-- **Strong focus on integration tests.** This has been taken due to the reason that project is a simple CRUD application, with almost no domain logic to be tested. The sparse control logic is tested alongside the main use cases. What remains is the backend->persistence and frontend->backend integration.
+- **Strong focus on integration tests.** This has been taken due to the reason that project is a simple CRUD application, with almost no domain logic to be tested. The sparse control logic is tested alongside the main use cases. What remains is the `backend->persistence` and `frontend->backend` integration.
 
 ### Naming
 
