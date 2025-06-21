@@ -1,4 +1,5 @@
 ﻿- fix: Tasks are duplicated when reloading Task List view
+- docs: project directory structure: vertical slicing vs by tech.
 - refactor: use Commands and ViewModels instead of code behinds.
 - feat: allow for saving Tasks both locally and remotely at the same time
 - feat: tasks modifications are persisted
