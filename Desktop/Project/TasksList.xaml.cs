@@ -12,7 +12,6 @@ public partial class TasksList : UserControl
         DataContext = viewModel;
 
         InitializeComponent();
-        Tasks.ItemsSource = viewModel.Tasks;
 
         viewModel.PopulateTasks();
         viewModel.TaskCreationViewCreator = creationViewModel =>

@@ -18,7 +18,7 @@
                 <Button AutomationProperties.AutomationId="AddTask" Content="_Add task" Command="{Binding Add}" />
             </StackPanel>
 
-            <ListBox Name="Tasks">
+            <ListBox ItemsSource="{Binding Tasks}">
                 <ListBox.ItemTemplate>
                     <DataTemplate DataType="{x:Type domain:Task}">
                         <StackPanel Orientation="Horizontal">
