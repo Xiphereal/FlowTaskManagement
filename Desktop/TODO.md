@@ -1,5 +1,6 @@
 ﻿- fix: Tasks are duplicated when reloading Task List view
 - docs: project directory structure: vertical slicing vs by tech.
+- docs: the focus on UX with the accelerators/shortcuts.
 - docs: when and why use comments & summaries.
 - refactor: use Commands and ViewModels instead of code behinds.
 - feat: allow for saving Tasks both locally and remotely at the same time
