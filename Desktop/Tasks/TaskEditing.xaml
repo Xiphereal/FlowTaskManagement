@@ -12,7 +12,7 @@
             <Label Content="_Description:" Target="{Binding ElementName=Description}" />
             <TextBox Name="Description" Height="75" AcceptsReturn="True" TextWrapping="Wrap"
                      VerticalAlignment="Stretch" />
-            <Button Content="Save" HorizontalAlignment="Right" Click="SaveTask" />
+            <Button IsDefault="True" Content="Save" HorizontalAlignment="Right" Click="SaveTask" />
         </StackPanel>
     </Grid>
 </Window>
