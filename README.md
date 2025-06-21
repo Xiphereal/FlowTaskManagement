@@ -1,4 +1,6 @@
-﻿A simple task manager focused on minimal management and some flow metrics.
+﻿# What is this?
+
+A simple task manager focused on minimal management and some flow metrics.
 
 Domain model:
 
