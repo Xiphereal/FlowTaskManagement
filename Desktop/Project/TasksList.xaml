@@ -6,6 +6,11 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              xmlns:domain="clr-namespace:Desktop.Domain">
+    <UserControl.Resources>
+        <Style TargetType="ListBoxItem">
+            <EventSetter Event="MouseDoubleClick" Handler="Edit" />
+        </Style>
+    </UserControl.Resources>
     <Grid>
         <StackPanel>
             <StackPanel Orientation="Horizontal">
@@ -18,9 +23,6 @@
                     <DataTemplate DataType="{x:Type domain:Task}">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="{Binding Name}" />
-                            <Button Content="Edit"
-                                    Command="{Binding DataContext.Edit, ElementName=Root}"
-                                    CommandParameter="{Binding}" />
                             <Button Content="Delete"
                                     Command="{Binding DataContext.Delete, ElementName=Root}"
                                     CommandParameter="{Binding}" />

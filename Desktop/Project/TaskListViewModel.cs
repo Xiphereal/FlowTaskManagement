@@ -31,12 +31,6 @@ public class TaskListViewModel : ViewModelBase
             Tasks.Add(taskCreationViewModel.CreatedTask);
         });
 
-        Edit = new RelayCommand<Task>(taskToEdit =>
-        {
-            var window = new TaskEditing(taskToEdit!);
-            window.ShowDialog();
-        });
-
         Delete = new RelayCommand<Task>(taskToRemove =>
         {
             Tasks.Remove(taskToRemove!);
@@ -46,7 +40,6 @@ public class TaskListViewModel : ViewModelBase
 
     public ICommand Add { get; }
 
-    public ICommand Edit { get; }
     public ICommand Delete { get; }
 
     public void PopulateTasks()
