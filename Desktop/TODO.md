@@ -1,4 +1,5 @@
-﻿- refactor: use Commands and ViewModels instead of code behinds.
+﻿- fix: Tasks are duplicated when reloading Task List view
+- refactor: use Commands and ViewModels instead of code behinds.
 - feat: allow for saving Tasks both locally and remotely at the same time
 - feat: tasks modifications are persisted
 - feat: style the front
