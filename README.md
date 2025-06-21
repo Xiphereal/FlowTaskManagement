@@ -45,6 +45,18 @@ For instance, an API gateway will be in place between the front and the back, to
 
 Again, simplicity has been the main drive point for this learning project.
 
+## Packages version management
+
+This project make use of the NuGet's [Central Package Management (CPM)](https://learn.microsoft.com/en-us/nuget/consume-packages/central-package-management) in order to remove duplication of versions of certain packages that are used in different projects (some `ASP.NET` and testing ones).
+
+For trickier scenarios (or when working with older versions than .NET 6) where CPM is not a good fit, another solution would be:
+1. Central `.props` files in which versions for packages are defined once by means of [variables](https://learn.microsoft.com/en-us/visualstudio/msbuild/msbuild-properties?view=vs-2022).
+2. Define a `Directory.Build.props` to import the previously created `.props`.
+3. On each `.csproj`, reference the given variables for the target packages.
+
+> [!NOTE]
+> If desired, this also allows having different versions of the same package in different projects e.g. to allow gradually migrating to a new version of a third party library that introduces breaking changes. Mind issues with inconsistencies on transitives dependencies scenarios, though.
+
 # Testing 
 
 - [e2e tests](./Desktop.Tests/e2e/README.md)
