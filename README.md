@@ -27,6 +27,10 @@ Actors definition:
 
 There is a single one, for Windows desktop. It's called `Desktop`, and is implemented in [Windows Presentation Foundation (WPF)](https://learn.microsoft.com/en-us/dotnet/desktop/wpf/overview/). 
 
+### Folder structure
+
+Rather than using a technological layering, I prefer a folder structure that reflects the domain. This is to both to create a better mental model and for having more cohesion inside folders and less coupling between them. 
+
 ## Backend
 
 In ASP.NET Core, using EntityFramework ORM for handling the persistence.
