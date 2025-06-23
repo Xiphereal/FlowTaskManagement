@@ -7,21 +7,21 @@ using Task = Task;
 
 public partial class TaskEditing : Window
 {
+    private readonly TaskEditingViewModel viewModel;
+
     public TaskEditing(Task original)
     {
         InitializeComponent();
 
-        this.original = original;
+        viewModel = new TaskEditingViewModel(original);
+
         Name.Text = original.Name;
         Description.Text = original.Description;
     }
 
-    private readonly Task original;
-
     private void SaveTask(object sender, RoutedEventArgs e)
     {
-        original.Name = Name.Text;
-        original.Description = Description.Text;
+        viewModel.Save.Execute((Name.Text, Description.Text));
 
         Close();
     }
