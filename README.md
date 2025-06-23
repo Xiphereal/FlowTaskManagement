@@ -112,6 +112,14 @@ Regarding keeping track of pretty much any kind of decision that the team takes,
 
 Given the simplicity of this project and that I am the only contributor, I've decided not to use them.
 
+### Philosophy on comments & summaries
+
+Since I value documentation, I consider having written documentation to its minimum, so that it conveys the relevant bits and important info about the matter at hand.
+
+This means that comments in code are used only when necessary: if the information can be conveyed through member (class, method, variables, etc.) naming or by a test (executable specifications), it will be better documented as such. The same goes for any member documentation: `summaries`, `remarks`, etc.
+
+Basically, this allows better [signal-to-noise ratio](https://en.wikipedia.org/wiki/Signal-to-noise_ratio): rather than having all members with redundant summaries, only the essential is there. In other words, if you see a "green stain" in the code (or in whatever colour you have configured in your IDE) you know it's something important and that you'd better read it. On the contrary, having all with redundant comments or summaries (set aside the out-of-date docs issue) trains your brain to just ignore it, so it's easier for that relevant info to go unnoticed.   
+
 ### Tools
 
 #### PlantUML

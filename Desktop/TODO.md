@@ -1,12 +1,11 @@
-﻿- docs: the focus on UX with the accelerators/shortcuts.
-- docs: when and why use comments & summaries.
-- refactor: use Commands and ViewModels instead of code behinds.
+﻿- refactor: use Commands and ViewModels instead of code behinds.
 - feat: allow for saving Tasks both locally and remotely at the same time
 - feat: tasks modifications are persisted
 - feat: style the front
 - feat: error handling on the frontend->backend communication
 - feat: show tasks in as project tree
 - feat: tasks have a state
+- docs: the focus on UX with the accelerators/shortcuts.
 - test(e2e): deploy the Backend to Docker rather than being launched locally
 - ci: run e2e tests
     - fix flakiness on CI where sometimes "an element cannot be found"
