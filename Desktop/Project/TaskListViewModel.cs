@@ -44,6 +44,8 @@ public class TaskListViewModel : ViewModelBase
 
     public void PopulateTasks()
     {
+        Tasks.Clear();
+
         // TODO: load this async and deferred from the ctor.
         var retrievedTasks = SystemTask.Run(taskRepository.All).Result;
         foreach (var task in retrievedTasks)
