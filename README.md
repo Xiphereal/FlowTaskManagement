@@ -120,6 +120,12 @@ This means that comments in code are used only when necessary: if the informatio
 
 Basically, this allows better [signal-to-noise ratio](https://en.wikipedia.org/wiki/Signal-to-noise_ratio): rather than having all members with redundant summaries, only the essential is there. In other words, if you see a "green stain" in the code (or in whatever colour you have configured in your IDE) you know it's something important and that you'd better read it. On the contrary, having all with redundant comments or summaries (set aside the out-of-date docs issue) trains your brain to just ignore it, so it's easier for that relevant info to go unnoticed.   
 
+> [!NOTE]
+> Just to be clear: this doesn't mean that I see written docs such as comments or summaries as wasteful. The issue is with summaries that say exactly what the method name already says (or if it adds new information to the name, I prefer to just improve the name with that info). 
+
+> [!IMPORTANT]
+> Comments should talk about the _why_, not _what_ the code is doing. The latter is a responsibility of the code itself. If I find myself trying to explain some aspect on what the code does, that's a symptom that it needs to be refactored to better convey its intent.
+
 ### Tools
 
 #### PlantUML
