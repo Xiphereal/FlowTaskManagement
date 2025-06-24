@@ -5,13 +5,29 @@ using BackendTask = Backend.Domain.Task;
 
 namespace Desktop.Tasks;
 
-public class BackendTaskRepository : ITaskRepository
+public class BackendTaskRepository : ITaskRepository, IRemoteTaskRepository
 {
     private readonly HttpClient httpClient;
 
     public BackendTaskRepository(HttpClient httpClient)
     {
         this.httpClient = httpClient;
+    }
+
+    public async Task<bool> IsAvailable()
+    {
+        try
+        {
+            var result = await httpClient.GetAsync("/health/");
+
+            result.EnsureSuccessStatusCode();
+
+            return true;
+        }
+        catch
+        {
+            return false;
+        }
     }
 
     public async Task<IReadOnlyList<Task>> All()

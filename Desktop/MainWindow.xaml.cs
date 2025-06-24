@@ -7,9 +7,11 @@ public partial class MainWindow : Window
 {
     private readonly TaskListViewModel taskListViewModel;
 
-    public MainWindow(TaskListViewModel taskListViewModel)
+    public MainWindow(TaskListViewModel taskListViewModel, MainWindowViewModel viewModel)
     {
         this.taskListViewModel = taskListViewModel;
+        DataContext = viewModel;
+
         InitializeComponent();
         NavigateToTaskList();
     }

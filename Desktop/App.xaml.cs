@@ -23,6 +23,7 @@ public partial class App : Application
         var services = new ServiceCollection();
 
         services.AddSingleton<MainWindow>();
+        services.AddSingleton<MainWindowViewModel>();
         services.AddSingleton<TaskCreation>();
         services.AddTransient<TaskCreationViewModel>();
         services.AddTransient<TaskListViewModel>();

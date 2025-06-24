@@ -25,5 +25,6 @@ public static class ServiceCollectionExtensions
             return httpClient;
         });
         services.AddSingleton<ITaskRepository, BackendTaskRepository>();
+        services.AddSingleton<IRemoteTaskRepository, BackendTaskRepository>();
     }
 }

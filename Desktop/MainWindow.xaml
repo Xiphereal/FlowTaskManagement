@@ -11,6 +11,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition />
+            <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Column="0">
             <Label HorizontalAlignment="Center">Views</Label>
@@ -25,5 +26,6 @@
             </Menu>
         </StackPanel>
         <ContentControl Grid.Column="1" Name="Content" />
+        <Label Grid.Column="2" Content="{Binding BackendAvailability}" />
     </Grid>
 </Window>
