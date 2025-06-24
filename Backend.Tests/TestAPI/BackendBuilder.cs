@@ -12,6 +12,7 @@ public class BackendBuilder
 {
     private readonly BackendContext context;
     private Guid databaseId = Guid.NewGuid();
+    private bool alwaysThrowingAnyException;
 
     private BackendBuilder()
     {
@@ -38,9 +39,19 @@ public class BackendBuilder
         return this;
     }
 
+    public BackendBuilder AlwaysThrowingAnyException()
+    {
+        alwaysThrowingAnyException = true;
+
+        return this;
+    }
+
     public HttpClient Launch()
     {
         context.SaveChanges();
+
+        if (alwaysThrowingAnyException)
+            return null;
 
         return new CustomWebAppFactory(BuildConnectionString())
             .CreateClient();

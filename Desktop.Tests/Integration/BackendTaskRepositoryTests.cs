@@ -133,4 +133,47 @@ public class BackendTaskRepositoryTests : ITaskRepositoryTests
             anotherThatMustRemain,
         ]);
     }
+
+    [Test]
+    public async Task AnyIssueOccursWhileLoadingPersistedTasks_ReturnsNothing()
+    {
+        var backend = BackendBuilder.Backend()
+            .With(AnyBackendTask())
+            .AlwaysThrowingAnyException()
+            .Launch();
+        var sut = new BackendTaskRepository(backend);
+
+        var result = await sut.All();
+
+        result.Should().BeEmpty();
+    }
+
+    [Test]
+    public async Task AnyIssueOccursWhileSavingTask_DoesNotThrow()
+    {
+        var backend = BackendBuilder.Backend()
+            .With(AnyBackendTask())
+            .AlwaysThrowingAnyException()
+            .Launch();
+        var sut = new BackendTaskRepository(backend);
+
+        var sutInvocation = async () => await sut.Save(DesktopTask());
+
+        await sutInvocation.Should().NotThrowAsync();
+    }
+
+    [Test]
+    public async Task AnyIssueOccursWhileDeletingTask_DoesNotThrow()
+    {
+        var backend = BackendBuilder.Backend()
+            .With(BackendTask(named: "ToBeDeleted"))
+            .AlwaysThrowingAnyException()
+            .Launch();
+        var sut = new BackendTaskRepository(backend);
+
+        var sutInvocation = async () =>
+            await sut.Delete(DesktopTask(named: "ToBeDeleted"));
+
+        await sutInvocation.Should().NotThrowAsync();
+    }
 }

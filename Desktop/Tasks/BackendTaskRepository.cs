@@ -16,7 +16,16 @@ public class BackendTaskRepository : ITaskRepository
 
     public async Task<IReadOnlyList<Task>> All()
     {
-        var getResult = await httpClient.GetAsync("/project/tasks/");
+        HttpResponseMessage getResult;
+
+        try
+        {
+            getResult = await httpClient.GetAsync("/project/tasks/");
+        }
+        catch
+        {
+            return [];
+        }
 
         var backendTasks =
             await getResult.Content.ReadAsAsync<IEnumerable<BackendTask>>();
@@ -31,7 +40,13 @@ public class BackendTaskRepository : ITaskRepository
 
     public async SystemTask Save(Task task)
     {
-        await httpClient.PostAsJsonAsync("/project/tasks/", ToBackendTask(task));
+        try
+        {
+            await httpClient.PostAsJsonAsync("/project/tasks/", ToBackendTask(task));
+        }
+        catch
+        {
+        }
     }
 
     private static BackendTask ToBackendTask(Task task)
@@ -41,8 +56,17 @@ public class BackendTaskRepository : ITaskRepository
 
     public async SystemTask Delete(Task toBeDeleted)
     {
-        var httpResponseMessage = await httpClient.DeleteAsync(
-            $"/project/tasks/{toBeDeleted.Name}");
+        HttpResponseMessage httpResponseMessage;
+
+        try
+        {
+            httpResponseMessage = await httpClient.DeleteAsync(
+                $"/project/tasks/{toBeDeleted.Name}");
+        }
+        catch
+        {
+            return;
+        }
 
         httpResponseMessage.EnsureSuccessStatusCode();
     }
