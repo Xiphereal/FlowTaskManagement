@@ -17,6 +17,8 @@
                 <BitmapImage UriSource="pack://application:,,,/BackendAvailability/Resources/BackendUnavailable.png" />
             </backendAvailabilityConverters:BoolToImageConverter.BackendUnavailable>
         </backendAvailabilityConverters:BoolToImageConverter>
+
+        <backendAvailabilityConverters:BoolToAvailabilityTextConverter x:Key="BoolToAvailabilityTextConverter" />
     </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -40,6 +42,7 @@
         <Image Grid.Column="2"
                Width="32"
                Height="32"
+               ToolTip="{Binding IsBackendAvailable, Converter={StaticResource BoolToAvailabilityTextConverter}}"
                Source="{Binding IsBackendAvailable, Converter={StaticResource BoolToImageConverter}}" />
     </Grid>
 </Window>
