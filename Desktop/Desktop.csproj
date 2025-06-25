@@ -43,4 +43,9 @@
         <ProjectReference Include="..\Backend\Backend\Backend.csproj"/>
     </ItemGroup>
 
+    <ItemGroup>
+        <Resource Include="BackendAvailability\Resources\BackendAvailable.png"/>
+        <Resource Include="BackendAvailability\Resources\BackendUnavailable.png"/>
+    </ItemGroup>
+
 </Project>

@@ -3,10 +3,21 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:backendAvailabilityConverters="clr-namespace:Desktop.BackendAvailability.Converters"
         mc:Ignorable="d"
         Title="MainWindow"
         WindowState="Maximized"
         AutomationProperties.AutomationId="TasksAppMainWindow">
+    <Window.Resources>
+        <backendAvailabilityConverters:BoolToImageConverter x:Key="BoolToImageConverter">
+            <backendAvailabilityConverters:BoolToImageConverter.BackendAvailable>
+                <BitmapImage UriSource="pack://application:,,,/BackendAvailability/Resources/BackendAvailable.png" />
+            </backendAvailabilityConverters:BoolToImageConverter.BackendAvailable>
+            <backendAvailabilityConverters:BoolToImageConverter.BackendUnavailable>
+                <BitmapImage UriSource="pack://application:,,,/BackendAvailability/Resources/BackendUnavailable.png" />
+            </backendAvailabilityConverters:BoolToImageConverter.BackendUnavailable>
+        </backendAvailabilityConverters:BoolToImageConverter>
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
@@ -26,6 +37,9 @@
             </Menu>
         </StackPanel>
         <ContentControl Grid.Column="1" Name="Content" />
-        <Label Grid.Column="2" Content="{Binding BackendAvailability}" />
+        <Image Grid.Column="2"
+               Width="32"
+               Height="32"
+               Source="{Binding IsBackendAvailable, Converter={StaticResource BoolToImageConverter}}" />
     </Grid>
 </Window>
