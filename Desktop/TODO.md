@@ -1,4 +1,4 @@
-﻿- feat: allow for saving Tasks both locally and remotely at the same time
+﻿- feat: sync Backend with locally Tasks saved once it is available
 - feat: tasks modifications are persisted
 - feat: style the front
 - feat: error handling on the frontend->backend communication
