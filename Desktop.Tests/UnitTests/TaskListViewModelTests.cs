@@ -23,10 +23,27 @@ public class TaskListViewModelTests
         sut.Tasks.Should().BeEquivalentTo(await taskRepository.All());
     }
 
-    private static TaskListViewModel TaskListViewModel(InMemoryTaskRepository taskRepository)
+    [Test]
+    public void
+        TasksPopulation_DoesNotShowDuplicatedTasks_BetweenBackendAndFileSystemRepositories()
+    {
+        var duplicatedTask = DesktopTask();
+        var backendRepository = new InMemoryTaskRepository([duplicatedTask]);
+        var fileSystemRepository = new InMemoryTaskRepository([duplicatedTask]);
+        var sut = TaskListViewModel(
+            backendRepository,
+            fileSystemRepository);
+
+        sut.PopulateTasks();
+
+        sut.Tasks.Should().ContainSingle();
+    }
+
+    private static TaskListViewModel TaskListViewModel(
+        params InMemoryTaskRepository[] taskRepositories)
     {
         return new TaskListViewModel(
-            [taskRepository],
-            new TaskCreationViewModel([taskRepository]));
+            taskRepositories,
+            new TaskCreationViewModel(taskRepositories));
     }
 }
