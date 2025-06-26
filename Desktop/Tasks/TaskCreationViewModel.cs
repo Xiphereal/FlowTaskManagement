@@ -6,15 +6,20 @@ namespace Desktop.Tasks;
 
 public class TaskCreationViewModel : ViewModelBase
 {
-    public TaskCreationViewModel(ITaskRepository taskRepository)
+    public TaskCreationViewModel(IEnumerable<ITaskRepository> taskRepositories)
     {
         SaveTask =
-            new RelayCommand<(ICloseable, string, string)>((args) =>
+            new RelayCommand<(ICloseable, string, string)>(args =>
             {
                 var (closeable, taskName, taskDescription) = args;
 
                 CreatedTask = new Task(taskName, taskDescription);
-                taskRepository.Save(CreatedTask);
+
+                foreach (var repository in taskRepositories)
+                {
+                    repository.Save(CreatedTask);
+                }
+
                 closeable!.Close();
             });
     }

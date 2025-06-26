@@ -27,6 +27,7 @@ public partial class App : Application
         services.AddSingleton<TaskCreation>();
         services.AddTransient<TaskCreationViewModel>();
         services.AddTransient<TaskListViewModel>();
+        services.AddSingleton<ITaskRepository, FileSystemTaskRepository>();
         services.AddBackendTaskRepository(Config);
 
         var serviceProvider = services.BuildServiceProvider();

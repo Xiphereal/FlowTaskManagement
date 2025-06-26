@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Desktop.Project;
 using Desktop.Tasks;
 using Desktop.Tests.TestAPI;
@@ -27,7 +26,7 @@ public class TaskListViewModelTests
     private static TaskListViewModel TaskListViewModel(InMemoryTaskRepository taskRepository)
     {
         return new TaskListViewModel(
-            taskRepository,
-            new TaskCreationViewModel(taskRepository));
+            [taskRepository],
+            new TaskCreationViewModel([taskRepository]));
     }
 }

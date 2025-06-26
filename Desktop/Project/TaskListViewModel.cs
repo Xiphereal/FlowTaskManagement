@@ -10,16 +10,16 @@ namespace Desktop.Project;
 
 public class TaskListViewModel : ViewModelBase
 {
-    private readonly ITaskRepository taskRepository;
+    private readonly IEnumerable<ITaskRepository> taskRepositories;
     public ObservableCollection<Task> Tasks { get; } = [];
 
     public Func<TaskCreationViewModel, IShowable> TaskCreationViewCreator { get; set; }
 
     public TaskListViewModel(
-        ITaskRepository taskRepository,
+        IEnumerable<ITaskRepository> taskRepositories,
         TaskCreationViewModel taskCreationViewModel)
     {
-        this.taskRepository = taskRepository;
+        this.taskRepositories = taskRepositories;
 
         Add = new RelayCommand(() =>
         {
@@ -34,7 +34,9 @@ public class TaskListViewModel : ViewModelBase
         Delete = new RelayCommand<Task>(taskToRemove =>
         {
             Tasks.Remove(taskToRemove!);
-            taskRepository.Delete(taskToRemove!);
+
+            foreach (var repository in this.taskRepositories)
+                repository.Delete(taskToRemove!);
         });
     }
 
@@ -47,7 +49,10 @@ public class TaskListViewModel : ViewModelBase
         Tasks.Clear();
 
         // TODO: load this async and deferred from the ctor.
-        var retrievedTasks = SystemTask.Run(taskRepository.All).Result;
+        var retrievedTasks = SystemTask.Run(() => SystemTask
+            .WhenAll(taskRepositories.Select(x => x.All())))
+            .Result
+            .SelectMany(x => x);
         foreach (var task in retrievedTasks)
             Tasks.Add(task);
     }
