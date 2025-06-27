@@ -1,6 +1,8 @@
 ﻿- feat: tasks modifications are persisted
-- feat: style the front
+    - refactor: split Backend Update from Create
+    - refactor: make Backend Tasks mutable
 - feat: error handling on the frontend->backend communication
+- feat: style the front
 - feat: show tasks in as project tree
 - feat: Tasks may have other Tasks
 - feat: sync Backend with locally Tasks saved once it is available
