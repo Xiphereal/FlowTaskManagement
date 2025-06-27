@@ -6,6 +6,6 @@ namespace Desktop.Tasks;
 public interface ITaskRepository
 {
     Task<IReadOnlyList<Task>> All();
-    SystemTask Save(Task task);
+    Task<bool> Save(Task task);
     SystemTask Delete(Task toBeDeleted);
 }

@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Backend.Tests.TestAPI;
 using Desktop.Tasks;
 using FluentAssertions;
@@ -61,7 +62,7 @@ public class BackendTaskRepositoryTests : ITaskRepositoryTests
             .Launch();
         var sut = new BackendTaskRepository(backend);
 
-        await sut.Save(DesktopTask("A name", "A description"));
+        await sut.Save(DesktopTask(named: "A name", description: "A description"));
 
         var existingTasks = await sut.All();
         existingTasks.Should().BeEquivalentTo(
@@ -86,9 +87,34 @@ public class BackendTaskRepositoryTests : ITaskRepositoryTests
         var existingTasks = await sut.All();
         existingTasks.Should().BeEquivalentTo(
         [
-            DesktopTask(named: existingTask.Name),
+            DesktopTask(id: existingTask.Id),
             taskToPersist
         ]);
+    }
+
+    [Test]
+    public async Task TasksCanBeModified()
+    {
+        var existingTask = BackendTask(
+            id: Guid.NewGuid(),
+            named: "Old name",
+            description: "Old description");
+        var backend = BackendBuilder.Backend()
+            .With(existingTask)
+            .Launch();
+        var sut = new BackendTaskRepository(backend);
+
+        var modifiedTask = DesktopTask(
+            existingTask.Id,
+            named: "New name",
+            description: "New description");
+        var successful = await sut.Save(modifiedTask);
+
+        successful.Should().BeTrue();
+        var existingTasks = await sut.All();
+        existingTasks.Should().BeEquivalentTo(
+            [modifiedTask],
+            options => options.ComparingByMembers<Domain.Task>());
     }
 
     [Test]

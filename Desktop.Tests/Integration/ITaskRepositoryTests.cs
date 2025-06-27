@@ -14,6 +14,7 @@ public interface ITaskRepositoryTests
     Task CanLoadSeveralPersistedTasks();
     Task CanPersistTasksWhenNoOtherExistedBefore();
     Task PersistNewTaskDoesNotOverrideExistingOnes();
+    Task TasksCanBeModified();
     Task CanDeleteExistingTasks();
     Task DeletesJustTheRequestedTask_KeepingTheOtherOnes();
 }

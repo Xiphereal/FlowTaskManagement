@@ -54,20 +54,27 @@ public class BackendTaskRepository : ITaskRepository, IRemoteTaskRepository
         return new Task(task.Id, task.Name, task.Description);
     }
 
-    public async SystemTask Save(Task task)
+    public async Task<bool> Save(Task task)
     {
         try
         {
-            await httpClient.PostAsJsonAsync("/project/tasks/", ToBackendTask(task));
+            var postResult = await httpClient.PostAsJsonAsync(
+                "/project/tasks/",
+                ToBackendTask(task));
+
+            postResult.EnsureSuccessStatusCode();
+
+            return true;
         }
         catch
         {
+            return false;
         }
     }
 
     private static BackendTask ToBackendTask(Task task)
     {
-        return new BackendTask(task.Name, task.Description);
+        return new BackendTask(task.Id, task.Name, task.Description);
     }
 
     public async SystemTask Delete(Task toBeDeleted)

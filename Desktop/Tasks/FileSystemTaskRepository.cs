@@ -23,7 +23,8 @@ public class FileSystemTaskRepository : ITaskRepository
     private static Task ToTask(string line)
     {
         return new Task(
-            name: SplitBySpaces(line).First(),
+            id: Guid.Parse(SplitBySpaces(line).ElementAt(0)),
+            name: SplitBySpaces(line).ElementAt(1),
             description: SplitBySpaces(line).Length > 1
                 ? SplitBySpaces(line).Last()
                 : string.Empty);
@@ -34,13 +35,17 @@ public class FileSystemTaskRepository : ITaskRepository
         return line.Split(' ');
     }
 
-    public SystemTask Save(Task task)
+    public async Task<bool> Save(Task task)
     {
-        File.AppendAllText(
-            PersistedTasksFileName,
-            $"{task.Name} {task.Description}{Environment.NewLine}");
+        var existingTasks = await All();
+        if (existingTasks.Contains(task))
+            await Delete(task);
 
-        return SystemTask.CompletedTask;
+        await File.AppendAllTextAsync(
+            PersistedTasksFileName,
+            $"{task.Id} {task.Name} {task.Description}{Environment.NewLine}");
+
+        return true;
     }
 
     public SystemTask Delete(Task toBeDeleted)
@@ -55,6 +60,6 @@ public class FileSystemTaskRepository : ITaskRepository
 
     private static bool Is(string candidateAsLine, Task toBeDeleted)
     {
-        return SplitBySpaces(candidateAsLine).First() == toBeDeleted.Name;
+        return ToTask(candidateAsLine).Id == toBeDeleted.Id;
     }
 }

@@ -32,13 +32,13 @@ public class FileSystemTaskRepositoryTest : ITaskRepositoryTests
 
         var result = await sut.All();
 
-        result
-            .Should().BeEquivalentTo(
+        result.Should().BeEquivalentTo(
             [
                 new Task(
                     name: "aTaskName",
                     description: "aTaskDescription")
-            ]);
+            ],
+            options => options.ComparingByMembers<Task>().Excluding(x => x.Id));
     }
 
     [Test]
@@ -50,13 +50,13 @@ public class FileSystemTaskRepositoryTest : ITaskRepositoryTests
 
         var result = await sut.All();
 
-        result
-            .Should().BeEquivalentTo(
+        result.Should().BeEquivalentTo(
             [
                 new Task(
                     name: "aTaskName",
                     description: string.Empty)
-            ]);
+            ],
+            options => options.ComparingByMembers<Task>().Excluding(x => x.Id));
     }
 
     [Test]
@@ -69,8 +69,7 @@ public class FileSystemTaskRepositoryTest : ITaskRepositoryTests
 
         var result = await sut.All();
 
-        result
-            .Should().BeEquivalentTo(
+        result.Should().BeEquivalentTo(
             [
                 new Task(
                     name: "aTaskName",
@@ -78,7 +77,8 @@ public class FileSystemTaskRepositoryTest : ITaskRepositoryTests
                 new Task(
                     name: "anotherTaskName",
                     description: string.Empty)
-            ]);
+            ],
+            options => options.ComparingByMembers<Task>().Excluding(x => x.Id));
     }
 
     [Test]
@@ -114,13 +114,36 @@ public class FileSystemTaskRepositoryTest : ITaskRepositoryTests
     }
 
     [Test]
+    public async SystemTask TasksCanBeModified()
+    {
+        var doc = new FileSystemTaskRepository();
+        var existingTask = DesktopTask(
+            id: Guid.NewGuid(),
+            named: "Old name",
+            description: "Old description");
+        await doc.Save(existingTask);
+
+        var sut = new FileSystemTaskRepository();
+
+        var modifiedTask = DesktopTask(
+            existingTask.Id,
+            named: "New name",
+            description: "New description");
+        await sut.Save(modifiedTask);
+
+        var existingTasks = await sut.All();
+        existingTasks.Should().BeEquivalentTo([modifiedTask]);
+    }
+
+    [Test]
     public async SystemTask CanDeleteExistingTasks()
     {
         var doc = new FileSystemTaskRepository();
-        await doc.Save(DesktopTask());
+        var task = DesktopTask();
+        await doc.Save(task);
         var sut = new FileSystemTaskRepository();
 
-        await sut.Delete(DesktopTask());
+        await sut.Delete(task);
 
         var result = await sut.All();
         result.Should().BeEmpty();
@@ -157,9 +180,11 @@ public class FileSystemTaskRepositoryTest : ITaskRepositoryTests
 
     private static void PersistTask(string name, string description = null)
     {
+        var id = Guid.NewGuid();
+
         File.AppendAllText(
             PersistedTasksFileName,
-            $"{name} {description ?? string.Empty}{Environment.NewLine}");
+            $"{id} {name} {description ?? string.Empty}{Environment.NewLine}");
     }
 
     [TearDown]

@@ -1,11 +1,23 @@
-﻿using Desktop.Domain;
+﻿using System;
+using Desktop.Domain;
 
 namespace Desktop.Tests.TestAPI;
 
 public static class TaskFactory
 {
-    public static Task DesktopTask(string named = null, string description = null)
+    public static Task DesktopTask(string named)
     {
-        return new Task(name: named ?? "Any", description: description ?? "Any");
+        return DesktopTask(id: null, named, description: null);
+    }
+
+    public static Task DesktopTask(
+        Guid? id = null,
+        string named = null,
+        string description = null)
+    {
+        return new Task(
+            id: id ?? Guid.NewGuid(),
+            named ?? "Any",
+            description: description ?? "Any");
     }
 }

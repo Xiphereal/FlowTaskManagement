@@ -20,11 +20,11 @@ public class InMemoryTaskRepository : ITaskRepository
         return SystemTask.FromResult<IReadOnlyList<Domain.Task>>(tasks.ToArray());
     }
 
-    public SystemTask Save(Domain.Task task)
+    public Task<bool> Save(Domain.Task task)
     {
         tasks.Add(task);
 
-        return SystemTask.CompletedTask;
+        return Task.FromResult(true);
     }
 
     public SystemTask Delete(Domain.Task toBeDeleted)

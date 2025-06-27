@@ -8,7 +8,7 @@ public class Task : INotifyPropertyChanged
     private string name;
     private string description;
 
-    public Guid? Id { get; set; }
+    public Guid Id { get; set; }
 
     public string Name
     {
@@ -36,6 +36,7 @@ public class Task : INotifyPropertyChanged
 
     public Task(string name, string description)
     {
+        Id = Guid.NewGuid();
         Name = name;
         Description = description;
     }
@@ -68,11 +69,11 @@ public class Task : INotifyPropertyChanged
 
     private bool Equals(Task other)
     {
-        return name == other.name && description == other.description;
+        return Id == other.Id;
     }
 
     public override int GetHashCode()
     {
-        return HashCode.Combine(name, description);
+        return HashCode.Combine(Id, name, description);
     }
 }

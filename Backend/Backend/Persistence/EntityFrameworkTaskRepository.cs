@@ -20,6 +20,14 @@ public class EntityFrameworkTaskRepository : ITaskRepository
 
     public async Task Save(DomainTask toBeCreated)
     {
+        if (await backendContext.Tasks.AnyAsync(x => x.Id == toBeCreated.Id))
+        {
+            var toBeModified =
+                await backendContext.Tasks.SingleAsync(x => x.Id == toBeCreated.Id);
+
+            await Delete(toBeModified.Name);
+        }
+
         await backendContext.Tasks.AddAsync(toBeCreated);
         await backendContext.SaveChangesAsync();
     }
