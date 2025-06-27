@@ -8,6 +8,8 @@ public class Task : INotifyPropertyChanged
     private string name;
     private string description;
 
+    public Guid? Id { get; set; }
+
     public string Name
     {
         get => name;
@@ -34,6 +36,13 @@ public class Task : INotifyPropertyChanged
 
     public Task(string name, string description)
     {
+        Name = name;
+        Description = description;
+    }
+
+    public Task(Guid id, string name, string description)
+    {
+        Id = id;
         Name = name;
         Description = description;
     }

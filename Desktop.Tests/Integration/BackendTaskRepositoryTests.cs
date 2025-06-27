@@ -37,8 +37,8 @@ public class BackendTaskRepositoryTests : ITaskRepositoryTests
     [Test]
     public async Task CanLoadSeveralPersistedTasks()
     {
-        var aTask = new Backend.Domain.Task("aTask", "Any");
-        var anotherTask = new Backend.Domain.Task("anotherTask", "Any");
+        var aTask = BackendTask("aTask", "Any");
+        var anotherTask = BackendTask("anotherTask", "Any");
         var backend = BackendBuilder.Backend()
             .With(aTask)
             .With(anotherTask)
@@ -61,13 +61,14 @@ public class BackendTaskRepositoryTests : ITaskRepositoryTests
             .Launch();
         var sut = new BackendTaskRepository(backend);
 
-        await sut.Save(DesktopTask());
+        await sut.Save(DesktopTask("A name", "A description"));
 
         var existingTasks = await sut.All();
         existingTasks.Should().BeEquivalentTo(
-        [
-            AnyBackendTask(),
-        ]);
+            [
+                BackendTask("A name", "A description"),
+            ],
+            options => options.Excluding(x => x.Id));
     }
 
     [Test]

@@ -9,8 +9,8 @@ public static class TaskFactory
         return BackendTask(named: "Any");
     }
 
-    public static Task BackendTask(string named)
+    public static Task BackendTask(string named, string description = "Any")
     {
-        return new Task(named, "Any");
+        return new Task(named, description);
     }
 }

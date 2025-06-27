@@ -51,7 +51,7 @@ public class BackendTaskRepository : ITaskRepository, IRemoteTaskRepository
 
     private static Task ToDesktopTask(BackendTask task)
     {
-        return new Task(task.Name, task.Description);
+        return new Task(task.Id, task.Name, task.Description);
     }
 
     public async SystemTask Save(Task task)
