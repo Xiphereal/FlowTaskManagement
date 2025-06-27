@@ -1,8 +1,9 @@
-﻿- feat: sync Backend with locally Tasks saved once it is available
-- feat: tasks modifications are persisted
+﻿- feat: tasks modifications are persisted
 - feat: style the front
 - feat: error handling on the frontend->backend communication
 - feat: show tasks in as project tree
+- feat: Tasks may have other Tasks
+- feat: sync Backend with locally Tasks saved once it is available
 - feat: tasks have a state
 - docs: the focus on UX with the accelerators/shortcuts.
 - docs: localization
