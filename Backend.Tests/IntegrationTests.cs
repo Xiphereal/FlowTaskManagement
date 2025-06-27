@@ -55,6 +55,22 @@ public class IntegrationTests
     }
 
     [Test]
+    public async Task SeveralTasksCanHaveTheSameName()
+    {
+        var backend = BackendBuilder.Backend().Launch();
+        const string sameName = "Same name";
+        var aTaskToBeSaved = BackendTask(sameName);
+        var anotherTaskToBeSaved = BackendTask(sameName);
+
+        await backend.PostAsJsonAsync(TasksUri, aTaskToBeSaved);
+        var postResult = await backend.PostAsJsonAsync(TasksUri, anotherTaskToBeSaved);
+
+        postResult.IsSuccessStatusCode.Should().BeTrue();
+        var existingTasks = await GetExistingTasks(backend);
+        existingTasks.Should().AllSatisfy(x => x.Name.Should().Be(sameName));
+    }
+
+    [Test]
     public async Task TasksCanBeDeleted()
     {
         var sut = BackendBuilder.Backend().Launch();

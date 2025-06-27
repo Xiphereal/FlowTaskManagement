@@ -19,6 +19,6 @@ public class BackendContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Task>().HasKey(x => x.Name);
+        modelBuilder.Entity<Task>().HasKey(x => x.Id);
     }
 }
