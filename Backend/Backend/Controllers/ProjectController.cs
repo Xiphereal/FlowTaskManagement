@@ -33,6 +33,14 @@ public class ProjectController : ControllerBase
         return Results.Created();
     }
 
+    [HttpPut("")]
+    public async Task<IResult> Put(DomainTask toBeModified)
+    {
+        await taskRepository.Modify(toBeModified);
+
+        return Results.Ok();
+    }
+
     [HttpDelete("{taskName}")]
     public async Task<IResult> Delete(string taskName)
     {

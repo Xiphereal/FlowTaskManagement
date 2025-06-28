@@ -71,6 +71,25 @@ public class IntegrationTests
     }
 
     [Test]
+    public async Task TasksCanBeModified()
+    {
+        var originalTask = BackendTask("Old name", "Old description");
+        var backend = BackendBuilder.Backend()
+            .With(originalTask)
+            .Launch();
+
+        var modifiedTask = BackendTask(
+            originalTask.Id,
+            "New name",
+            "New description");
+        var result = await backend.PutAsJsonAsync(TasksUri, modifiedTask);
+
+        result.IsSuccessStatusCode.Should().BeTrue();
+        var existingTasks = await GetExistingTasks(backend);
+        existingTasks.Should().BeEquivalentTo([modifiedTask]);
+    }
+
+    [Test]
     public async Task TasksCanBeDeleted()
     {
         var sut = BackendBuilder.Backend().Launch();

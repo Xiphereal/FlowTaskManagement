@@ -32,6 +32,20 @@ public class EntityFrameworkTaskRepository : ITaskRepository
         await backendContext.SaveChangesAsync();
     }
 
+    public async Task Modify(DomainTask toBeModified)
+    {
+        if (await backendContext.Tasks.AnyAsync(x => x.Id == toBeModified.Id))
+        {
+            var oldTask =
+                await backendContext.Tasks.SingleAsync(x => x.Id == toBeModified.Id);
+
+            await Delete(oldTask.Name);
+        }
+
+        await backendContext.Tasks.AddAsync(toBeModified);
+        await backendContext.SaveChangesAsync();
+    }
+
     public async Task Delete(string taskName)
     {
         var toBeDeleted =
