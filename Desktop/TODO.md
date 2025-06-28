@@ -14,6 +14,7 @@
     - fix flakiness on CI where sometimes "an element cannot be found"
 - docs: next steps or improvements (out of scope) for the backend API. Mainly performance: allow to batch CRUD
   operations.
+- docs: screenshots of the different parts of the Desktop.
 - docs: how did I work? How _would_ I work, by contrast, on a real environment?
     - 0 warning policy, static analysis (SonarQube, etc.).
     - Deployment environments.
