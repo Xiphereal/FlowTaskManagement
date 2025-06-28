@@ -28,6 +28,9 @@ public class ProjectController : ControllerBase
     [HttpPost("")]
     public async Task<IResult> Post(DomainTask toBeCreated)
     {
+        if (await taskRepository.Exist(toBeCreated.Id))
+            return Results.Conflict();
+
         await taskRepository.Save(toBeCreated);
 
         return Results.Created();

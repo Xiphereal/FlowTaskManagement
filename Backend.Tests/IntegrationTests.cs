@@ -71,6 +71,21 @@ public class IntegrationTests
     }
 
     [Test]
+    public async Task TaskToBeCreatedAlreadyExists_NotifiesCallerAndDoesNotDuplicatedIt()
+    {
+        var alreadyExistingTask = AnyBackendTask();
+        var sut = BackendBuilder.Backend()
+            .With(alreadyExistingTask)
+            .Launch();
+
+        var result = await sut.PostAsJsonAsync(TasksUri, alreadyExistingTask);
+
+        result.StatusCode.Should().Be(HttpStatusCode.Conflict);
+        var existingTasks = await GetExistingTasks(sut);
+        existingTasks.Should().ContainSingle();
+    }
+
+    [Test]
     public async Task TasksCanBeModified()
     {
         var originalTask = BackendTask("Old name", "Old description");
@@ -94,9 +109,9 @@ public class IntegrationTests
     {
         var sut = BackendBuilder.Backend().Launch();
         var toBeModified = BackendTask("Any");
-        
+
         var result = await sut.PutAsJsonAsync(TasksUri, toBeModified);
-        
+
         result.StatusCode.Should().Be(HttpStatusCode.NotFound);
     }
 

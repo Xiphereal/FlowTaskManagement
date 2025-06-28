@@ -7,6 +7,7 @@ namespace Desktop.Tasks;
 
 public class BackendTaskRepository : ITaskRepository, IRemoteTaskRepository
 {
+    private const string TasksUri = "/project/tasks/";
     private readonly HttpClient httpClient;
 
     public BackendTaskRepository(HttpClient httpClient)
@@ -36,7 +37,7 @@ public class BackendTaskRepository : ITaskRepository, IRemoteTaskRepository
 
         try
         {
-            getResult = await httpClient.GetAsync("/project/tasks/");
+            getResult = await httpClient.GetAsync(TasksUri);
         }
         catch
         {
@@ -56,13 +57,40 @@ public class BackendTaskRepository : ITaskRepository, IRemoteTaskRepository
 
     public async Task<bool> Save(Task task)
     {
+        var existingTasks = await All();
+
+        if (existingTasks.Contains(task))
+        {
+            var hasBeenSuccessful = await Modify(task);
+
+            return hasBeenSuccessful;
+        }
+
         try
         {
             var postResult = await httpClient.PostAsJsonAsync(
-                "/project/tasks/",
+                TasksUri,
                 ToBackendTask(task));
 
             postResult.EnsureSuccessStatusCode();
+
+            return true;
+        }
+        catch
+        {
+            return false;
+        }
+    }
+
+    private async Task<bool> Modify(Task task)
+    {
+        try
+        {
+            var result = await httpClient.PutAsJsonAsync(
+                TasksUri,
+                ToBackendTask(task));
+
+            result.EnsureSuccessStatusCode();
 
             return true;
         }
@@ -84,7 +112,7 @@ public class BackendTaskRepository : ITaskRepository, IRemoteTaskRepository
         try
         {
             httpResponseMessage = await httpClient.DeleteAsync(
-                $"/project/tasks/{toBeDeleted.Name}");
+                $"{TasksUri}{toBeDeleted.Name}");
         }
         catch
         {
