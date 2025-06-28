@@ -90,6 +90,17 @@ public class IntegrationTests
     }
 
     [Test]
+    public async Task TaskToBeModifiedDoesNotExist_NotifiesCaller()
+    {
+        var sut = BackendBuilder.Backend().Launch();
+        var toBeModified = BackendTask("Any");
+        
+        var result = await sut.PutAsJsonAsync(TasksUri, toBeModified);
+        
+        result.StatusCode.Should().Be(HttpStatusCode.NotFound);
+    }
+
+    [Test]
     public async Task TasksCanBeDeleted()
     {
         var sut = BackendBuilder.Backend().Launch();

@@ -36,6 +36,9 @@ public class ProjectController : ControllerBase
     [HttpPut("")]
     public async Task<IResult> Put(DomainTask toBeModified)
     {
+        if (!await taskRepository.Exist(toBeModified.Id))
+            return Results.NotFound(toBeModified);
+
         await taskRepository.Modify(toBeModified);
 
         return Results.Ok();

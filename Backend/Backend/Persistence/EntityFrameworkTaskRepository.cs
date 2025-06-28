@@ -59,4 +59,9 @@ public class EntityFrameworkTaskRepository : ITaskRepository
     {
         return backendContext.Tasks.AnyAsync(x => x.Name == taskName);
     }
+
+    public Task<bool> Exist(Guid task)
+    {
+        return backendContext.Tasks.AnyAsync(x => x.Id == task);
+    }
 }
