@@ -49,10 +49,11 @@ public class BackendTaskRepositoryTests : ITaskRepositoryTests
         var result = await sut.All();
 
         result.Should().BeEquivalentTo(
-        [
-            aTask,
-            anotherTask
-        ]);
+            [
+                aTask,
+                anotherTask
+            ],
+            options => options.ComparingByMembers<Backend.Domain.Task>());
     }
 
     [Test]
@@ -69,7 +70,9 @@ public class BackendTaskRepositoryTests : ITaskRepositoryTests
             [
                 BackendTask("A name", "A description"),
             ],
-            options => options.Excluding(x => x.Id));
+            options => options
+                .Excluding(x => x.Id)
+                .ComparingByMembers<Backend.Domain.Task>());
     }
 
     [Test]

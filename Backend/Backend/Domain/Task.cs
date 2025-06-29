@@ -1,6 +1,6 @@
 namespace Backend.Domain;
 
-public record Task
+public class Task
 {
     public Task()
     {
@@ -24,4 +24,26 @@ public record Task
 
     public string Name { get; init; }
     public string Description { get; init; }
+
+    public override bool Equals(object? obj)
+    {
+        if (obj is null)
+            return false;
+        if (ReferenceEquals(this, obj))
+            return true;
+        if (obj.GetType() != GetType())
+            return false;
+
+        return Equals((Task)obj);
+    }
+
+    private bool Equals(Task other)
+    {
+        return Id.Equals(other.Id);
+    }
+
+    public override int GetHashCode()
+    {
+        return Id.GetHashCode();
+    }
 }
