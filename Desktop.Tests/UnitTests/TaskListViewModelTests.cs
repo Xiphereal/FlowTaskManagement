@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Desktop.Project;
 using Desktop.Tasks;
 using Desktop.Tests.TestAPI;
@@ -27,9 +28,11 @@ public class TaskListViewModelTests
     public void
         TasksPopulation_DoesNotShowDuplicatedTasks_BetweenBackendAndFileSystemRepositories()
     {
-        var duplicatedTask = DesktopTask();
-        var backendRepository = new InMemoryTaskRepository([duplicatedTask]);
-        var fileSystemRepository = new InMemoryTaskRepository([duplicatedTask]);
+        var taskId = Guid.NewGuid();
+        var backendRepository =
+            new InMemoryTaskRepository([DesktopTask(taskId, "A name")]);
+        var fileSystemRepository =
+            new InMemoryTaskRepository([DesktopTask(taskId, "Another name")]);
         var sut = TaskListViewModel(
             backendRepository,
             fileSystemRepository);

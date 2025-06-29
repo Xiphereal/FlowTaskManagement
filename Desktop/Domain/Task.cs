@@ -8,7 +8,7 @@ public class Task : INotifyPropertyChanged
     private string name;
     private string description;
 
-    public Guid Id { get; set; }
+    public Guid Id { get; }
 
     public string Name
     {
@@ -74,6 +74,6 @@ public class Task : INotifyPropertyChanged
 
     public override int GetHashCode()
     {
-        return HashCode.Combine(Id, name, description);
+        return Id.GetHashCode();
     }
 }
