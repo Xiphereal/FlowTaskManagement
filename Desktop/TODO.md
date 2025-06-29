@@ -7,6 +7,7 @@
 - feat: tasks have a state
 - docs: the focus on UX with the accelerators/shortcuts.
 - docs: localization
+- docs: duplication between Desktop.Task & Backend.Task
 - test(e2e): deploy the Backend to Docker rather than being launched locally
 - ci: run e2e tests
     - fix flakiness on CI where sometimes "an element cannot be found"
