@@ -22,8 +22,27 @@ public class Task
 
     public Guid Id { get; init; }
 
-    public string Name { get; set; }
-    public string Description { get; set; }
+    private string name;
+
+    public string Name
+    {
+        get => name;
+        init => name = value;
+    }
+
+    private string description;
+
+    public string Description
+    {
+        get => description;
+        init => description = value;
+    }
+
+    public void ReceivePropertiesFrom(Task toBeModified)
+    {
+        name = toBeModified.Name;
+        description = toBeModified.Description;
+    }
 
     public override bool Equals(object? obj)
     {

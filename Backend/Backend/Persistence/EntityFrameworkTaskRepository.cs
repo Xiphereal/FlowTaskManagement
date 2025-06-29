@@ -29,8 +29,7 @@ public class EntityFrameworkTaskRepository : ITaskRepository
         var existing =
             await backendContext.Tasks.SingleAsync(x => x.Id == toBeModified.Id);
 
-        existing.Name = toBeModified.Name;
-        existing.Description = toBeModified.Description;
+        existing.ReceivePropertiesFrom(toBeModified);
 
         await backendContext.SaveChangesAsync();
     }
