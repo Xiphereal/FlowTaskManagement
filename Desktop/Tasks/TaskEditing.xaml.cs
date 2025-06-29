@@ -9,11 +9,11 @@ public partial class TaskEditing : Window
 {
     private readonly TaskEditingViewModel viewModel;
 
-    public TaskEditing(Task original)
+    public TaskEditing(Task original, IEnumerable<ITaskRepository> taskRepositories)
     {
         InitializeComponent();
 
-        viewModel = new TaskEditingViewModel(original);
+        viewModel = new TaskEditingViewModel(original, taskRepositories);
 
         Name.Text = original.Name;
         Description.Text = original.Description;

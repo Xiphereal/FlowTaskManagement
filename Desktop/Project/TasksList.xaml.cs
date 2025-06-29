@@ -7,8 +7,13 @@ namespace Desktop.Project;
 
 public partial class TasksList : UserControl
 {
-    public TasksList(TaskListViewModel viewModel)
+    private readonly IEnumerable<ITaskRepository> taskRepositories;
+
+    public TasksList(
+        TaskListViewModel viewModel,
+        IEnumerable<ITaskRepository> taskRepositories)
     {
+        this.taskRepositories = taskRepositories;
         DataContext = viewModel;
 
         InitializeComponent();
@@ -32,7 +37,7 @@ public partial class TasksList : UserControl
         if (sender is not ListBoxItem { DataContext: Task task })
             return;
 
-        var window = new TaskEditing(task);
+        var window = new TaskEditing(task, taskRepositories);
         window.ShowDialog();
     }
 }

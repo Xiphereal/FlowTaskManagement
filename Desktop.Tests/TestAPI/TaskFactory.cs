@@ -5,6 +5,11 @@ namespace Desktop.Tests.TestAPI;
 
 public static class TaskFactory
 {
+    public static Task AnyDesktopTask()
+    {
+        return DesktopTask(id: null, "Any", "Any");
+    }
+
     public static Task DesktopTask(string named)
     {
         return DesktopTask(id: null, named, description: null);

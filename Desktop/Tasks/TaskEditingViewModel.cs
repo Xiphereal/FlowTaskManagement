@@ -7,18 +7,19 @@ namespace Desktop.Tasks;
 
 public class TaskEditingViewModel : ViewModelBase
 {
-    private readonly Task taskBeingEdited;
-
-    public TaskEditingViewModel(Task taskBeingEdited)
+    public TaskEditingViewModel(
+        Task taskBeingEdited,
+        IEnumerable<ITaskRepository> taskRepositories)
     {
-        this.taskBeingEdited = taskBeingEdited;
-
         Save = new RelayCommand<(string, string)>(args =>
         {
             var (name, description) = args;
 
             taskBeingEdited.Name = name;
             taskBeingEdited.Description = description;
+
+            foreach (var repository in taskRepositories)
+                repository.Save(taskBeingEdited);
         });
     }
 
