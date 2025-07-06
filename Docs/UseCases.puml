@@ -20,24 +20,27 @@ package Task {
 }
 
 package Project {
-    User -- (CRUD project)
-    User -- (View tasks as prioritized list)
+    (CRUD project)
+    (View tasks as prioritized list)
 
-    User -- (Define tasks order <<prioritization>>)
+    (Define tasks order <<prioritization>>)
 
-    User -- (Define project tree)
-    User -- (View project tree)
-    User -- (View tasks in project tree structure)
+    (Define project tree)
+    (View project tree)
+    (View tasks in project tree structure)
     
-    User -- (View daily summary)
+    (View daily summary)
 }
+
+User -- Project
 
 package FlowMetrics {
-     (View flow efficiency) -- Stakeholder
-     (View cycle time) -- Stakeholder
-     (View task aging) -- Stakeholder
-     (Config trust %) -- Stakeholder
-     (Config date range) -- Stakeholder
+     (View flow efficiency)
+     (View cycle time)
+     (View task aging)
+     (Config trust %)
+     (Config date range)
 }
+ FlowMetrics - Stakeholder
 
 @enduml
