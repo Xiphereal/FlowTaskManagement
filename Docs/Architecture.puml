@@ -13,7 +13,8 @@ node Cloud {
     REST -- [Backend]
     [Desktop] .> REST
     
-    [Backend] --> [EntityFramework]
+    [Backend] --> [ASP.NET Controllers]
+    [ASP.NET Controllers] --> [EntityFramework]
     
     database Database
     [EntityFramework] --> Database
