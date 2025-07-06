@@ -6,6 +6,11 @@ Domain model:
 
 ![Domain model diagram of a task management application. It portraits a Project, Task, TaskProposal, a FlowMetric package and their relations](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/Xiphereal/SGjsdfgklj/refs/heads/trunk/Docs/DomainModel.puml)
 
+> [!NOTE]
+> Even though the intention is for this diagram to be of the domain model, `attributes` and `packages` from a class diagram are used to prioritize information over simplicity.
+> 
+> In a real project, the tradeoff may go in favor of the simplicity so that the diagram can be used to communicate with non-technical people or if the application has a broader scope (thus the chunk of the domain that is relevant to be depicted here).  
+
 Use cases:
 
 ![Uses cases of a task management application](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/Xiphereal/SGjsdfgklj/refs/heads/trunk/Docs/UseCases.puml)
