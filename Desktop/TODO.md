@@ -1,5 +1,4 @@
-﻿- feat: delete Tasks by id, rather than Name
-- feat: error handling on the frontend->backend communication
+﻿- feat: error handling on the frontend->backend communication
 - feat: style the front
 - feat: show tasks in as project tree
 - feat: Tasks may have other Tasks

@@ -125,10 +125,11 @@ public class BackendTaskRepositoryTests : ITaskRepositoryTests
     {
         var backend = BackendBuilder.Backend().Launch();
         var doc = new BackendTaskRepository(backend);
-        await doc.Save(DesktopTask());
+        var task = DesktopTask();
+        await doc.Save(task);
         var sut = new BackendTaskRepository(backend);
 
-        await sut.Delete(DesktopTask());
+        await sut.Delete(task);
 
         var result = await sut.All();
         result.Should().BeEmpty();

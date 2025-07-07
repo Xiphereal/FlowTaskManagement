@@ -47,13 +47,13 @@ public class ProjectController : ControllerBase
         return Results.Ok();
     }
 
-    [HttpDelete("{taskName}")]
-    public async Task<IResult> Delete(string taskName)
+    [HttpDelete("{task}")]
+    public async Task<IResult> Delete(Guid task)
     {
-        if (!await taskRepository.Exist(taskName))
-            return Results.NotFound(taskName);
+        if (!await taskRepository.Exist(task))
+            return Results.NotFound(task);
 
-        await taskRepository.Delete(taskName);
+        await taskRepository.Delete(task);
 
         return Results.Ok();
     }

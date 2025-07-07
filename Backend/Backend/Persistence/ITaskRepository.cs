@@ -8,6 +8,7 @@ public interface ITaskRepository
     Task Save(DomainTask toBeCreated);
     Task Modify(DomainTask toBeModified);
     Task Delete(string taskName);
+    Task Delete(Guid taskId);
     Task<bool> Exist(string taskName);
     Task<bool> Exist(Guid task);
 }

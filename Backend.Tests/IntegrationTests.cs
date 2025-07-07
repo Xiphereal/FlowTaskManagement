@@ -122,7 +122,7 @@ public class IntegrationTests
         var taskToBeDeleted = AnyBackendTask();
         await sut.PostAsJsonAsync(TasksUri, taskToBeDeleted);
 
-        var result = await sut.DeleteAsync($"{TasksUri}/{taskToBeDeleted.Name}");
+        var result = await sut.DeleteAsync($"{TasksUri}/{taskToBeDeleted.Id}");
 
         result.IsSuccessStatusCode.Should().BeTrue();
         var existingTasks = await GetExistingTasks(sut);
@@ -134,7 +134,7 @@ public class IntegrationTests
     {
         var sut = BackendBuilder.Backend().Launch();
 
-        var result = await sut.DeleteAsync($"{TasksUri}/nonExisting");
+        var result = await sut.DeleteAsync($"{TasksUri}/{Guid.NewGuid()}");
 
         result.StatusCode.Should().Be(HttpStatusCode.NotFound);
     }

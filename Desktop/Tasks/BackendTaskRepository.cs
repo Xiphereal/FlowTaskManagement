@@ -112,7 +112,7 @@ public class BackendTaskRepository : ITaskRepository, IRemoteTaskRepository
         try
         {
             httpResponseMessage = await httpClient.DeleteAsync(
-                $"{TasksUri}{toBeDeleted.Name}");
+                $"{TasksUri}{toBeDeleted.Id}");
         }
         catch
         {
