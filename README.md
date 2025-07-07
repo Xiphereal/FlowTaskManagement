@@ -1,4 +1,7 @@
-﻿# What is this?
+﻿[![Run unit & integration tests](https://github.com/Xiphereal/FlowTaskManagement/actions/workflows/RunUnitAndIntegrationTests.yml/badge.svg?event=push)](https://github.com/Xiphereal/FlowTaskManagement/actions/workflows/RunUnitAndIntegrationTests.yml)
+[![Run e2e tests](https://github.com/Xiphereal/FlowTaskManagement/actions/workflows/RunE2eTests.yml/badge.svg?event=push)](https://github.com/Xiphereal/FlowTaskManagement/actions/workflows/RunE2eTests.yml)
+
+# What is this?
 
 A simple task manager focused on minimal management and some flow metrics.
 
