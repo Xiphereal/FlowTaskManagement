@@ -196,14 +196,15 @@ public class BackendTaskRepositoryTests : ITaskRepositoryTests
     [Test]
     public async Task AnyIssueOccursWhileDeletingTask_DoesNotThrow()
     {
+        var backendTask = BackendTask(named: "ToBeDeleted");
         var backend = BackendBuilder.Backend()
-            .With(BackendTask(named: "ToBeDeleted"))
+            .With(backendTask)
             .AlwaysThrowingAnyException()
             .Launch();
         var sut = new BackendTaskRepository(backend);
 
         var sutInvocation = async () =>
-            await sut.Delete(DesktopTask(named: "ToBeDeleted"));
+            await sut.Delete(DesktopTask(id: backendTask.Id, named: "ToBeDeleted"));
 
         await sutInvocation.Should().NotThrowAsync();
     }
