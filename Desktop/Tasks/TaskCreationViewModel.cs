@@ -9,7 +9,7 @@ public class TaskCreationViewModel : ViewModelBase
     public TaskCreationViewModel(IEnumerable<ITaskRepository> taskRepositories)
     {
         SaveTask =
-            new RelayCommand<(ICloseable, string, string)>(args =>
+            new AsyncRelayCommand<(ICloseable, string, string)>(async args =>
             {
                 var (closeable, taskName, taskDescription) = args;
 
@@ -17,7 +17,7 @@ public class TaskCreationViewModel : ViewModelBase
 
                 foreach (var repository in taskRepositories)
                 {
-                    repository.Save(CreatedTask);
+                    await repository.Save(CreatedTask);
                 }
 
                 closeable!.Close();

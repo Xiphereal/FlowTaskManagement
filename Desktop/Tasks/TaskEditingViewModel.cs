@@ -11,7 +11,7 @@ public class TaskEditingViewModel : ViewModelBase
         Task taskBeingEdited,
         IEnumerable<ITaskRepository> taskRepositories)
     {
-        Save = new RelayCommand<(string, string)>(args =>
+        Save = new AsyncRelayCommand<(string, string)>(async args =>
         {
             var (name, description) = args;
 
@@ -19,7 +19,7 @@ public class TaskEditingViewModel : ViewModelBase
             taskBeingEdited.Description = description;
 
             foreach (var repository in taskRepositories)
-                repository.Save(taskBeingEdited);
+                await repository.Save(taskBeingEdited);
         });
     }
 

@@ -31,12 +31,12 @@ public class TaskListViewModel : ViewModelBase
             Tasks.Add(taskCreationViewModel.CreatedTask);
         });
 
-        Delete = new RelayCommand<Task>(taskToRemove =>
+        Delete = new AsyncRelayCommand<Task>(async taskToRemove =>
         {
             Tasks.Remove(taskToRemove!);
 
             foreach (var repository in this.taskRepositories)
-                repository.Delete(taskToRemove!);
+                await repository.Delete(taskToRemove!);
         });
     }
 
@@ -50,7 +50,7 @@ public class TaskListViewModel : ViewModelBase
 
         // TODO: load this async and deferred from the ctor.
         var retrievedTasks = SystemTask.Run(() => SystemTask
-            .WhenAll(taskRepositories.Select(x => x.All())))
+                .WhenAll(taskRepositories.Select(x => x.All())))
             .Result
             .SelectMany(x => x);
         foreach (var task in retrievedTasks.Distinct())
