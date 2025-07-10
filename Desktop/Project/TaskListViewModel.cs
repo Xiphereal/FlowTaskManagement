@@ -52,7 +52,7 @@ public class TaskListViewModel : ViewModelBase
         var retrievedTasks = SystemTask.Run(() => SystemTask
                 .WhenAll(taskRepositories.Select(x => x.All())))
             .Result
-            .SelectMany(x => x);
+            .SelectMany(x => x.Tasks);
         foreach (var task in retrievedTasks.Distinct())
             Tasks.Add(task);
     }

@@ -21,7 +21,8 @@ public class TaskListViewModelTests
 
         Repeat(sut.PopulateTasks, SeveralTimes);
 
-        sut.Tasks.Should().BeEquivalentTo(await taskRepository.All());
+        var result = await taskRepository.All();
+        sut.Tasks.Should().BeEquivalentTo(result.Tasks);
     }
 
     [Test]

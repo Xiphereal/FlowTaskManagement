@@ -8,16 +8,17 @@ public class FileSystemTaskRepository : ITaskRepository
 {
     private const string PersistedTasksFileName = "Tasks.txt";
 
-    public Task<IReadOnlyList<Task>> All()
+    public Task<Result> All()
     {
         if (!File.Exists(PersistedTasksFileName))
-            return SystemTask.FromResult<IReadOnlyList<Task>>([]);
+            return SystemTask.FromResult(Result.Of([]));
 
-        return SystemTask.FromResult<IReadOnlyList<Task>>(
-            File
-                .ReadAllLines(PersistedTasksFileName)
-                .Select(ToTask)
-                .ToList());
+        var tasks = File
+            .ReadAllLines(PersistedTasksFileName)
+            .Select(ToTask)
+            .ToList();
+
+        return SystemTask.FromResult(Result.Of(tasks));
     }
 
     private static Task ToTask(string line)
@@ -38,7 +39,7 @@ public class FileSystemTaskRepository : ITaskRepository
     public async Task<bool> Save(Task task)
     {
         var existingTasks = await All();
-        if (existingTasks.Contains(task))
+        if (existingTasks.Tasks.Contains(task))
             await Delete(task);
 
         await File.AppendAllTextAsync(

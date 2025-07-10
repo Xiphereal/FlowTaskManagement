@@ -20,7 +20,7 @@ public class FileSystemTaskRepositoryTest : ITaskRepositoryTests
 
         var result = await sut.All();
 
-        result.Should().BeEmpty();
+        result.Tasks.Should().BeEmpty();
     }
 
     [Test]
@@ -32,7 +32,7 @@ public class FileSystemTaskRepositoryTest : ITaskRepositoryTests
 
         var result = await sut.All();
 
-        result.Should().BeEquivalentTo(
+        result.Tasks.Should().BeEquivalentTo(
             [
                 new Task(
                     name: "aTaskName",
@@ -50,7 +50,7 @@ public class FileSystemTaskRepositoryTest : ITaskRepositoryTests
 
         var result = await sut.All();
 
-        result.Should().BeEquivalentTo(
+        result.Tasks.Should().BeEquivalentTo(
             [
                 new Task(
                     name: "aTaskName",
@@ -69,7 +69,7 @@ public class FileSystemTaskRepositoryTest : ITaskRepositoryTests
 
         var result = await sut.All();
 
-        result.Should().BeEquivalentTo(
+        result.Tasks.Should().BeEquivalentTo(
             [
                 new Task(
                     name: "aTaskName",
@@ -90,7 +90,7 @@ public class FileSystemTaskRepositoryTest : ITaskRepositoryTests
         await sut.Save(taskToPersist);
 
         var result = await sut.All();
-        result.Should().ContainSingle().And.Contain(taskToPersist);
+        result.Tasks.Should().ContainSingle().And.Contain(taskToPersist);
     }
 
     [Test]
@@ -106,7 +106,7 @@ public class FileSystemTaskRepositoryTest : ITaskRepositoryTests
         await sut.Save(taskToPersist);
 
         var result = await sut.All();
-        result.Should().BeEquivalentTo(
+        result.Tasks.Should().BeEquivalentTo(
         [
             existingTask,
             taskToPersist,
@@ -131,8 +131,8 @@ public class FileSystemTaskRepositoryTest : ITaskRepositoryTests
             description: "New description");
         await sut.Save(modifiedTask);
 
-        var existingTasks = await sut.All();
-        existingTasks.Should().BeEquivalentTo([modifiedTask]);
+        var result = await sut.All();
+        result.Tasks.Should().BeEquivalentTo([modifiedTask]);
     }
 
     [Test]
@@ -146,7 +146,7 @@ public class FileSystemTaskRepositoryTest : ITaskRepositoryTests
         await sut.Delete(task);
 
         var result = await sut.All();
-        result.Should().BeEmpty();
+        result.Tasks.Should().BeEmpty();
     }
 
     [Test]
@@ -171,7 +171,7 @@ public class FileSystemTaskRepositoryTest : ITaskRepositoryTests
 
         // Assert.
         var result = await sut.All();
-        result.Should().BeEquivalentTo(
+        result.Tasks.Should().BeEquivalentTo(
         [
             oneThatMustRemain,
             anotherThatMustRemain,

@@ -19,7 +19,7 @@ public class BackendTaskRepositoryTests : ITaskRepositoryTests
 
         var result = await sut.All();
 
-        result.Should().BeEmpty();
+        result.Tasks.Should().BeEmpty();
     }
 
     [Test]
@@ -32,7 +32,7 @@ public class BackendTaskRepositoryTests : ITaskRepositoryTests
 
         var result = await sut.All();
 
-        result.Should().NotBeEmpty();
+        result.Tasks.Should().NotBeEmpty();
     }
 
     [Test]
@@ -48,7 +48,7 @@ public class BackendTaskRepositoryTests : ITaskRepositoryTests
 
         var result = await sut.All();
 
-        result.Should().BeEquivalentTo(
+        result.Tasks.Should().BeEquivalentTo(
             [
                 aTask,
                 anotherTask
@@ -65,8 +65,8 @@ public class BackendTaskRepositoryTests : ITaskRepositoryTests
 
         await sut.Save(DesktopTask(named: "A name", description: "A description"));
 
-        var existingTasks = await sut.All();
-        existingTasks.Should().BeEquivalentTo(
+        var result = await sut.All();
+        result.Tasks.Should().BeEquivalentTo(
             [
                 BackendTask("A name", "A description"),
             ],
@@ -87,8 +87,8 @@ public class BackendTaskRepositoryTests : ITaskRepositoryTests
         var taskToPersist = DesktopTask(named: "Another task");
         await sut.Save(taskToPersist);
 
-        var existingTasks = await sut.All();
-        existingTasks.Should().BeEquivalentTo(
+        var result = await sut.All();
+        result.Tasks.Should().BeEquivalentTo(
         [
             DesktopTask(id: existingTask.Id),
             taskToPersist
@@ -114,8 +114,8 @@ public class BackendTaskRepositoryTests : ITaskRepositoryTests
         var successful = await sut.Save(modifiedTask);
 
         successful.Should().BeTrue();
-        var existingTasks = await sut.All();
-        existingTasks.Should().BeEquivalentTo(
+        var result = await sut.All();
+        result.Tasks.Should().BeEquivalentTo(
             [modifiedTask],
             options => options.ComparingByMembers<Domain.Task>());
     }
@@ -132,7 +132,7 @@ public class BackendTaskRepositoryTests : ITaskRepositoryTests
         await sut.Delete(task);
 
         var result = await sut.All();
-        result.Should().BeEmpty();
+        result.Tasks.Should().BeEmpty();
     }
 
     [Test]
@@ -158,7 +158,7 @@ public class BackendTaskRepositoryTests : ITaskRepositoryTests
 
         // Assert.
         var result = await sut.All();
-        result.Should().BeEquivalentTo(
+        result.Tasks.Should().BeEquivalentTo(
         [
             oneThatMustRemain,
             anotherThatMustRemain,
@@ -176,7 +176,8 @@ public class BackendTaskRepositoryTests : ITaskRepositoryTests
 
         var result = await sut.All();
 
-        result.Should().BeEmpty();
+        result.Tasks.Should().BeEmpty();
+        result.Succeeded.Should().BeFalse();
     }
 
     [Test]

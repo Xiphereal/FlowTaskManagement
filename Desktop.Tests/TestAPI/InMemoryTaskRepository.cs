@@ -15,16 +15,17 @@ public class InMemoryTaskRepository : ITaskRepository
         tasks.AddRange(with);
     }
 
-    public Task<IReadOnlyList<Domain.Task>> All()
+    public Task<Result> All()
     {
-        return SystemTask.FromResult<IReadOnlyList<Domain.Task>>(tasks.ToArray());
+        return SystemTask.FromResult(
+            Result.Of(tasks.ToArray()));
     }
 
     public Task<bool> Save(Domain.Task task)
     {
         tasks.Add(task);
 
-        return Task.FromResult(true);
+        return SystemTask.FromResult(true);
     }
 
     public SystemTask Delete(Domain.Task toBeDeleted)

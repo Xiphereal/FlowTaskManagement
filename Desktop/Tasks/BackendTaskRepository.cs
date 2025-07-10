@@ -31,7 +31,7 @@ public class BackendTaskRepository : ITaskRepository, IRemoteTaskRepository
         }
     }
 
-    public async Task<IReadOnlyList<Task>> All()
+    public async Task<Result> All()
     {
         HttpResponseMessage getResult;
 
@@ -41,13 +41,13 @@ public class BackendTaskRepository : ITaskRepository, IRemoteTaskRepository
         }
         catch
         {
-            return [];
+            return Result.Failed();
         }
 
         var backendTasks =
             await getResult.Content.ReadAsAsync<IEnumerable<BackendTask>>();
 
-        return backendTasks.Select(ToDesktopTask).ToArray();
+        return Result.Of(backendTasks.Select(ToDesktopTask).ToArray());
     }
 
     private static Task ToDesktopTask(BackendTask task)
@@ -59,7 +59,7 @@ public class BackendTaskRepository : ITaskRepository, IRemoteTaskRepository
     {
         var existingTasks = await All();
 
-        if (existingTasks.Contains(task))
+        if (existingTasks.Tasks.Contains(task))
         {
             var hasBeenSuccessful = await Modify(task);
 
