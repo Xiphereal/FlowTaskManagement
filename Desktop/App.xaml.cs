@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Threading;
+using Desktop.Common;
 using Desktop.Project;
 using Desktop.Tasks;
 using Desktop.Tasks.Extensions;
@@ -27,6 +28,7 @@ public partial class App : Application
         services.AddSingleton<TaskCreation>();
         services.AddTransient<TaskCreationViewModel>();
         services.AddTransient<TaskListViewModel>();
+        services.AddSingleton<IMessageNotifier, Popup>();
         services.AddSingleton<ITaskRepository, FileSystemTaskRepository>();
         services.AddBackendTaskRepository(Config);
 

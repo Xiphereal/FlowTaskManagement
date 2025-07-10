@@ -11,15 +11,18 @@ namespace Desktop.Project;
 public class TaskListViewModel : ViewModelBase
 {
     private readonly IEnumerable<ITaskRepository> taskRepositories;
+    private readonly IMessageNotifier messageNotifier;
     public ObservableCollection<Task> Tasks { get; } = [];
 
     public Func<TaskCreationViewModel, IShowable> TaskCreationViewCreator { get; set; }
 
     public TaskListViewModel(
         IEnumerable<ITaskRepository> taskRepositories,
-        TaskCreationViewModel taskCreationViewModel)
+        TaskCreationViewModel taskCreationViewModel,
+        IMessageNotifier messageNotifier)
     {
         this.taskRepositories = taskRepositories;
+        this.messageNotifier = messageNotifier;
 
         Add = new RelayCommand(() =>
         {
@@ -49,9 +52,17 @@ public class TaskListViewModel : ViewModelBase
         Tasks.Clear();
 
         // TODO: load this async and deferred from the ctor.
-        var retrievedTasks = SystemTask.Run(() => SystemTask
+        var queryResult = SystemTask.Run(() => SystemTask
                 .WhenAll(taskRepositories.Select(x => x.All())))
-            .Result
+            .Result;
+
+        if (queryResult.Any(x => !x.Succeeded))
+            messageNotifier.Notify(
+                "Task retrieval has failed due to " +
+                "an internal error. Expect some Tasks to be missing. " +
+                "Please, try again later.");
+
+        var retrievedTasks = queryResult
             .SelectMany(x => x.Tasks);
         foreach (var task in retrievedTasks.Distinct())
             Tasks.Add(task);

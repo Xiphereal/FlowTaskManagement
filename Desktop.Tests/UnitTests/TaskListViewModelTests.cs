@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Desktop.Common;
 using Desktop.Project;
 using Desktop.Tasks;
 using Desktop.Tests.TestAPI;
 using FluentAssertions;
+using Moq;
 using NUnit.Framework;
 using static Desktop.Tests.TestAPI.TaskFactory;
 using static Desktop.Tests.TestAPI.Utils;
@@ -43,11 +45,40 @@ public class TaskListViewModelTests
         sut.Tasks.Should().ContainSingle();
     }
 
+    [Test]
+    public void TaskPopulation_Fails_MessageNotifiesUser()
+    {
+        var backendRepository =
+            new InMemoryTaskRepository([DesktopTask()]);
+        backendRepository.FailAlways();
+
+        var messageNotifierMock = new Mock<IMessageNotifier>();
+        var sut = TaskListViewModel(backendRepository, messageNotifierMock.Object);
+
+        sut.PopulateTasks();
+
+        messageNotifierMock.Verify(x => x.Notify(
+            "Task retrieval has failed due to " +
+            "an internal error. Expect some Tasks to be missing. " +
+            "Please, try again later."));
+    }
+
     private static TaskListViewModel TaskListViewModel(
         params InMemoryTaskRepository[] taskRepositories)
     {
         return new TaskListViewModel(
             taskRepositories,
-            new TaskCreationViewModel(taskRepositories));
+            new TaskCreationViewModel(taskRepositories),
+            new Mock<IMessageNotifier>().Object);
+    }
+
+    private static TaskListViewModel TaskListViewModel(
+        InMemoryTaskRepository taskRepository,
+        IMessageNotifier messageNotifier)
+    {
+        return new TaskListViewModel(
+            [taskRepository],
+            new TaskCreationViewModel([taskRepository]),
+            messageNotifier);
     }
 }
