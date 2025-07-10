@@ -4,14 +4,14 @@ namespace Desktop.Tasks;
 
 public interface ITaskRepository
 {
-    Task<Result> All();
-    Task<Result> Save(Task task);
-    Task<Result> Delete(Task toBeDeleted);
+    Task<ResultWithValue> All();
+    Task<ResultWithoutValue> Save(Task task);
+    Task<ResultWithoutValue> Delete(Task toBeDeleted);
 }
 
-public record Result
+public record ResultWithValue
 {
-    private Result(bool succeeded, IReadOnlyList<Task> tasks)
+    private ResultWithValue(bool succeeded, IReadOnlyList<Task> tasks)
     {
         Succeeded = succeeded;
         Tasks = tasks;
@@ -20,12 +20,25 @@ public record Result
     public bool Succeeded { get; }
     public IReadOnlyList<Task> Tasks { get; }
 
-    public static Result Of(IReadOnlyList<Task> tasks) =>
+    public static ResultWithValue Of(IReadOnlyList<Task> tasks) =>
         new(succeeded: true, tasks);
 
-    public static Result Failed() =>
+    public static ResultWithValue Failed() =>
         new(succeeded: false, []);
+}
 
-    public static Result Success() =>
-        new(succeeded: true, []);
+public record ResultWithoutValue
+{
+    private ResultWithoutValue(bool succeeded)
+    {
+        Succeeded = succeeded;
+    }
+
+    public bool Succeeded { get; }
+
+    public static ResultWithoutValue Failed() =>
+        new(succeeded: false);
+
+    public static ResultWithoutValue Success() =>
+        new(succeeded: true);
 }

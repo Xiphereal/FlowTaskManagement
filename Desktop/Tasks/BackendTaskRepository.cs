@@ -30,7 +30,7 @@ public class BackendTaskRepository : ITaskRepository, IRemoteTaskRepository
         }
     }
 
-    public async Task<Result> All()
+    public async Task<ResultWithValue> All()
     {
         HttpResponseMessage getResult;
 
@@ -40,13 +40,13 @@ public class BackendTaskRepository : ITaskRepository, IRemoteTaskRepository
         }
         catch
         {
-            return Result.Failed();
+            return ResultWithValue.Failed();
         }
 
         var backendTasks =
             await getResult.Content.ReadAsAsync<IEnumerable<BackendTask>>();
 
-        return Result.Of(backendTasks.Select(ToDesktopTask).ToArray());
+        return ResultWithValue.Of(backendTasks.Select(ToDesktopTask).ToArray());
     }
 
     private static Task ToDesktopTask(BackendTask task)
@@ -54,7 +54,7 @@ public class BackendTaskRepository : ITaskRepository, IRemoteTaskRepository
         return new Task(task.Id, task.Name, task.Description);
     }
 
-    public async Task<Result> Save(Task task)
+    public async Task<ResultWithoutValue> Save(Task task)
     {
         var existingTasks = await All();
 
@@ -75,13 +75,13 @@ public class BackendTaskRepository : ITaskRepository, IRemoteTaskRepository
         }
         catch
         {
-            return Result.Failed();
+            return ResultWithoutValue.Failed();
         }
 
-        return Result.Success();
+        return ResultWithoutValue.Success();
     }
 
-    private async Task<Result> Modify(Task task)
+    private async Task<ResultWithoutValue> Modify(Task task)
     {
         try
         {
@@ -93,10 +93,10 @@ public class BackendTaskRepository : ITaskRepository, IRemoteTaskRepository
         }
         catch
         {
-            return Result.Failed();
+            return ResultWithoutValue.Failed();
         }
 
-        return Result.Success();
+        return ResultWithoutValue.Success();
     }
 
     private static BackendTask ToBackendTask(Task task)
@@ -104,7 +104,7 @@ public class BackendTaskRepository : ITaskRepository, IRemoteTaskRepository
         return new BackendTask(task.Id, task.Name, task.Description);
     }
 
-    public async Task<Result> Delete(Task toBeDeleted)
+    public async Task<ResultWithoutValue> Delete(Task toBeDeleted)
     {
         try
         {
@@ -115,9 +115,9 @@ public class BackendTaskRepository : ITaskRepository, IRemoteTaskRepository
         }
         catch
         {
-            return Result.Failed();
+            return ResultWithoutValue.Failed();
         }
 
-        return Result.Success();
+        return ResultWithoutValue.Success();
     }
 }

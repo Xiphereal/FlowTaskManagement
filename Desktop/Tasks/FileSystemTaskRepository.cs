@@ -8,17 +8,17 @@ public class FileSystemTaskRepository : ITaskRepository
 {
     private const string PersistedTasksFileName = "Tasks.txt";
 
-    public Task<Result> All()
+    public Task<ResultWithValue> All()
     {
         if (!File.Exists(PersistedTasksFileName))
-            return SystemTask.FromResult(Result.Of([]));
+            return SystemTask.FromResult(ResultWithValue.Of([]));
 
         var tasks = File
             .ReadAllLines(PersistedTasksFileName)
             .Select(ToTask)
             .ToList();
 
-        return SystemTask.FromResult(Result.Of(tasks));
+        return SystemTask.FromResult(ResultWithValue.Of(tasks));
     }
 
     private static Task ToTask(string line)
@@ -36,7 +36,7 @@ public class FileSystemTaskRepository : ITaskRepository
         return line.Split(' ');
     }
 
-    public async Task<Result> Save(Task task)
+    public async Task<ResultWithoutValue> Save(Task task)
     {
         var existingTasks = await All();
         if (existingTasks.Tasks.Contains(task))
@@ -46,17 +46,17 @@ public class FileSystemTaskRepository : ITaskRepository
             PersistedTasksFileName,
             $"{task.Id} {task.Name} {task.Description}{Environment.NewLine}");
 
-        return Result.Success();
+        return ResultWithoutValue.Success();
     }
 
-    public Task<Result> Delete(Task toBeDeleted)
+    public Task<ResultWithoutValue> Delete(Task toBeDeleted)
     {
         var existingTasks = File.ReadAllLines(PersistedTasksFileName);
         var remainingTasks = existingTasks.Where(x => !Is(x, toBeDeleted));
 
         File.WriteAllLines(PersistedTasksFileName, remainingTasks);
 
-        return SystemTask.FromResult(Result.Success());
+        return SystemTask.FromResult(ResultWithoutValue.Success());
     }
 
     private static bool Is(string candidateAsLine, Task toBeDeleted)

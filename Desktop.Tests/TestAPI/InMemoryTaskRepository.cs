@@ -16,23 +16,23 @@ public class InMemoryTaskRepository : ITaskRepository
         tasks.AddRange(with);
     }
 
-    public Task<Result> All()
+    public Task<ResultWithValue> All()
     {
         return SystemTask.FromResult(
-            Result.Of(tasks.ToArray()));
+            ResultWithValue.Of(tasks.ToArray()));
     }
 
-    public Task<Result> Save(Task task)
+    public Task<ResultWithoutValue> Save(Task task)
     {
         tasks.Add(task);
 
-        return SystemTask.FromResult(Result.Success());
+        return SystemTask.FromResult(ResultWithoutValue.Success());
     }
 
-    public Task<Result> Delete(Task toBeDeleted)
+    public Task<ResultWithoutValue> Delete(Task toBeDeleted)
     {
         tasks.Remove(toBeDeleted);
 
-        return SystemTask.FromResult(Result.Success());
+        return SystemTask.FromResult(ResultWithoutValue.Success());
     }
 }
