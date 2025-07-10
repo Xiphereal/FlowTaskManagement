@@ -21,6 +21,7 @@ public class FileSystemTaskRepositoryTest : ITaskRepositoryTests
         var result = await sut.All();
 
         result.Tasks.Should().BeEmpty();
+        result.Succeeded.Should().BeTrue();
     }
 
     [Test]
