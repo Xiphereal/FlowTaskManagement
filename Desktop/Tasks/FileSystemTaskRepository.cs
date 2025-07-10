@@ -11,7 +11,7 @@ public class FileSystemTaskRepository : ITaskRepository
     public Task<ResultWithValue> All()
     {
         if (!File.Exists(PersistedTasksFileName))
-            return SystemTask.FromResult(ResultWithValue.Of([]));
+            return SystemTask.FromResult(ResultWithValue.Empty());
 
         var tasks = File
             .ReadAllLines(PersistedTasksFileName)

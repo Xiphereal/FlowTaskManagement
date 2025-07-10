@@ -23,6 +23,9 @@ public record ResultWithValue
     public static ResultWithValue Of(IReadOnlyList<Task> tasks) =>
         new(succeeded: true, tasks);
 
+    public static ResultWithValue Empty() =>
+        new(succeeded: true, []);
+
     public static ResultWithValue Failed() =>
         new(succeeded: false, []);
 }
