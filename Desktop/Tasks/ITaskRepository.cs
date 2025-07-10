@@ -1,13 +1,12 @@
 ﻿using Task = Desktop.Domain.Task;
-using SystemTask = System.Threading.Tasks.Task;
 
 namespace Desktop.Tasks;
 
 public interface ITaskRepository
 {
     Task<Result> All();
-    Task<bool> Save(Task task);
-    SystemTask Delete(Task toBeDeleted);
+    Task<Result> Save(Task task);
+    Task<Result> Delete(Task toBeDeleted);
 }
 
 public record Result
@@ -25,5 +24,8 @@ public record Result
         new(succeeded: true, tasks);
 
     public static Result Failed() =>
-        new(false, []);
+        new(succeeded: false, []);
+
+    public static Result Success() =>
+        new(succeeded: true, []);
 }

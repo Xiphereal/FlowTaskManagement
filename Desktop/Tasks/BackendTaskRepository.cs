@@ -1,5 +1,4 @@
 ﻿using System.Net.Http;
-using SystemTask = System.Threading.Tasks.Task;
 using Task = Desktop.Domain.Task;
 using BackendTask = Backend.Domain.Task;
 
@@ -55,15 +54,15 @@ public class BackendTaskRepository : ITaskRepository, IRemoteTaskRepository
         return new Task(task.Id, task.Name, task.Description);
     }
 
-    public async Task<bool> Save(Task task)
+    public async Task<Result> Save(Task task)
     {
         var existingTasks = await All();
 
         if (existingTasks.Tasks.Contains(task))
         {
-            var hasBeenSuccessful = await Modify(task);
+            var result = await Modify(task);
 
-            return hasBeenSuccessful;
+            return result;
         }
 
         try
@@ -73,16 +72,16 @@ public class BackendTaskRepository : ITaskRepository, IRemoteTaskRepository
                 ToBackendTask(task));
 
             postResult.EnsureSuccessStatusCode();
-
-            return true;
         }
         catch
         {
-            return false;
+            return Result.Failed();
         }
+
+        return Result.Success();
     }
 
-    private async Task<bool> Modify(Task task)
+    private async Task<Result> Modify(Task task)
     {
         try
         {
@@ -91,13 +90,13 @@ public class BackendTaskRepository : ITaskRepository, IRemoteTaskRepository
                 ToBackendTask(task));
 
             result.EnsureSuccessStatusCode();
-
-            return true;
         }
         catch
         {
-            return false;
+            return Result.Failed();
         }
+
+        return Result.Success();
     }
 
     private static BackendTask ToBackendTask(Task task)
@@ -105,20 +104,20 @@ public class BackendTaskRepository : ITaskRepository, IRemoteTaskRepository
         return new BackendTask(task.Id, task.Name, task.Description);
     }
 
-    public async SystemTask Delete(Task toBeDeleted)
+    public async Task<Result> Delete(Task toBeDeleted)
     {
-        HttpResponseMessage httpResponseMessage;
-
         try
         {
-            httpResponseMessage = await httpClient.DeleteAsync(
+            var httpResponseMessage = await httpClient.DeleteAsync(
                 $"{TasksUri}{toBeDeleted.Id}");
+
+            httpResponseMessage.EnsureSuccessStatusCode();
         }
         catch
         {
-            return;
+            return Result.Failed();
         }
 
-        httpResponseMessage.EnsureSuccessStatusCode();
+        return Result.Success();
     }
 }

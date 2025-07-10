@@ -36,7 +36,7 @@ public class FileSystemTaskRepository : ITaskRepository
         return line.Split(' ');
     }
 
-    public async Task<bool> Save(Task task)
+    public async Task<Result> Save(Task task)
     {
         var existingTasks = await All();
         if (existingTasks.Tasks.Contains(task))
@@ -46,17 +46,17 @@ public class FileSystemTaskRepository : ITaskRepository
             PersistedTasksFileName,
             $"{task.Id} {task.Name} {task.Description}{Environment.NewLine}");
 
-        return true;
+        return Result.Success();
     }
 
-    public SystemTask Delete(Task toBeDeleted)
+    public Task<Result> Delete(Task toBeDeleted)
     {
         var existingTasks = File.ReadAllLines(PersistedTasksFileName);
         var remainingTasks = existingTasks.Where(x => !Is(x, toBeDeleted));
 
         File.WriteAllLines(PersistedTasksFileName, remainingTasks);
 
-        return SystemTask.CompletedTask;
+        return SystemTask.FromResult(Result.Success());
     }
 
     private static bool Is(string candidateAsLine, Task toBeDeleted)

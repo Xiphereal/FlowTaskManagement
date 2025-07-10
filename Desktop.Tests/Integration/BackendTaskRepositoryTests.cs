@@ -34,6 +34,7 @@ public class BackendTaskRepositoryTests : ITaskRepositoryTests
         var result = await sut.All();
 
         result.Tasks.Should().NotBeEmpty();
+        result.Succeeded.Should().BeTrue();
     }
 
     [Test]
@@ -55,6 +56,7 @@ public class BackendTaskRepositoryTests : ITaskRepositoryTests
                 anotherTask
             ],
             options => options.ComparingByMembers<Backend.Domain.Task>());
+        result.Succeeded.Should().BeTrue();
     }
 
     [Test]
@@ -74,6 +76,7 @@ public class BackendTaskRepositoryTests : ITaskRepositoryTests
             options => options
                 .Excluding(x => x.Id)
                 .ComparingByMembers<Backend.Domain.Task>());
+        result.Succeeded.Should().BeTrue();
     }
 
     [Test]
@@ -94,11 +97,13 @@ public class BackendTaskRepositoryTests : ITaskRepositoryTests
             DesktopTask(id: existingTask.Id),
             taskToPersist
         ]);
+        result.Succeeded.Should().BeTrue();
     }
 
     [Test]
     public async Task TasksCanBeModified()
     {
+        // Arrange.
         var existingTask = BackendTask(
             id: Guid.NewGuid(),
             named: "Old name",
@@ -108,17 +113,21 @@ public class BackendTaskRepositoryTests : ITaskRepositoryTests
             .Launch();
         var sut = new BackendTaskRepository(backend);
 
+        // Act.
         var modifiedTask = DesktopTask(
             existingTask.Id,
             named: "New name",
             description: "New description");
-        var successful = await sut.Save(modifiedTask);
+        var saveResult = await sut.Save(modifiedTask);
 
-        successful.Should().BeTrue();
-        var result = await sut.All();
-        result.Tasks.Should().BeEquivalentTo(
+        // Assert.
+        saveResult.Succeeded.Should().BeTrue();
+
+        var queryResult = await sut.All();
+        queryResult.Tasks.Should().BeEquivalentTo(
             [modifiedTask],
             options => options.ComparingByMembers<Domain.Task>());
+        queryResult.Succeeded.Should().BeTrue();
     }
 
     [Test]
@@ -134,6 +143,7 @@ public class BackendTaskRepositoryTests : ITaskRepositoryTests
 
         var result = await sut.All();
         result.Tasks.Should().BeEmpty();
+        result.Succeeded.Should().BeTrue();
     }
 
     [Test]
@@ -164,6 +174,7 @@ public class BackendTaskRepositoryTests : ITaskRepositoryTests
             oneThatMustRemain,
             anotherThatMustRemain,
         ]);
+        result.Succeeded.Should().BeTrue();
     }
 
     [Test]
@@ -192,7 +203,8 @@ public class BackendTaskRepositoryTests : ITaskRepositoryTests
 
         var sutInvocation = async () => await sut.Save(DesktopTask());
 
-        await sutInvocation.Should().NotThrowAsync();
+        (await sutInvocation.Should().NotThrowAsync())
+            .Which.Succeeded.Should().BeFalse();
     }
 
     [Test]
@@ -208,6 +220,7 @@ public class BackendTaskRepositoryTests : ITaskRepositoryTests
         var sutInvocation = async () =>
             await sut.Delete(DesktopTask(id: backendTask.Id, named: "ToBeDeleted"));
 
-        await sutInvocation.Should().NotThrowAsync();
+        (await sutInvocation.Should().NotThrowAsync())
+            .Which.Succeeded.Should().BeFalse();
     }
 }

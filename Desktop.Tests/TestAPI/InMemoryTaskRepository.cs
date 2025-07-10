@@ -1,16 +1,17 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Desktop.Tasks;
+using Task = Desktop.Domain.Task;
 
 namespace Desktop.Tests.TestAPI;
 
-using SystemTask = Task;
+using SystemTask = System.Threading.Tasks.Task;
 
 public class InMemoryTaskRepository : ITaskRepository
 {
-    private readonly List<Domain.Task> tasks = [];
+    private readonly List<Task> tasks = [];
 
-    public InMemoryTaskRepository(IEnumerable<Domain.Task> with)
+    public InMemoryTaskRepository(IEnumerable<Task> with)
     {
         tasks.AddRange(with);
     }
@@ -21,17 +22,17 @@ public class InMemoryTaskRepository : ITaskRepository
             Result.Of(tasks.ToArray()));
     }
 
-    public Task<bool> Save(Domain.Task task)
+    public Task<Result> Save(Task task)
     {
         tasks.Add(task);
 
-        return SystemTask.FromResult(true);
+        return SystemTask.FromResult(Result.Success());
     }
 
-    public SystemTask Delete(Domain.Task toBeDeleted)
+    public Task<Result> Delete(Task toBeDeleted)
     {
         tasks.Remove(toBeDeleted);
 
-        return SystemTask.CompletedTask;
+        return SystemTask.FromResult(Result.Success());
     }
 }

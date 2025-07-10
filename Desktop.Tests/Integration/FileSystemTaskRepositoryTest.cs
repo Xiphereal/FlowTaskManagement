@@ -40,6 +40,7 @@ public class FileSystemTaskRepositoryTest : ITaskRepositoryTests
                     description: "aTaskDescription")
             ],
             options => options.ComparingByMembers<Task>().Excluding(x => x.Id));
+        result.Succeeded.Should().BeTrue();
     }
 
     [Test]
@@ -58,6 +59,7 @@ public class FileSystemTaskRepositoryTest : ITaskRepositoryTests
                     description: string.Empty)
             ],
             options => options.ComparingByMembers<Task>().Excluding(x => x.Id));
+        result.Succeeded.Should().BeTrue();
     }
 
     [Test]
@@ -80,6 +82,7 @@ public class FileSystemTaskRepositoryTest : ITaskRepositoryTests
                     description: string.Empty)
             ],
             options => options.ComparingByMembers<Task>().Excluding(x => x.Id));
+        result.Succeeded.Should().BeTrue();
     }
 
     [Test]
@@ -92,6 +95,7 @@ public class FileSystemTaskRepositoryTest : ITaskRepositoryTests
 
         var result = await sut.All();
         result.Tasks.Should().ContainSingle().And.Contain(taskToPersist);
+        result.Succeeded.Should().BeTrue();
     }
 
     [Test]
@@ -112,6 +116,7 @@ public class FileSystemTaskRepositoryTest : ITaskRepositoryTests
             existingTask,
             taskToPersist,
         ]);
+        result.Succeeded.Should().BeTrue();
     }
 
     [Test]
@@ -134,6 +139,7 @@ public class FileSystemTaskRepositoryTest : ITaskRepositoryTests
 
         var result = await sut.All();
         result.Tasks.Should().BeEquivalentTo([modifiedTask]);
+        result.Succeeded.Should().BeTrue();
     }
 
     [Test]
@@ -148,6 +154,7 @@ public class FileSystemTaskRepositoryTest : ITaskRepositoryTests
 
         var result = await sut.All();
         result.Tasks.Should().BeEmpty();
+        result.Succeeded.Should().BeTrue();
     }
 
     [Test]
@@ -177,6 +184,7 @@ public class FileSystemTaskRepositoryTest : ITaskRepositoryTests
             oneThatMustRemain,
             anotherThatMustRemain,
         ]);
+        result.Succeeded.Should().BeTrue();
     }
 
     private static void PersistTask(string name, string description = null)
