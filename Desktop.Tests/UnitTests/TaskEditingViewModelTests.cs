@@ -20,5 +20,6 @@ public class TaskEditingViewModelTests
         sut.Save.Execute(("New name", "New description"));
 
         aRepositoryMock.Verify(m => m.Save(It.IsAny<Task>()));
+        anotherRepositoryMock.Verify(m => m.Save(It.IsAny<Task>()));
     }
 }
