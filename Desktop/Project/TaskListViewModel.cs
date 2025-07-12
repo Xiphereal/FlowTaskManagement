@@ -39,7 +39,15 @@ public class TaskListViewModel : ViewModelBase
             Tasks.Remove(taskToRemove!);
 
             foreach (var repository in this.taskRepositories)
-                await repository.Delete(taskToRemove!);
+            {
+                var result = await repository.Delete(taskToRemove!);
+
+                if (!result.Succeeded)
+                    messageNotifier.Notify(
+                        "Task deletion has failed due to " +
+                        "an internal error. The Task won't be deleted. " +
+                        "Please, try again later.");
+            }
         });
     }
 

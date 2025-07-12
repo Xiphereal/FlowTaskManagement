@@ -51,7 +51,6 @@ public class TaskListViewModelTests
         var backendRepository =
             new InMemoryTaskRepository([DesktopTask()]);
         backendRepository.FailAlways();
-
         var messageNotifierMock = new Mock<IMessageNotifier>();
         var sut = TaskListViewModel(backendRepository, messageNotifierMock.Object);
 
@@ -60,6 +59,24 @@ public class TaskListViewModelTests
         messageNotifierMock.Verify(x => x.Notify(
             "Task retrieval has failed due to " +
             "an internal error. Expect some Tasks to be missing. " +
+            "Please, try again later."));
+    }
+
+    [Test]
+    public void TaskDeletion_Fails_MessageNotifiesUser()
+    {
+        var existingTask = DesktopTask();
+        var backendRepository =
+            new InMemoryTaskRepository([existingTask]);
+        backendRepository.FailAlways();
+        var messageNotifierMock = new Mock<IMessageNotifier>();
+        var sut = TaskListViewModel(backendRepository, messageNotifierMock.Object);
+
+        sut.Delete.Execute(existingTask);
+
+        messageNotifierMock.Verify(x => x.Notify(
+            "Task deletion has failed due to " +
+            "an internal error. The Task won't be deleted. " +
             "Please, try again later."));
     }
 

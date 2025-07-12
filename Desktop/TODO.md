@@ -5,6 +5,7 @@
 - docs: duplication between Desktop.Task & Backend.Task
 - docs: the focus on UX with the accelerators/shortcuts.
 - docs: localization
+- docs: definition of unit & what is considered a unit test
 - feat: Tasks may have other Tasks
 - feat: sync Backend with locally Tasks saved once it is available
 - feat: tasks have a state
