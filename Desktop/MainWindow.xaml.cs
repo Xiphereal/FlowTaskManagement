@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using Desktop.Common;
 using Desktop.Project;
 using Desktop.Tasks;
 
@@ -7,14 +8,17 @@ namespace Desktop;
 public partial class MainWindow : Window
 {
     private readonly TaskListViewModel taskListViewModel;
+    private readonly IMessageNotifier messageNotifier;
     private readonly IEnumerable<ITaskRepository> taskRepositories;
 
     public MainWindow(
         TaskListViewModel taskListViewModel,
         MainWindowViewModel viewModel,
+        IMessageNotifier messageNotifier,
         IEnumerable<ITaskRepository> taskRepositories)
     {
         this.taskListViewModel = taskListViewModel;
+        this.messageNotifier = messageNotifier;
         this.taskRepositories = taskRepositories;
         DataContext = viewModel;
 
@@ -24,7 +28,7 @@ public partial class MainWindow : Window
 
     private void NavigateToTaskList()
     {
-        var tasksList = new TasksList(taskListViewModel, taskRepositories);
+        var tasksList = new TasksList(taskListViewModel, messageNotifier, taskRepositories);
         Content.Content = tasksList;
     }
 

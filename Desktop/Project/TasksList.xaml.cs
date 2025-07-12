@@ -1,5 +1,6 @@
 ﻿using System.Windows.Controls;
 using System.Windows.Input;
+using Desktop.Common;
 using Desktop.Tasks;
 using Task = Desktop.Domain.Task;
 
@@ -7,12 +8,15 @@ namespace Desktop.Project;
 
 public partial class TasksList : UserControl
 {
+    private readonly IMessageNotifier messageNotifier;
     private readonly IEnumerable<ITaskRepository> taskRepositories;
 
     public TasksList(
         TaskListViewModel viewModel,
+        IMessageNotifier messageNotifier,
         IEnumerable<ITaskRepository> taskRepositories)
     {
+        this.messageNotifier = messageNotifier;
         this.taskRepositories = taskRepositories;
         DataContext = viewModel;
 
@@ -37,7 +41,7 @@ public partial class TasksList : UserControl
         if (sender is not ListBoxItem { DataContext: Task task })
             return;
 
-        var window = new TaskEditing(task, taskRepositories);
+        var window = new TaskEditing(task, messageNotifier, taskRepositories);
         window.ShowDialog();
     }
 }

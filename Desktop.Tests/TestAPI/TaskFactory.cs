@@ -16,6 +16,16 @@ public static class TaskFactory
     }
 
     public static Task DesktopTask(
+        string named,
+        string description)
+    {
+        return DesktopTask(
+            id: Guid.NewGuid(),
+            named,
+            description: description);
+    }
+
+    public static Task DesktopTask(
         Guid? id = null,
         string named = null,
         string description = null)
