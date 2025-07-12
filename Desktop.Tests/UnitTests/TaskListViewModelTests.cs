@@ -63,21 +63,28 @@ public class TaskListViewModelTests
     }
 
     [Test]
-    public void TaskDeletion_Fails_MessageNotifiesUser()
+    public void TaskDeletion_Fails_MessageNotifiesUserAndTaskRemains()
     {
+        // Arrange.
         var existingTask = DesktopTask();
         var backendRepository =
             new InMemoryTaskRepository([existingTask]);
-        backendRepository.FailAlways();
+        
         var messageNotifierMock = new Mock<IMessageNotifier>();
+        
         var sut = TaskListViewModel(backendRepository, messageNotifierMock.Object);
-
+        sut.PopulateTasks();
+        backendRepository.FailAlways();
+        
+        // Act.
         sut.Delete.Execute(existingTask);
 
+        // Assert.
         messageNotifierMock.Verify(x => x.Notify(
             "Task deletion has failed due to " +
             "an internal error. The Task won't be deleted. " +
             "Please, try again later."));
+        sut.Tasks.Should().Contain(existingTask);
     }
 
     private static TaskListViewModel TaskListViewModel(

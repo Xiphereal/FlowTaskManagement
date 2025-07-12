@@ -36,13 +36,13 @@ public class TaskListViewModel : ViewModelBase
 
         Delete = new AsyncRelayCommand<Task>(async taskToRemove =>
         {
-            Tasks.Remove(taskToRemove!);
-
             foreach (var repository in this.taskRepositories)
             {
-                var result = await repository.Delete(taskToRemove!);
+                var deletion = await repository.Delete(taskToRemove!);
 
-                if (!result.Succeeded)
+                if (deletion.Succeeded)
+                    Tasks.Remove(taskToRemove!);
+                else
                     messageNotifier.Notify(
                         "Task deletion has failed due to " +
                         "an internal error. The Task won't be deleted. " +
