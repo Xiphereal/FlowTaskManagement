@@ -6,7 +6,9 @@ namespace Desktop.Tasks;
 
 public class TaskCreationViewModel : ViewModelBase
 {
-    public TaskCreationViewModel(IEnumerable<ITaskRepository> taskRepositories)
+    public TaskCreationViewModel(
+        IMessageNotifier messageNotifier,
+        IEnumerable<ITaskRepository> taskRepositories)
     {
         SaveTask =
             new AsyncRelayCommand<(ICloseable, string, string)>(async args =>
@@ -17,7 +19,19 @@ public class TaskCreationViewModel : ViewModelBase
 
                 foreach (var repository in taskRepositories)
                 {
-                    await repository.Save(CreatedTask);
+                    var creationResult = await repository.Save(CreatedTask);
+
+                    if (!creationResult.Succeeded)
+                    {
+                        messageNotifier.Notify(
+                            "Task creation has failed due to " +
+                            "an internal error. The Task won't be created. " +
+                            "Please, try again later.");
+
+                        CreatedTask = null;
+
+                        break;
+                    }
                 }
 
                 closeable!.Close();

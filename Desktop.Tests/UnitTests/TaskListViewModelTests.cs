@@ -69,13 +69,13 @@ public class TaskListViewModelTests
         var existingTask = DesktopTask();
         var backendRepository =
             new InMemoryTaskRepository([existingTask]);
-        
+
         var messageNotifierMock = new Mock<IMessageNotifier>();
-        
+
         var sut = TaskListViewModel(backendRepository, messageNotifierMock.Object);
         sut.PopulateTasks();
         backendRepository.FailAlways();
-        
+
         // Act.
         sut.Delete.Execute(existingTask);
 
@@ -90,10 +90,11 @@ public class TaskListViewModelTests
     private static TaskListViewModel TaskListViewModel(
         params InMemoryTaskRepository[] taskRepositories)
     {
+        var messageNotifier = new Mock<IMessageNotifier>().Object;
         return new TaskListViewModel(
             taskRepositories,
-            new TaskCreationViewModel(taskRepositories),
-            new Mock<IMessageNotifier>().Object);
+            new TaskCreationViewModel(messageNotifier, taskRepositories),
+            messageNotifier);
     }
 
     private static TaskListViewModel TaskListViewModel(
@@ -102,7 +103,7 @@ public class TaskListViewModelTests
     {
         return new TaskListViewModel(
             [taskRepository],
-            new TaskCreationViewModel([taskRepository]),
+            new TaskCreationViewModel(messageNotifier, [taskRepository]),
             messageNotifier);
     }
 }
