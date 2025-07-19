@@ -1,5 +1,5 @@
-﻿using Desktop.Common;
-using Desktop.Domain;
+﻿using System.Threading.Tasks;
+using Desktop.Common;
 using Desktop.Tasks;
 using Desktop.Tests.TestAPI;
 using FluentAssertions;
@@ -11,6 +11,11 @@ namespace Desktop.Tests.UnitTests;
 
 public class TaskEditingViewModelTests
 {
+    private const string TaskEditingFailedMessage =
+        "Task editing has failed due to " +
+        "an internal error. The modifications will be reverted. " +
+        "Please, try again later.";
+
     [Test]
     public void TasksModificationsAreCommandedToBePersisted()
     {
@@ -22,15 +27,15 @@ public class TaskEditingViewModelTests
 
         sut.Save.Execute(("New name", "New description"));
 
-        aRepositoryMock.Verify(m => m.Save(It.IsAny<Task>()));
-        anotherRepositoryMock.Verify(m => m.Save(It.IsAny<Task>()));
+        aRepositoryMock.Verify(m => m.Save(It.IsAny<Domain.Task>()));
+        anotherRepositoryMock.Verify(m => m.Save(It.IsAny<Domain.Task>()));
     }
 
     private static Mock<ITaskRepository> RepositoryMockThatAlwaysSucceeds()
     {
         var mock = new Mock<ITaskRepository>();
         mock
-            .Setup(x => x.Save(It.IsAny<Task>()))
+            .Setup(x => x.Save(It.IsAny<Domain.Task>()))
             .ReturnsAsync(ResultWithoutValue.Success());
 
         return mock;
@@ -51,15 +56,47 @@ public class TaskEditingViewModelTests
         sut.Save.Execute(("New name", "New description"));
 
         messageNotifierMock.Verify(x => x.Notify(
-            "Task editing has failed due to " +
-            "an internal error. The modifications will be reverted. " +
-            "Please, try again later."));
+            TaskEditingFailedMessage));
         existingTask.Name.Should().Be("Old name");
         existingTask.Description.Should().Be("Old description");
     }
 
+    [Test]
+    public async Task
+        TaskEditing_FailsForOne_NotifiesOnceAndAllowsEditingItToTheRestOfRepositories()
+    {
+        // Arrange
+        var existingTask = DesktopTask("Old name", "Old description");
+        var aRepository = new InMemoryTaskRepository([existingTask]);
+        aRepository.FailAlways();
+
+        var anotherRepository = new InMemoryTaskRepository([existingTask]);
+
+        var messageNotifierMock = new Mock<IMessageNotifier>();
+        var sut = TaskEditingViewModel(
+            taskBeingEdited: existingTask,
+            messageNotifierMock.Object,
+            repositories: [aRepository, anotherRepository]);
+
+        // Act.
+        var newName = "New name";
+        var newDescription = "New description";
+        sut.Save.Execute((newName, newDescription));
+
+        // Assert.
+        messageNotifierMock.Verify(
+            x => x.Notify(TaskEditingFailedMessage),
+            Times.Once);
+        existingTask.Name.Should().Be(newName);
+        existingTask.Description.Should().Be(newDescription);
+
+        var result = await anotherRepository.All();
+        result.Tasks.Should().Contain(
+            DesktopTask(id: existingTask.Id, newName, newDescription));
+    }
+
     private static TaskEditingViewModel TaskEditingViewModel(
-        Task taskBeingEdited,
+        Domain.Task taskBeingEdited,
         IMessageNotifier messageNotifier = null,
         params ITaskRepository[] repositories)
     {
