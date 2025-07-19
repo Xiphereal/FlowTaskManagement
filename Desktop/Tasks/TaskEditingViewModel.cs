@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using Desktop.Common;
 using Task = Desktop.Domain.Task;
+using SystemTask = System.Threading.Tasks.Task;
 
 namespace Desktop.Tasks;
 
@@ -21,21 +22,17 @@ public class TaskEditingViewModel : ViewModelBase
             var originalDescription = taskBeingEdited.Description;
             taskBeingEdited.Description = description;
 
-            var anySucceeded = false;
-            foreach (var repository in taskRepositories)
-            {
-                var editingResult = await repository.Save(taskBeingEdited);
+            var editsTasks = taskRepositories
+                .Select(x => x.Save(taskBeingEdited));
+            var results = await SystemTask.WhenAll(editsTasks);
 
-                if (editingResult.Succeeded)
-                    anySucceeded = true;
-                else
-                    messageNotifier.Notify(
-                        "Task editing has failed due to " +
-                        "an internal error. The modifications will be reverted. " +
-                        "Please, try again later.");
-            }
+            if (results.Any(x => !x.Succeeded))
+                messageNotifier.Notify(
+                    "Task editing has failed due to " +
+                    "an internal error. The modifications will be reverted. " +
+                    "Please, try again later.");
 
-            if (!anySucceeded)
+            if (results.All(x => !x.Succeeded))
                 RevertEdit(taskBeingEdited, originalName, originalDescription);
         });
     }
