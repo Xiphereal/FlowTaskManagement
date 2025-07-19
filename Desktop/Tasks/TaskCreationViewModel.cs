@@ -17,22 +17,22 @@ public class TaskCreationViewModel : ViewModelBase
 
                 CreatedTask = new Task(taskName, taskDescription);
 
+                var anySucceeded = false;
                 foreach (var repository in taskRepositories)
                 {
                     var creationResult = await repository.Save(CreatedTask);
 
-                    if (!creationResult.Succeeded)
-                    {
+                    if (creationResult.Succeeded)
+                        anySucceeded = true;
+                    else
                         messageNotifier.Notify(
                             "Task creation has failed due to " +
                             "an internal error. The Task won't be created. " +
                             "Please, try again later.");
-
-                        CreatedTask = null;
-
-                        break;
-                    }
                 }
+
+                if (!anySucceeded)
+                    CreatedTask = null;
 
                 closeable!.Close();
             });
