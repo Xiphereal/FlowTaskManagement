@@ -87,6 +87,41 @@ public class TaskListViewModelTests
         sut.Tasks.Should().Contain(existingTask);
     }
 
+    [Test]
+    public async Task
+        TaskDeletion_FailsForOne_NotifiesOnceAndAllowsDeletingItToTheRestOfRepositories()
+    {
+        // Arrange.
+        var existingTask = DesktopTask();
+        var aRepository =
+            new InMemoryTaskRepository([existingTask]);
+        var anotherRepository =
+            new InMemoryTaskRepository([existingTask]);
+
+        var messageNotifierMock = new Mock<IMessageNotifier>();
+
+        var sut = TaskListViewModel(
+            [aRepository, anotherRepository],
+            messageNotifierMock.Object);
+        sut.PopulateTasks();
+        aRepository.FailAlways();
+
+        // Act.
+        sut.Delete.Execute(existingTask);
+
+        // Assert.
+        messageNotifierMock.Verify(
+            x => x.Notify(
+                "Task deletion has failed due to " +
+                "an internal error. The Task won't be deleted. " +
+                "Please, try again later."),
+            Times.Once);
+        sut.Tasks.Should().BeEmpty();
+
+        var result = await anotherRepository.All();
+        result.Tasks.Should().BeEmpty();
+    }
+
     private static TaskListViewModel TaskListViewModel(
         params InMemoryTaskRepository[] taskRepositories)
     {
@@ -104,6 +139,16 @@ public class TaskListViewModelTests
         return new TaskListViewModel(
             [taskRepository],
             new TaskCreationViewModel(messageNotifier, [taskRepository]),
+            messageNotifier);
+    }
+
+    private static TaskListViewModel TaskListViewModel(
+        InMemoryTaskRepository[] taskRepositories,
+        IMessageNotifier messageNotifier)
+    {
+        return new TaskListViewModel(
+            taskRepositories,
+            new TaskCreationViewModel(messageNotifier, taskRepositories),
             messageNotifier);
     }
 }

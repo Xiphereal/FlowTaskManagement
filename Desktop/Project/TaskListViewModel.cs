@@ -10,7 +10,7 @@ namespace Desktop.Project;
 
 public class TaskListViewModel : ViewModelBase
 {
-    private readonly IEnumerable<ITaskRepository> taskRepositories;
+    private readonly IReadOnlyList<ITaskRepository> taskRepositories;
     private readonly IMessageNotifier messageNotifier;
     public ObservableCollection<Task> Tasks { get; } = [];
 
@@ -21,7 +21,7 @@ public class TaskListViewModel : ViewModelBase
         TaskCreationViewModel taskCreationViewModel,
         IMessageNotifier messageNotifier)
     {
-        this.taskRepositories = taskRepositories;
+        this.taskRepositories = taskRepositories.ToArray();
         this.messageNotifier = messageNotifier;
 
         Add = new RelayCommand(() =>
@@ -36,18 +36,18 @@ public class TaskListViewModel : ViewModelBase
 
         Delete = new AsyncRelayCommand<Task>(async taskToRemove =>
         {
-            foreach (var repository in this.taskRepositories)
-            {
-                var deletion = await repository.Delete(taskToRemove!);
+            var deletingTasks = this.taskRepositories
+                .Select(x => x.Delete(taskToRemove!));
+            var results = await SystemTask.WhenAll(deletingTasks);
 
-                if (deletion.Succeeded)
-                    Tasks.Remove(taskToRemove!);
-                else
-                    messageNotifier.Notify(
-                        "Task deletion has failed due to " +
-                        "an internal error. The Task won't be deleted. " +
-                        "Please, try again later.");
-            }
+            if (results.Any(x => !x.Succeeded))
+                messageNotifier.Notify(
+                    "Task deletion has failed due to " +
+                    "an internal error. The Task won't be deleted. " +
+                    "Please, try again later.");
+
+            if (results.Any(x => x.Succeeded))
+                Tasks.Remove(taskToRemove!);
         });
     }
 
