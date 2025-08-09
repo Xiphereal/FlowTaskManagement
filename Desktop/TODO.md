@@ -1,7 +1,12 @@
 ﻿- feat: style the front
+    - Sidebar menu
+    - Align to the right the "Add Task" button?
+    - Status bar for backend availability (and description text about the availability or error messages)
+    - Replace Windows default MessageBox with ones that follow the theme
+    - Fluent dark theme doesn't seem to have good enough contrast. Force the light mode?
 - feat: Flow metrics (MonteCSharp integration)
 - test: ensure coverage for the sln and review testing strategy
-- feat: Tasks may have other child Tasks 
+- feat: Tasks may have other child Tasks
 - feat: show tasks in as project tree
 - docs: duplication between Desktop.Task & Backend.Task
 - docs: the focus on UX with the accelerators/shortcuts.
