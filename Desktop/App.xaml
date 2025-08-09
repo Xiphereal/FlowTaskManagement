@@ -14,7 +14,7 @@
             <Thickness x:Key="SmallMarginAtTop">0,10,0,0</Thickness>
             <Thickness x:Key="BigMarginAtTop">0,40,0,0</Thickness>
             <sys:Double x:Key="DescriptionTextBoxHeight">75</sys:Double>
-            <sys:Double x:Key="PopupWindowHeight">300</sys:Double>
+            <sys:Double x:Key="PopupWindowHeight">320</sys:Double>
             <sys:Double x:Key="PopupWindowWidth">400</sys:Double>
         </ResourceDictionary>
     </Application.Resources>
