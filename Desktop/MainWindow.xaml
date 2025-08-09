@@ -7,6 +7,7 @@
         mc:Ignorable="d"
         Title="MainWindow"
         WindowState="Maximized"
+        Icon="Resources\Icon.ico"
         AutomationProperties.AutomationId="TasksAppMainWindow">
     <Window.Resources>
         <backendAvailabilityConverters:BoolToImageConverter x:Key="BoolToImageConverter">
