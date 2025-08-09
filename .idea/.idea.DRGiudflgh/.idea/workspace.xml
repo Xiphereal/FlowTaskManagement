@@ -11,11 +11,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3c7edafb-b2a6-4b6c-a117-f156287ab369" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.DRGiudflgh/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.DRGiudflgh/.idea/encodings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.DRGiudflgh/.idea/indexLayout.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.DRGiudflgh/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DRGiudflgh.sln" beforeDir="false" afterPath="$PROJECT_DIR$/FlowTaskManagement.sln" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.DRGiudflgh/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.DRGiudflgh/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Desktop/App.xaml" beforeDir="false" afterPath="$PROJECT_DIR$/Desktop/App.xaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Desktop/MainWindow.xaml" beforeDir="false" afterPath="$PROJECT_DIR$/Desktop/MainWindow.xaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Desktop/Tasks/TaskCreation.xaml" beforeDir="false" afterPath="$PROJECT_DIR$/Desktop/Tasks/TaskCreation.xaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Desktop/Tasks/TaskEditing.xaml" beforeDir="false" afterPath="$PROJECT_DIR$/Desktop/Tasks/TaskEditing.xaml" afterDir="false" />
     </list>
     <list id="74ae7e96-0c66-47f0-a53f-bb04a5bdaf66" name="Ignored" comment="Ignored">
       <change afterPath="$PROJECT_DIR$/DRGiudflgh.sln.DotSettings.user" afterDir="false" />
@@ -122,39 +122,39 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    ".NET Launch Settings Profile.Backend: http.executor": "Run",
-    ".NET Project.Desktop.executor": "Run",
-    "0f18a33f-a4f3-40c8-94ee-e3e6457692c9.executor": "Debug",
-    "1efa5218-d8fa-4dd2-bab5-f3b75dbf440e.executor": "Debug",
-    "DefaultPlantUmlFileTemplate": "UML Class",
-    "HTTP Request.Backend | #1.executor": "Run",
-    "HTTP Request.Backend | #2.executor": "Run",
-    "HTTP Request.Backend | #3.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "a1e9e7ff-5fed-484d-a953-c3397e8bc647.executor": "Debug",
-    "d86569bb-b1b4-4399-82c3-eff92a92033a.executor": "Debug",
-    "git-widget-placeholder": "trunk",
-    "ignore.virus.scanning.warn.message": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "rider.code.cleanup.on.save": "true",
-    "rider.code.cleanup.on.save.profile": "Reformat & optimize using",
-    "settings.editor.selected.configurable": "SolutionBuilderGeneralOptionsPage",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;.NET Launch Settings Profile.Backend: http.executor&quot;: &quot;Run&quot;,
+    &quot;.NET Project.Desktop.executor&quot;: &quot;Run&quot;,
+    &quot;0f18a33f-a4f3-40c8-94ee-e3e6457692c9.executor&quot;: &quot;Debug&quot;,
+    &quot;1efa5218-d8fa-4dd2-bab5-f3b75dbf440e.executor&quot;: &quot;Debug&quot;,
+    &quot;DefaultPlantUmlFileTemplate&quot;: &quot;UML Class&quot;,
+    &quot;HTTP Request.Backend | #1.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.Backend | #2.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.Backend | #3.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;a1e9e7ff-5fed-484d-a953-c3397e8bc647.executor&quot;: &quot;Debug&quot;,
+    &quot;d86569bb-b1b4-4399-82c3-eff92a92033a.executor&quot;: &quot;Debug&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;trunk&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;rider.code.cleanup.on.save&quot;: &quot;true&quot;,
+    &quot;rider.code.cleanup.on.save.profile&quot;: &quot;Reformat &amp; optimize using&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;SolutionBuilderGeneralOptionsPage&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "sqlite",
-      "sqlserver",
-      "sqlserver.localdb"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;sqlite&quot;,
+      &quot;sqlserver&quot;,
+      &quot;sqlserver.localdb&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected=".NET Project.Desktop">
     <configuration name="Desktop" type="DotNetProject" factoryName=".NET Project">
       <option name="EXE_PATH" value="" />
