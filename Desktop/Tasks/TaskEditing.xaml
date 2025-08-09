@@ -6,17 +6,23 @@
         mc:Ignorable="d"
         Title="TaskEditing" Height="{StaticResource PopupWindowHeight}" Width="{StaticResource PopupWindowWidth}"
         WindowStartupLocation="CenterScreen">
-    <Grid Margin="{StaticResource DefaultMargin}">
-        <StackPanel>
-            <Label Content="_Name:" Target="{Binding ElementName=Name}" />
-            <TextBox Name="Name" />
-            <Label Content="_Description:" Margin="{StaticResource SmallMarginAtTop}"
-                   Target="{Binding ElementName=Description}" />
-            <TextBox Name="Description" Height="{StaticResource DescriptionTextBoxHeight}" AcceptsReturn="True"
-                     TextWrapping="Wrap"
-                     VerticalAlignment="Stretch" />
-            <Button IsDefault="True" Content="Save" Margin="{StaticResource BigMarginAtTop}"
-                    HorizontalAlignment="Right" Click="SaveTask" />
-        </StackPanel>
+    <Grid FocusManager.FocusedElement="{Binding ElementName=Name}" Margin="{StaticResource DefaultMargin}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Label Grid.Row="0" Content="_Name:" Target="{Binding ElementName=Name}" />
+        <TextBox Grid.Row="1" Name="Name" />
+        <Label Grid.Row="2" Content="_Description:" Margin="{StaticResource SmallMarginAtTop}"
+               Target="{Binding ElementName=Description}" />
+        <TextBox Grid.Row="3" Name="Description" Height="{StaticResource DescriptionTextBoxHeight}"
+                 AcceptsReturn="True"
+                 TextWrapping="Wrap"
+                 VerticalAlignment="Stretch" />
+        <Button Grid.Row="4" IsDefault="True" Content="Save" Margin="{StaticResource BigMarginAtTop}"
+                HorizontalAlignment="Right" Click="SaveTask" />
     </Grid>
 </Window>
