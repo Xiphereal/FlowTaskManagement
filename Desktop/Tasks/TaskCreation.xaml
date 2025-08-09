@@ -6,7 +6,7 @@
         xmlns:converters="clr-namespace:Desktop.Tasks.Converters"
         mc:Ignorable="d"
         x:Name="TaskCreationWindow"
-        Title="Task creation" Height="250" Width="400"
+        Title="Task creation" Height="{StaticResource PopupWindowHeight}" Width="{StaticResource PopupWindowWidth}"
         WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <converters:SaveCommandConverter x:Key="SaveCommandConverter" />
