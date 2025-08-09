@@ -22,7 +22,8 @@
         <Label Content="_Name:" Target="{Binding ElementName=Name}" />
         <TextBox Grid.Row="1" Name="Name" />
         <Label Grid.Row="2" Content="_Description:" Target="{Binding ElementName=Description}" />
-        <TextBox Grid.Row="3" Name="Description" Height="75" AcceptsReturn="True" TextWrapping="Wrap"
+        <TextBox Grid.Row="3" Name="Description" Height="{StaticResource DescriptionTextBoxHeight}"
+                 AcceptsReturn="True" TextWrapping="Wrap"
                  VerticalAlignment="Stretch" />
         <Button AutomationProperties.AutomationId="SaveTask" Grid.Row="4" Content="Add" HorizontalAlignment="Right"
                 IsDefault="True"

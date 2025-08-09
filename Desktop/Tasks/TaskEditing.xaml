@@ -11,7 +11,8 @@
             <Label Content="_Name:" Target="{Binding ElementName=Name}" />
             <TextBox Name="Name" />
             <Label Content="_Description:" Target="{Binding ElementName=Description}" />
-            <TextBox Name="Description" Height="75" AcceptsReturn="True" TextWrapping="Wrap"
+            <TextBox Name="Description" Height="{StaticResource DescriptionTextBoxHeight}" AcceptsReturn="True"
+                     TextWrapping="Wrap"
                      VerticalAlignment="Stretch" />
             <Button IsDefault="True" Content="Save" HorizontalAlignment="Right" Click="SaveTask" />
         </StackPanel>
