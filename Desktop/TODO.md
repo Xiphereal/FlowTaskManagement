@@ -1,12 +1,12 @@
 ﻿- feat: style the front
-- feat: show tasks in as project tree
 - feat: Flow metrics (MonteCSharp integration)
 - test: ensure coverage for the sln and review testing strategy
+- feat: Tasks may have other child Tasks 
+- feat: show tasks in as project tree
 - docs: duplication between Desktop.Task & Backend.Task
 - docs: the focus on UX with the accelerators/shortcuts.
 - docs: localization
 - docs: definition of unit & what is considered a unit test
-- feat: Tasks may have other Tasks
 - feat: sync Backend with locally Tasks saved once it is available
 - feat: tasks have a state
 - docs: screenshots of the different parts of the Desktop.
