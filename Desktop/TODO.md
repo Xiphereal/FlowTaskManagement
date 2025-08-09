@@ -1,5 +1,4 @@
-﻿- feat: error handling on the frontend->backend communication
-- feat: style the front
+﻿- feat: style the front
 - feat: show tasks in as project tree
 - feat: Flow metrics (MonteCSharp integration)
 - docs: duplication between Desktop.Task & Backend.Task
