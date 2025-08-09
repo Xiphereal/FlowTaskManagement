@@ -21,11 +21,14 @@
         </Grid.RowDefinitions>
         <Label Content="_Name:" Target="{Binding ElementName=Name}" />
         <TextBox Grid.Row="1" Name="Name" />
-        <Label Grid.Row="2" Content="_Description:" Target="{Binding ElementName=Description}" />
+        <Label Grid.Row="2" Content="_Description:" Target="{Binding ElementName=Description}"
+               Margin="{StaticResource SmallMarginAtTop}" />
         <TextBox Grid.Row="3" Name="Description" Height="{StaticResource DescriptionTextBoxHeight}"
                  AcceptsReturn="True" TextWrapping="Wrap"
                  VerticalAlignment="Stretch" />
-        <Button AutomationProperties.AutomationId="SaveTask" Grid.Row="4" Content="Add" HorizontalAlignment="Right"
+        <Button AutomationProperties.AutomationId="SaveTask" Grid.Row="4" Content="Add"
+                Margin="{StaticResource BigMarginAtTop}"
+                HorizontalAlignment="Right"
                 IsDefault="True"
                 Command="{Binding SaveTask}">
             <Button.CommandParameter>
