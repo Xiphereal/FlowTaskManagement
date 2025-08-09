@@ -21,7 +21,7 @@
 
         <backendAvailabilityConverters:BoolToAvailabilityTextConverter x:Key="BoolToAvailabilityTextConverter" />
     </Window.Resources>
-    <Grid>
+    <Grid Margin="{StaticResource DefaultMargin}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition />

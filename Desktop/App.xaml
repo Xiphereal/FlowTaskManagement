@@ -8,6 +8,7 @@
                 <ResourceDictionary
                     Source="pack://application:,,,/PresentationFramework.Fluent;component/Themes/Fluent.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            <Thickness x:Key="DefaultMargin">20</Thickness>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

@@ -6,12 +6,12 @@
         xmlns:converters="clr-namespace:Desktop.Tasks.Converters"
         mc:Ignorable="d"
         x:Name="TaskCreationWindow"
-        Title="Task creation" Height="225" Width="400"
+        Title="Task creation" Height="250" Width="400"
         WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <converters:SaveCommandConverter x:Key="SaveCommandConverter" />
     </Window.Resources>
-    <Grid FocusManager.FocusedElement="{Binding ElementName=Name}">
+    <Grid FocusManager.FocusedElement="{Binding ElementName=Name}" Margin="{StaticResource DefaultMargin}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -22,11 +22,11 @@
         <Label Content="_Name:" Target="{Binding ElementName=Name}" />
         <TextBox Grid.Row="1" Name="Name" />
         <Label Grid.Row="2" Content="_Description:" Target="{Binding ElementName=Description}" />
-        <TextBox Grid.Row="3" Name="Description" AcceptsReturn="True" TextWrapping="Wrap"
+        <TextBox Grid.Row="3" Name="Description" Height="75" AcceptsReturn="True" TextWrapping="Wrap"
                  VerticalAlignment="Stretch" />
         <Button AutomationProperties.AutomationId="SaveTask" Grid.Row="4" Content="Add" HorizontalAlignment="Right"
                 IsDefault="True"
-                Command="{Binding SaveTask }">
+                Command="{Binding SaveTask}">
             <Button.CommandParameter>
                 <MultiBinding Converter="{StaticResource SaveCommandConverter}">
                     <Binding ElementName="TaskCreationWindow" />
