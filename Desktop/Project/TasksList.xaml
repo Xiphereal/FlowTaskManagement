@@ -15,7 +15,7 @@
         <StackPanel>
             <StackPanel Orientation="Horizontal">
                 <Label Content="Tasks:" />
-                <Button AutomationProperties.AutomationId="AddTask" Content="_Add task" Command="{Binding Add}" />
+                <Button AutomationProperties.AutomationId="AddTask" Content="+" FontSize="20" Command="{Binding Add}" />
             </StackPanel>
 
             <ListBox ItemsSource="{Binding Tasks}">
