@@ -29,6 +29,10 @@
                        ToolTip="{Binding IsBackendAvailable, Converter={StaticResource BoolToAvailabilityTextConverter}}"
                        Source="{Binding IsBackendAvailable, Converter={StaticResource BoolToImageConverter}}" />
             </StatusBarItem>
+            <StatusBarItem>
+                <Label
+                    Content="{Binding IsBackendAvailable, Converter={StaticResource BoolToAvailabilityTextConverter}}" />
+            </StatusBarItem>
         </StatusBar>
         <Grid Margin="{StaticResource DefaultMargin}">
             <Grid.ColumnDefinitions>
