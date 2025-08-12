@@ -37,10 +37,10 @@
         <Grid Margin="{StaticResource DefaultMargin}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
-                <ColumnDefinition />
                 <ColumnDefinition Width="Auto" />
+                <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <StackPanel Grid.Column="0">
+            <StackPanel Grid.Column="0" Margin="{StaticResource DefaultMargin}">
                 <Label HorizontalAlignment="Center">Views</Label>
                 <Menu>
                     <Menu.ItemsPanel>
@@ -52,8 +52,8 @@
                     <MenuItem Header="_2 - Project Tree" Click="NavigateToProjectTree" />
                 </Menu>
             </StackPanel>
-            <ContentControl Grid.Column="1" Name="Content" />
-
+            <GridSplitter Grid.Column="1" Width="5" />
+            <ContentControl Grid.Column="2" Margin="{StaticResource DefaultMargin}" Name="Content" />
         </Grid>
     </DockPanel>
 </Window>
