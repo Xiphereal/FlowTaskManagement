@@ -21,29 +21,35 @@
 
         <backendAvailabilityConverters:BoolToAvailabilityTextConverter x:Key="BoolToAvailabilityTextConverter" />
     </Window.Resources>
-    <Grid Margin="{StaticResource DefaultMargin}">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition />
-            <ColumnDefinition Width="Auto" />
-        </Grid.ColumnDefinitions>
-        <StackPanel Grid.Column="0">
-            <Label HorizontalAlignment="Center">Views</Label>
-            <Menu>
-                <Menu.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <VirtualizingStackPanel Orientation="Vertical" />
-                    </ItemsPanelTemplate>
-                </Menu.ItemsPanel>
-                <MenuItem Header="_1 - Tasks List" Click="NavigateToTaskList" />
-                <MenuItem Header="_2 - Project Tree" Click="NavigateToProjectTree" />
-            </Menu>
-        </StackPanel>
-        <ContentControl Grid.Column="1" Name="Content" />
-        <Image Grid.Column="2"
-               Width="32"
-               Height="32"
-               ToolTip="{Binding IsBackendAvailable, Converter={StaticResource BoolToAvailabilityTextConverter}}"
-               Source="{Binding IsBackendAvailable, Converter={StaticResource BoolToImageConverter}}" />
-    </Grid>
+    <DockPanel>
+        <StatusBar DockPanel.Dock="Bottom">
+            <StatusBarItem>
+                <Image Width="32"
+                       Height="32"
+                       ToolTip="{Binding IsBackendAvailable, Converter={StaticResource BoolToAvailabilityTextConverter}}"
+                       Source="{Binding IsBackendAvailable, Converter={StaticResource BoolToImageConverter}}" />
+            </StatusBarItem>
+        </StatusBar>
+        <Grid Margin="{StaticResource DefaultMargin}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0">
+                <Label HorizontalAlignment="Center">Views</Label>
+                <Menu>
+                    <Menu.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <VirtualizingStackPanel Orientation="Vertical" />
+                        </ItemsPanelTemplate>
+                    </Menu.ItemsPanel>
+                    <MenuItem Header="_1 - Tasks List" Click="NavigateToTaskList" />
+                    <MenuItem Header="_2 - Project Tree" Click="NavigateToProjectTree" />
+                </Menu>
+            </StackPanel>
+            <ContentControl Grid.Column="1" Name="Content" />
+
+        </Grid>
+    </DockPanel>
 </Window>
