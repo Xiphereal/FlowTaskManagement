@@ -6,7 +6,10 @@
         xmlns:converters="clr-namespace:Desktop.Tasks.Converters"
         mc:Ignorable="d"
         x:Name="TaskCreationWindow"
-        Title="Task creation" Height="{StaticResource PopupWindowHeight}" Width="{StaticResource PopupWindowWidth}"
+        Title="Task creation"
+        Height="{StaticResource PopupWindowHeight}"
+        Width="{StaticResource PopupWindowWidth}"
+        ResizeMode="NoResize"
         Icon="..\Resources\Add.ico"
         WindowStartupLocation="CenterScreen">
     <Window.Resources>

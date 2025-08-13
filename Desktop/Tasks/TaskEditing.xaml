@@ -4,7 +4,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         mc:Ignorable="d"
-        Title="Task editing" Height="{StaticResource PopupWindowHeight}" Width="{StaticResource PopupWindowWidth}"
+        Title="Task editing"
+        Height="{StaticResource PopupWindowHeight}"
+        Width="{StaticResource PopupWindowWidth}"
+        ResizeMode="NoResize"
         Icon="..\Resources\Edit.ico"
         WindowStartupLocation="CenterScreen">
     <Grid FocusManager.FocusedElement="{Binding ElementName=Name}" Margin="{StaticResource DefaultMargin}">
