@@ -20,6 +20,39 @@
         </backendAvailabilityConverters:BoolToImageConverter>
 
         <backendAvailabilityConverters:BoolToAvailabilityTextConverter x:Key="BoolToAvailabilityTextConverter" />
+
+        <!-- This style is required since the Fluent theme currently applied ControlTemplate arranges top-level items 
+             with its own horizontal panel. Setting ItemsPanel directly on Menu, as done previously, doesn't touch that
+             panel, so MenuItems stay horizontal. -->
+        <Style x:Key="VerticalMenu" TargetType="{x:Type Menu}" BasedOn="{StaticResource {x:Type Menu}}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Menu}">
+                        <Border
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            Padding="{TemplateBinding Padding}">
+                            <!-- ItemsPresenter ensures ItemsPanelTemplate below is honored -->
+                            <ScrollViewer HorizontalScrollBarVisibility="Disabled"
+                                          VerticalScrollBarVisibility="Auto"
+                                          CanContentScroll="True">
+                                <ItemsPresenter />
+                            </ScrollViewer>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+            <!-- Now this actually controls the top-level layout -->
+            <Setter Property="ItemsPanel">
+                <Setter.Value>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel Orientation="Vertical" />
+                    </ItemsPanelTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Window.Resources>
     <DockPanel>
         <StatusBar DockPanel.Dock="Bottom">
@@ -42,12 +75,7 @@
             </Grid.ColumnDefinitions>
             <StackPanel Grid.Column="0" Margin="{StaticResource DefaultMargin}">
                 <Label HorizontalAlignment="Center">Views</Label>
-                <Menu>
-                    <Menu.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <VirtualizingStackPanel Orientation="Vertical" />
-                        </ItemsPanelTemplate>
-                    </Menu.ItemsPanel>
+                <Menu Style="{StaticResource VerticalMenu}">
                     <MenuItem Header="_1 - Tasks List" Click="NavigateToTaskList" />
                     <MenuItem Header="_2 - Project Tree" Click="NavigateToProjectTree" />
                 </Menu>
