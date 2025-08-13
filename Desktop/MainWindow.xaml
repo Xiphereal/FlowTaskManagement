@@ -80,7 +80,7 @@
                     <MenuItem Header="_2 - Project Tree" Click="NavigateToProjectTree" />
                 </Menu>
             </StackPanel>
-            <GridSplitter Grid.Column="1" Width="5" />
+            <Separator Grid.Column="1" Width="5" />
             <ContentControl Grid.Column="2" Margin="{StaticResource DefaultMargin}" Name="Content" />
         </Grid>
     </DockPanel>
