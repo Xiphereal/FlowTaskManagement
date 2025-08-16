@@ -10,7 +10,8 @@
         MinWidth="600"
         MinHeight="400"
         Icon="Resources\Icon.ico"
-        AutomationProperties.AutomationId="TasksAppMainWindow">
+        AutomationProperties.AutomationId="TasksAppMainWindow"
+        FontSize="18">
     <Window.Resources>
         <backendAvailabilityConverters:BoolToImageConverter x:Key="BoolToImageConverter">
             <backendAvailabilityConverters:BoolToImageConverter.BackendAvailable>
