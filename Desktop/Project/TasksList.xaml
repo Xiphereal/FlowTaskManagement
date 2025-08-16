@@ -10,20 +10,41 @@
     </UserControl.Resources>
     <Grid>
         <StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <Label Content="Tasks:" />
-                <Button AutomationProperties.AutomationId="AddTask" Content="+" FontSize="20" Command="{Binding Add}" />
-            </StackPanel>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Column="0" Content="Tasks:" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                <Button Grid.Column="1" AutomationProperties.AutomationId="AddTask" HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        Content="+" FontSize="20"
+                        Command="{Binding Add}" />
+            </Grid>
 
             <ListBox ItemsSource="{Binding Tasks}" Margin="{StaticResource SmallMarginAtTop}">
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem" BasedOn="{StaticResource {x:Type ListBoxItem}}">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                    </Style>
+                </ListBox.ItemContainerStyle>
+
                 <ListBox.ItemTemplate>
                     <DataTemplate DataType="{x:Type domain:Task}">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding Name}" />
-                            <Button Content="Delete"
+                        <Grid HorizontalAlignment="Stretch">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Column="0" Text="{Binding Name}" HorizontalAlignment="Left"
+                                       VerticalAlignment="Center" />
+                            <Button Grid.Column="1" Content="Delete" HorizontalAlignment="Right"
+                                    VerticalAlignment="Center"
                                     Command="{Binding DataContext.Delete, ElementName=Root}"
                                     CommandParameter="{Binding}" />
-                        </StackPanel>
+                        </Grid>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
