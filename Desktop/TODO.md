@@ -1,8 +1,5 @@
 ﻿- feat: style the front
-    - Sidebar menu
     - Align to the right the "Add Task" button?
-    - Status bar for backend availability (and description text about the availability or error messages)
-    - Replace Windows default MessageBox with ones that follow the theme
     - Fluent dark theme doesn't seem to have good enough contrast. Force the light mode?
 - fix(file system repository): tasks names with whitespaces are trimmed so that only the first word is displayed
 - feat: Flow metrics (MonteCSharp integration)

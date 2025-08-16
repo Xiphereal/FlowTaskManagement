@@ -68,6 +68,13 @@
                 <Label
                     Content="{Binding IsBackendAvailable, Converter={StaticResource BoolToAvailabilityTextConverter}}" />
             </StatusBarItem>
+            <StatusBarItem>
+                <Separator Width="1" Height="26" />
+            </StatusBarItem>
+            <StatusBarItem>
+                <Label Content="{Binding StatusMessage}">
+                </Label>
+            </StatusBarItem>
         </StatusBar>
         <Grid Margin="{StaticResource DefaultMargin}">
             <Grid.ColumnDefinitions>

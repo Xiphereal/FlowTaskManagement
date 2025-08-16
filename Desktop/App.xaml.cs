@@ -28,7 +28,7 @@ public partial class App : Application
         services.AddSingleton<TaskCreation>();
         services.AddTransient<TaskCreationViewModel>();
         services.AddTransient<TaskListViewModel>();
-        services.AddSingleton<IMessageNotifier, Popup>();
+        services.AddSingleton<IMessageNotifier, StatusBar>();
         services.AddSingleton<ITaskRepository, FileSystemTaskRepository>();
         services.AddBackendTaskRepository(Config);
 

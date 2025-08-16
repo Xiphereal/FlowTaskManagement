@@ -22,6 +22,18 @@ public class MainWindowViewModel : ViewModelBase
         }
     }
 
+    private string statusMessage;
+
+    public string StatusMessage
+    {
+        get => statusMessage;
+        set
+        {
+            statusMessage = value;
+            OnPropertyChanged();
+        }
+    }
+
     public MainWindowViewModel(IRemoteTaskRepository backend)
     {
         periodicBackendAvailabilityCheckTimer = new DispatcherTimer
