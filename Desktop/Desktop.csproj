@@ -47,8 +47,9 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Resource Include="BackendAvailability\Resources\BackendAvailable.png"/>
-        <Resource Include="BackendAvailability\Resources\BackendUnavailable.png"/>
+        <Resource Include="BackendAvailability\Resources\**">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Resource>
     </ItemGroup>
 
 </Project>

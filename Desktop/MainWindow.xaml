@@ -14,11 +14,13 @@
         FontSize="18">
     <Window.Resources>
         <backendAvailabilityConverters:BoolToImageConverter x:Key="BoolToImageConverter">
+            <!-- TODO: make this theme-friendly so that the icon is chosen given the current theme e.g. dark or light. -->
             <backendAvailabilityConverters:BoolToImageConverter.BackendAvailable>
-                <BitmapImage UriSource="pack://application:,,,/BackendAvailability/Resources/BackendAvailable.png" />
+                <BitmapImage UriSource="pack://application:,,,/BackendAvailability/Resources/BackendAvailableDark.png" />
             </backendAvailabilityConverters:BoolToImageConverter.BackendAvailable>
             <backendAvailabilityConverters:BoolToImageConverter.BackendUnavailable>
-                <BitmapImage UriSource="pack://application:,,,/BackendAvailability/Resources/BackendUnavailable.png" />
+                <BitmapImage
+                    UriSource="pack://application:,,,/BackendAvailability/Resources/BackendUnavailableDark.png" />
             </backendAvailabilityConverters:BoolToImageConverter.BackendUnavailable>
         </backendAvailabilityConverters:BoolToImageConverter>
 
