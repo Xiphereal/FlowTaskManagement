@@ -20,6 +20,7 @@
                 <Button Grid.Column="1" AutomationProperties.AutomationId="AddTask" HorizontalAlignment="Right"
                         VerticalAlignment="Center"
                         Content="+" FontSize="20"
+                        IsDefault="True"
                         Background="{DynamicResource {x:Static SystemColors.AccentColorBrushKey}}"
                         Command="{Binding Add}">
                 </Button>
