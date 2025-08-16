@@ -37,12 +37,12 @@ public class FileSystemTaskRepositoryTest : ITaskRepositoryTests
         var result = await sut.All();
 
         result.Tasks.Should().BeEquivalentTo(
-            [
-                new Task(
-                    id: taskId,
-                    name: taskName,
-                    description: taskDescription)
-            ]);
+        [
+            new Task(
+                id: taskId,
+                name: taskName,
+                description: taskDescription)
+        ]);
         result.Succeeded.Should().BeTrue();
     }
 
@@ -51,7 +51,6 @@ public class FileSystemTaskRepositoryTest : ITaskRepositoryTests
     {
         const string taskName = "aTaskName";
         PersistTask(taskName);
-
         var sut = new FileSystemTaskRepository();
 
         var result = await sut.All();
@@ -69,6 +68,7 @@ public class FileSystemTaskRepositoryTest : ITaskRepositoryTests
     [Test]
     public async SystemTask CanLoadSeveralPersistedTasks()
     {
+        // Arrange.
         const string aTaskName = "aTaskName";
         PersistTask(aTaskName);
         const string anotherTaskName = "anotherTaskName";
@@ -76,8 +76,10 @@ public class FileSystemTaskRepositoryTest : ITaskRepositoryTests
 
         var sut = new FileSystemTaskRepository();
 
+        // Act.
         var result = await sut.All();
 
+        // Assert.
         result.Tasks.Should().BeEquivalentTo(
             [
                 new Task(
@@ -115,8 +117,8 @@ public class FileSystemTaskRepositoryTest : ITaskRepositoryTests
     public async SystemTask CanPersistTasksWhenNoOtherExistedBefore()
     {
         var sut = new FileSystemTaskRepository();
-
         var taskToPersist = DesktopTask(named: "anyName", description: "anyDesc");
+        
         await sut.Save(taskToPersist);
 
         var result = await sut.All();
