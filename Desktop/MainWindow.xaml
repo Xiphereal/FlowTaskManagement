@@ -72,7 +72,19 @@
                 <Separator Width="1" Height="26" />
             </StatusBarItem>
             <StatusBarItem>
-                <Label Content="{Binding StatusMessage}">
+                <Label Content="{Binding StatusMessage, NotifyOnTargetUpdated=True}">
+                    <Label.Triggers>
+                        <EventTrigger RoutedEvent="Binding.TargetUpdated">
+                            <BeginStoryboard>
+                                <Storyboard RepeatBehavior="3x" AutoReverse="True">
+                                    <DoubleAnimation
+                                        Storyboard.TargetProperty="Opacity"
+                                        From="1.0" To="0.3"
+                                        Duration="0:0:0.5" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </Label.Triggers>
                 </Label>
             </StatusBarItem>
         </StatusBar>
