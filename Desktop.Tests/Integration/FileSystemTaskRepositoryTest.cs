@@ -28,9 +28,10 @@ public class FileSystemTaskRepositoryTest : ITaskRepositoryTests
     [Test]
     public async SystemTask CanLoadPersistedTasks()
     {
+        var taskId = Guid.NewGuid();
         const string taskName = "aTaskName";
         const string taskDescription = "aTaskDescription";
-        PersistTask(taskName, taskDescription);
+        PersistTask(taskId, taskName, taskDescription);
         var sut = new FileSystemTaskRepository();
 
         var result = await sut.All();
@@ -38,10 +39,10 @@ public class FileSystemTaskRepositoryTest : ITaskRepositoryTests
         result.Tasks.Should().BeEquivalentTo(
             [
                 new Task(
+                    id: taskId,
                     name: taskName,
                     description: taskDescription)
-            ],
-            options => options.ComparingByMembers<Task>().Excluding(x => x.Id));
+            ]);
         result.Succeeded.Should().BeTrue();
     }
 
@@ -222,8 +223,13 @@ public class FileSystemTaskRepositoryTest : ITaskRepositoryTests
 
     private static void PersistTask(string name, string description = null)
     {
-        var id = Guid.NewGuid();
+        var anyId = Guid.NewGuid();
 
+        PersistTask(anyId, name, description);
+    }
+
+    private static void PersistTask(Guid id, string name, string description = null)
+    {
         File.AppendAllText(
             PersistedTasksFileName,
             $"{id}{LineElementSeparator}{name}{LineElementSeparator}{description ?? string.Empty}" +
