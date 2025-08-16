@@ -1,5 +1,4 @@
-﻿- fix(file system repository): tasks names with whitespaces are trimmed so that only the first word is displayed
-- feat: Flow metrics (MonteCSharp integration)
+﻿- feat: Flow metrics (MonteCSharp integration)
 - test: ensure coverage for the sln and review testing strategy
 - feat: Tasks may have other child Tasks
 - feat: show tasks in as project tree

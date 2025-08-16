@@ -7,6 +7,7 @@ namespace Desktop.Tasks;
 public class FileSystemTaskRepository : ITaskRepository
 {
     private const string PersistedTasksFileName = "Tasks.txt";
+    public const string LineElementSeparator = "|";
 
     public Task<ResultWithValue> All()
     {
@@ -23,17 +24,14 @@ public class FileSystemTaskRepository : ITaskRepository
 
     private static Task ToTask(string line)
     {
-        return new Task(
-            id: Guid.Parse(SplitBySpaces(line).ElementAt(0)),
-            name: SplitBySpaces(line).ElementAt(1),
-            description: SplitBySpaces(line).Length > 1
-                ? SplitBySpaces(line).Last()
-                : string.Empty);
-    }
+        var lineElements = line.Split(LineElementSeparator);
 
-    private static string[] SplitBySpaces(string line)
-    {
-        return line.Split(' ');
+        return new Task(
+            id: Guid.Parse(lineElements.ElementAt(0)),
+            name: lineElements.ElementAt(1),
+            description: lineElements.Length > 1
+                ? lineElements.Last()
+                : string.Empty);
     }
 
     public async Task<ResultWithoutValue> Save(Task task)
@@ -44,7 +42,8 @@ public class FileSystemTaskRepository : ITaskRepository
 
         await File.AppendAllTextAsync(
             PersistedTasksFileName,
-            $"{task.Id} {task.Name} {task.Description}{Environment.NewLine}");
+            $"{task.Id}{LineElementSeparator}{task.Name}{LineElementSeparator}{task.Description}" +
+            $"{Environment.NewLine}");
 
         return ResultWithoutValue.Success();
     }

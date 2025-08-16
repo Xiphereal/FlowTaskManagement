@@ -4,6 +4,7 @@ using Desktop.Tasks;
 using FluentAssertions;
 using NUnit.Framework;
 using static Desktop.Tests.TestAPI.TaskFactory;
+using static Desktop.Tasks.FileSystemTaskRepository;
 using Task = Desktop.Domain.Task;
 using SystemTask = System.Threading.Tasks.Task;
 
@@ -79,6 +80,26 @@ public class FileSystemTaskRepositoryTest : ITaskRepositoryTests
                     description: string.Empty),
                 new Task(
                     name: "anotherTaskName",
+                    description: string.Empty)
+            ],
+            options => options.ComparingByMembers<Task>().Excluding(x => x.Id));
+        result.Succeeded.Should().BeTrue();
+    }
+
+    [Test]
+    [Category("Regression")]
+    public async SystemTask CanLoadTasksWhoseNameHaveWhitespaces()
+    {
+        var taskName = "Task named with whitespaces";
+        PersistTask(taskName);
+        var sut = new FileSystemTaskRepository();
+
+        var result = await sut.All();
+
+        result.Tasks.Should().BeEquivalentTo(
+            [
+                new Task(
+                    name: taskName,
                     description: string.Empty)
             ],
             options => options.ComparingByMembers<Task>().Excluding(x => x.Id));
@@ -193,7 +214,8 @@ public class FileSystemTaskRepositoryTest : ITaskRepositoryTests
 
         File.AppendAllText(
             PersistedTasksFileName,
-            $"{id} {name} {description ?? string.Empty}{Environment.NewLine}");
+            $"{id}{LineElementSeparator}{name}{LineElementSeparator}{description ?? string.Empty}" +
+            $"{Environment.NewLine}");
     }
 
     [TearDown]
