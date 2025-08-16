@@ -28,8 +28,9 @@ public class FileSystemTaskRepositoryTest : ITaskRepositoryTests
     [Test]
     public async SystemTask CanLoadPersistedTasks()
     {
-        PersistTask("aTaskName", "aTaskDescription");
-
+        const string taskName = "aTaskName";
+        const string taskDescription = "aTaskDescription";
+        PersistTask(taskName, taskDescription);
         var sut = new FileSystemTaskRepository();
 
         var result = await sut.All();
@@ -37,8 +38,8 @@ public class FileSystemTaskRepositoryTest : ITaskRepositoryTests
         result.Tasks.Should().BeEquivalentTo(
             [
                 new Task(
-                    name: "aTaskName",
-                    description: "aTaskDescription")
+                    name: taskName,
+                    description: taskDescription)
             ],
             options => options.ComparingByMembers<Task>().Excluding(x => x.Id));
         result.Succeeded.Should().BeTrue();
@@ -47,7 +48,8 @@ public class FileSystemTaskRepositoryTest : ITaskRepositoryTests
     [Test]
     public async SystemTask CanLoadPersistedTasksWithoutDescription()
     {
-        PersistTask("aTaskName");
+        const string taskName = "aTaskName";
+        PersistTask(taskName);
 
         var sut = new FileSystemTaskRepository();
 
@@ -56,7 +58,7 @@ public class FileSystemTaskRepositoryTest : ITaskRepositoryTests
         result.Tasks.Should().BeEquivalentTo(
             [
                 new Task(
-                    name: "aTaskName",
+                    name: taskName,
                     description: string.Empty)
             ],
             options => options.ComparingByMembers<Task>().Excluding(x => x.Id));
@@ -66,8 +68,10 @@ public class FileSystemTaskRepositoryTest : ITaskRepositoryTests
     [Test]
     public async SystemTask CanLoadSeveralPersistedTasks()
     {
-        PersistTask("aTaskName");
-        PersistTask("anotherTaskName");
+        const string aTaskName = "aTaskName";
+        PersistTask(aTaskName);
+        const string anotherTaskName = "anotherTaskName";
+        PersistTask(anotherTaskName);
 
         var sut = new FileSystemTaskRepository();
 
@@ -76,10 +80,10 @@ public class FileSystemTaskRepositoryTest : ITaskRepositoryTests
         result.Tasks.Should().BeEquivalentTo(
             [
                 new Task(
-                    name: "aTaskName",
+                    name: aTaskName,
                     description: string.Empty),
                 new Task(
-                    name: "anotherTaskName",
+                    name: anotherTaskName,
                     description: string.Empty)
             ],
             options => options.ComparingByMembers<Task>().Excluding(x => x.Id));
@@ -90,7 +94,7 @@ public class FileSystemTaskRepositoryTest : ITaskRepositoryTests
     [Category("Regression")]
     public async SystemTask CanLoadTasksWhoseNameHaveWhitespaces()
     {
-        var taskName = "Task named with whitespaces";
+        const string taskName = "Task named with whitespaces";
         PersistTask(taskName);
         var sut = new FileSystemTaskRepository();
 
@@ -122,6 +126,7 @@ public class FileSystemTaskRepositoryTest : ITaskRepositoryTests
     [Test]
     public async SystemTask PersistNewTaskDoesNotOverrideExistingOnes()
     {
+        // Arrange.
         var doc = new FileSystemTaskRepository();
         var existingTask = DesktopTask(named: "existing");
         await doc.Save(existingTask);
@@ -129,8 +134,11 @@ public class FileSystemTaskRepositoryTest : ITaskRepositoryTests
         var sut = new FileSystemTaskRepository();
 
         var taskToPersist = DesktopTask();
+
+        // Act.
         await sut.Save(taskToPersist);
 
+        // Assert.
         var result = await sut.All();
         result.Tasks.Should().BeEquivalentTo(
         [
@@ -143,6 +151,7 @@ public class FileSystemTaskRepositoryTest : ITaskRepositoryTests
     [Test]
     public async SystemTask TasksCanBeModified()
     {
+        // Arrange.
         var doc = new FileSystemTaskRepository();
         var existingTask = DesktopTask(
             id: Guid.NewGuid(),
@@ -156,8 +165,11 @@ public class FileSystemTaskRepositoryTest : ITaskRepositoryTests
             existingTask.Id,
             named: "New name",
             description: "New description");
+
+        // Act.
         await sut.Save(modifiedTask);
 
+        // Assert.
         var result = await sut.All();
         result.Tasks.Should().BeEquivalentTo([modifiedTask]);
         result.Succeeded.Should().BeTrue();
