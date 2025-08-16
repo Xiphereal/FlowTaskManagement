@@ -20,7 +20,9 @@
                 <Button Grid.Column="1" AutomationProperties.AutomationId="AddTask" HorizontalAlignment="Right"
                         VerticalAlignment="Center"
                         Content="+" FontSize="20"
-                        Command="{Binding Add}" />
+                        Background="{DynamicResource {x:Static SystemColors.AccentColorBrushKey}}"
+                        Command="{Binding Add}">
+                </Button>
             </Grid>
 
             <ListBox ItemsSource="{Binding Tasks}" Margin="{StaticResource SmallMarginAtTop}">
