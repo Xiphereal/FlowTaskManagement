@@ -10,6 +10,7 @@
                     Source="pack://application:,,,/PresentationFramework.Fluent;component/Themes/Fluent.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <Thickness x:Key="DefaultMargin">20</Thickness>
+            <Thickness x:Key="SmallMargin">10</Thickness>
             <Thickness x:Key="SmallMarginAtTop">0,10,0,0</Thickness>
             <Thickness x:Key="BigMarginAtTop">0,40,0,0</Thickness>
             <sys:Double x:Key="DescriptionTextBoxHeight">75</sys:Double>

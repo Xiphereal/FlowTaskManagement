@@ -38,9 +38,11 @@
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
 
-                            <TextBlock Grid.Column="0" Text="{Binding Name}" HorizontalAlignment="Left"
+                            <TextBlock Grid.Column="0" Margin="{StaticResource SmallMargin}" Text="{Binding Name}"
+                                       HorizontalAlignment="Left"
                                        VerticalAlignment="Center" />
-                            <Button Grid.Column="1" Content="Delete" HorizontalAlignment="Right"
+                            <Button Grid.Column="1" Content="Delete" Margin="{StaticResource SmallMargin}"
+                                    HorizontalAlignment="Right"
                                     VerticalAlignment="Center"
                                     Command="{Binding DataContext.Delete, ElementName=Root}"
                                     CommandParameter="{Binding}" />
