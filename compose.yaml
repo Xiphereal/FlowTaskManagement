@@ -1,0 +1,9 @@
+﻿services:
+  backend:
+    image: backend
+    build:
+      context: .
+      dockerfile: Backend/Backend/Dockerfile
+    ports:
+      - "5045:8080"
+
